@@ -27,24 +27,30 @@
         </v-menu>
       </div>
     </v-card-title>
+
     <v-card-text>
-      <v-layout>
+      <v-layout align-center row wrap>
         <v-flex xs2>
           <v-img :src='this.Book.Cover' />
         </v-flex>
         <v-flex xs10>
-          <v-card-title primary-title>
-            <div>
-              <div>Publish {{ this.Book.PublishDate }}</div>
-              <template v-for='author in this.Book.Authors'>
-                {{ author }}&ensp;
-              </template>
-            </div>
-          </v-card-title>
+          <v-layout align-center row wrap>
+            <v-flex xs12>
+              <v-text-field v-if="isEditMode" class="pt-0" :readonly='!isEditMode'
+                label="title" v-model="this.Book.Title" />
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field class="pt-0" :readonly='!isEditMode'
+                label="publishDate" v-model="this.Book.PublishDate" />
+            </v-flex>
+            <v-flex xs3 v-for='(author, index) in this.Book.Authors' v-bind:key="index">
+              <v-text-field class="pt-0" :value="author" /> &ensp;
+            </v-flex>
+          </v-layout>
         </v-flex>
       </v-layout>
       <v-flex xs12>
-        <v-textarea readonly label='Description' :value='this.Book.Comment'/>
+        <v-textarea :readonly='!isEditMode' label='Description' :value='this.Book.Comment'/>
       </v-flex>
     </v-card-text>
     <v-card-actions>
