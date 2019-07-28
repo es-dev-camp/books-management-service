@@ -11,5 +11,6 @@ export default interface IBook {
   CreatedUserId: string;
   Modified: Date;
   ModifiedUserId: string;
+  Location: string;
   Save(): any;
 }
