@@ -115,4 +115,12 @@ export default class Book implements IBook {
   public async Save(): Promise<any> {
     await Book.collection.doc(this.ISBN).set(Object.assign({}, this));
   }
+
+  public async Rent(userId: string): Promise<void> {
+    return await Book.collection.doc(this.ISBN).update({
+      OnLoan: true,
+      LastBorrowUserId: userId,
+      LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  }
 }

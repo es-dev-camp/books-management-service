@@ -16,4 +16,5 @@ export default interface IBook {
   LastBorrowUserId?: string;
   LastBorrowTimestamp?: null | Timestamp;
   Save(): any;
+  Rent(userId: string): Promise<void>;
 }
