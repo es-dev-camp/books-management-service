@@ -1,6 +1,7 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
 import IBook from '@/model/IBook.ts';
+import {Timestamp} from './Timestamp';
 
 export default class Book implements IBook {
 
@@ -85,7 +86,7 @@ export default class Book implements IBook {
   public Location: string = '';
   public OnLoan?: boolean = false;
   public LastBorrowUserId?: string = '';
-  public LastBorrowTimestamp?: number = 0;
+  public LastBorrowTimestamp?: null | Timestamp = null;
 
   public get CreatedInfo(): string {
     if (this.Created === undefined) {
