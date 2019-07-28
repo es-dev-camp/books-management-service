@@ -1,3 +1,4 @@
+import {Timestamp} from './Timestamp';
 export default interface IBook {
   Title: string;
   ISBN: string;
@@ -13,6 +14,7 @@ export default interface IBook {
   Location: string;
   OnLoan?: boolean;
   LastBorrowUserId?: string;
-  LastBorrowTimestamp?: number;
+  LastBorrowTimestamp?: null | Timestamp;
   Save(): any;
+  Rent(userId: string): Promise<void>;
 }

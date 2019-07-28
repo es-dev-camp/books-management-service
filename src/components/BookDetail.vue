@@ -33,7 +33,7 @@
         <v-flex xs2>
           <v-img :src='this.Book.Cover' />
         </v-flex>
-        <v-flex xs10>
+        <v-flex xs6>
           <v-layout align-center row wrap>
             <v-flex xs12>
               <v-text-field v-if="isEditMode" class="pt-0" :readonly='!isEditMode'
@@ -47,6 +47,13 @@
               <v-text-field class="pt-0" :value="author" /> &ensp;
             </v-flex>
           </v-layout>
+        </v-flex>
+        <v-flex xs4>
+          <v-btn v-if='this.Book.OnLoan' block disabled>貸出中です</v-btn>
+          <v-btn v-else color='primary' block round @click='this.Rent' :loading='this.progress'>借りる</v-btn>
+          <div>
+            最終貸出日: {{this.readableTime}}
+          </div>
         </v-flex>
       </v-layout>
       <v-flex xs12>
@@ -71,6 +78,7 @@ export default class BookDetail extends Vue {
   @Prop({default: new Book()})
   public Book!: IBook;
   private isEditMode = false;
+  private progress = false;
   private items: Array<{title: string, action: () => void }> = [
     {title: 'Edit', action: () => {
       this.change();
@@ -86,10 +94,29 @@ export default class BookDetail extends Vue {
     this.$emit('close-dialog');
   }
 
+  get readableTime(): string {
+    if (!this.Book.LastBorrowTimestamp) {
+      return 'なし';
+    }
+    const d = new Date(this.Book.LastBorrowTimestamp.seconds * 1000);
+    return `${d.getFullYear()}/${(d.getMonth() + 1)}/${d.getDate()}`;
+  }
+
   private async Commit(): Promise<any> {
     this.Book.Modified = new Date();
     this.Book.ModifiedUserId = this.$store.getters.User.Id;
     await this.Book.Save();
+  }
+
+  private async Rent(): Promise<void> {
+    this.progress = true;
+    try {
+      await this.Book.Rent(this.$store.getters.User.Id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.progress = false;
+    }
   }
 
   private async Save(): Promise<any> {
