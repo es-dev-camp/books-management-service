@@ -3,7 +3,29 @@
     <v-card-title class='headline grey lighten-2' primary-title>
       {{ this.Book.Title }}
       <v-spacer></v-spacer>
-      <v-chip color="secondary" dark>{{ this.Book.Location }}</v-chip>
+      <div bottom left>
+        <v-chip color="secondary" dark>{{ this.Book.Location }}</v-chip>
+        <v-menu :visible='!this.isEditMode'>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              dark
+              icon
+              v-on="on"
+            >
+              <v-icon color="#333">more_vert</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-tile
+              v-for="(item, i) in items"
+              :key="i"
+              @click='item.action'
+            >
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </div>
     </v-card-title>
     <v-card-text>
       <v-layout>
@@ -27,8 +49,8 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click='this.Commit'>Apply</v-btn>
-      <v-btn color='primary' @click='this.Save'>Save</v-btn>
+      <v-btn @click='this.Close'>Close</v-btn>
+      <v-btn v-if='this.isEditMode' color='primary' @click='this.Save'>Save</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -42,8 +64,19 @@ import Book from '@/model/Book.ts';
 export default class BookDetail extends Vue {
   @Prop({default: new Book()})
   public Book!: IBook;
+  private isEditMode = false;
+  private items: Array<{title: string, action: () => void }> = [
+    {title: 'Edit', action: () => {
+      this.change();
+    }},
+  ];
+
+  private change() {
+    this.isEditMode = true;
+  }
 
   private Close(): void {
+    this.isEditMode = false;
     this.Book.ShowDetail = false;
   }
 
