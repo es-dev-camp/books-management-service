@@ -83,6 +83,9 @@ export default class Book implements IBook {
   public Modified!: Date;
   public ModifiedUserId: string = '';
   public Location: string = '';
+  public OnLoan?: boolean = false;
+  public LastBorrowUserId?: string = '';
+  public LastBorrowTimestamp?: number = 0;
 
   public get CreatedInfo(): string {
     if (this.Created === undefined) {

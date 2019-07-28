@@ -11,5 +11,8 @@ export default interface IBook {
   Modified: Date;
   ModifiedUserId: string;
   Location: string;
+  OnLoan?: boolean;
+  LastBorrowUserId?: string;
+  LastBorrowTimestamp?: number;
   Save(): any;
 }
