@@ -22,16 +22,19 @@
               <v-flex xs4 sm3 md2 lg2 xl1 v-for='book in FilterdBooks' v-bind:key='book.ISBN'>
                 <v-tooltip bottom>
                   <template v-slot:activator='{ on }'>
-                    <v-img :src='book.Cover' dark v-on='on' @click='book.ShowDetail = true' width='100%' height='100%'/>
+                    <v-img :src='book.Cover' dark v-on='on' @click='ShowDetail(book)' width='100%' height='100%'/>
                   </template>
                   <span>{{ book.Title }}</span>
                 </v-tooltip>
-                <v-dialog :value='book.ShowDetail' @input='book.ShowDetail = false' width='60%' max-width='600px'>
-                  <BookDetail :Book='book'></BookDetail>
-                </v-dialog>
               </v-flex>
             </v-layout>
           </v-container>
+
+          <v-dialog :value='isShowDetail' @input='isShowDetail = false'
+            width='60%' max-width='600px'>
+            <BookDetail :Book='selectedBook' @close-dialog='isShowDetail = false'></BookDetail>
+          </v-dialog>
+
           <v-footer class='mt-5'></v-footer>
         </v-card>
       </v-flex>
@@ -42,8 +45,9 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import BookDetail from './BookDetail.vue';
-import IBook from '@/model/IBook.ts';
-import Books from '@/model/Books.ts';
+import IBook from '@/model/IBook';
+import Book from '@/model/Book';
+import Books from '@/model/Books';
 
 @Component
 ({
@@ -52,6 +56,9 @@ import Books from '@/model/Books.ts';
   },
 })
 export default class BooksList extends Vue {
+  private isShowDetail: boolean = false;
+  private selectedBook: IBook = new Book();
+
   private books: IBook[] = new Array<IBook>();
   private searchWords: string = '';
 
@@ -73,6 +80,11 @@ export default class BooksList extends Vue {
 
   public async UpdateList(): Promise<void> {
     this.books = await Books.GetList();
+  }
+
+  private ShowDetail(book: IBook): void {
+    this.isShowDetail = true;
+    this.selectedBook = book;
   }
 }
 </script>

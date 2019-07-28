@@ -6,7 +6,6 @@ export default interface IBook {
   PublishDate: string;
   Publisher: string;
   Comment: string;
-  ShowDetail: boolean;
   Created: Date;
   CreatedUserId: string;
   Modified: Date;
