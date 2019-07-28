@@ -81,8 +81,10 @@ export default class Book implements IBook {
   public Comment: string = '';
   public Created!: Date;
   public CreatedUserId: string = '';
+  public CreatedUserName: string = '';
   public Modified!: Date;
   public ModifiedUserId: string = '';
+  public ModifiedUserName: string = '';
   public Location: string = '';
   public OnLoan?: boolean = false;
   public LastBorrowUserId?: string = '';

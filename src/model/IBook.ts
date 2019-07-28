@@ -9,8 +9,10 @@ export default interface IBook {
   Comment: string;
   Created: Date;
   CreatedUserId: string;
+  CreatedUserName: string;
   Modified: Date;
   ModifiedUserId: string;
+  ModifiedUserName: string;
   Location: string;
   OnLoan?: boolean;
   LastBorrowUserId?: string;

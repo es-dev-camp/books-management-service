@@ -1,6 +1,7 @@
 import firebase from '@/firebase/firestore';
 import IBook from '@/model/IBook.ts';
 import Book from './Book';
+import User from '@/model/User';
 
 export default class Books {
   public static async GetList(): Promise<any> {
@@ -9,8 +10,11 @@ export default class Books {
 
       const booksmeta = await booklist.get();
       const books = new Array<IBook>();
-      booksmeta.forEach((bookmeta) => {
+      booksmeta.forEach(async (bookmeta) => {
         const book = Object.assign(new Book(), bookmeta.data());
+
+        book.CreatedUserName = await User.GetName(book.CreatedUserId);
+        book.ModifiedUserName = await User.GetName(book.ModifiedUserId);
 
         if (book.Cover.length === 0) {
           book.Cover = '/img/noimage.png';
