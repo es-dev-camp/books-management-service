@@ -49,9 +49,11 @@
           </v-layout>
         </v-flex>
         <v-flex xs4>
-          <v-btn v-if='this.Book.OnLoan && !this.isBorrowUser' block disabled>貸出中です</v-btn>
-          <v-btn block round v-else-if='this.Book.OnLoan && this.isBorrowUser' @click='this.Return' :loading='this.progress'>返却する</v-btn>
-          <v-btn v-else color='primary' block round :loading='this.progress'>借りる</v-btn>
+          <span v-if='this.Book.OnLoan'>
+            <v-btn outline color='primary' block round v-if='this.isBorrowUser' @click='this.Return' :loading='this.progress'>返却する</v-btn>
+            <v-btn block disabled v-else>貸出中です</v-btn>
+          </span>
+          <v-btn v-else color='primary' block round @click='this.Rent' :loading='this.progress'>借りる</v-btn>
           <div>
             最終貸出日: {{this.readableTime}}
           </div>
