@@ -31,7 +31,7 @@
           </v-container>
 
           <v-dialog :value='isShowDetail' @input='isShowDetail = false'
-            width='60%' max-width='600px'>
+            width='80%' max-width='700px'>
             <BookDetail :Book='selectedBook' @close-dialog='isShowDetail = false'></BookDetail>
           </v-dialog>
 
