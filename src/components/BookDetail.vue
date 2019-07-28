@@ -2,6 +2,8 @@
   <v-card>
     <v-card-title class='headline grey lighten-2' primary-title>
       {{ this.Book.Title }}
+      <v-spacer></v-spacer>
+      <v-chip color="secondary" dark>{{ this.Book.Location }}</v-chip>
     </v-card-title>
     <v-card-text>
       <v-layout>

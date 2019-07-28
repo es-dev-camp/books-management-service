@@ -83,6 +83,7 @@ export default class Book implements IBook {
   public CreatedUserId: string = '';
   public Modified!: Date;
   public ModifiedUserId: string = '';
+  public Location: string = '';
 
   public get CreatedInfo(): string {
     if (this.Created === undefined) {
