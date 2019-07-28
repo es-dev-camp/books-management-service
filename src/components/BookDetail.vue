@@ -77,7 +77,7 @@ export default class BookDetail extends Vue {
 
   private Close(): void {
     this.isEditMode = false;
-    this.Book.ShowDetail = false;
+    this.$emit('close-dialog');
   }
 
   private async Commit(): Promise<any> {

@@ -78,7 +78,6 @@ export default class Book implements IBook {
   public PublishDate: string = '';
   public Publisher: string = '';
   public Comment: string = '';
-  public ShowDetail: boolean = false;
   public Created!: Date;
   public CreatedUserId: string = '';
   public Modified!: Date;
