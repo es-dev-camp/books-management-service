@@ -110,12 +110,13 @@ export default class BookDetail extends Vue {
 
   private async Rent(): Promise<void> {
     this.progress = true;
-    await this.Book.Rent(this.$store.getters.User.Id).catch((err) => {
-      console.log(err);
+    try {
+      await this.Book.Rent(this.$store.getters.User.Id);
+    } catch (error) {
+      console.log(error);
+    } finally {
       this.progress = false;
-    });
-    this.Book.OnLoan = true;
-    this.progress = false;
+    }
   }
 
   private async Save(): Promise<any> {
