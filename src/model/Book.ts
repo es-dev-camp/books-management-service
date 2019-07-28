@@ -123,4 +123,10 @@ export default class Book implements IBook {
       LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
+
+  public async Return(): Promise<void> {
+    return await Book.collection.doc(this.ISBN).update({
+      OnLoan: false,
+    });
+  }
 }

@@ -49,8 +49,9 @@
           </v-layout>
         </v-flex>
         <v-flex xs4>
-          <v-btn v-if='this.Book.OnLoan' block disabled>貸出中です</v-btn>
-          <v-btn v-else color='primary' block round @click='this.Rent' :loading='this.progress'>借りる</v-btn>
+          <v-btn v-if='this.Book.OnLoan && !this.isBorrowUser' block disabled>貸出中です</v-btn>
+          <v-btn block round v-else-if='this.Book.OnLoan && this.isBorrowUser' @click='this.Return' :loading='this.progress'>返却する</v-btn>
+          <v-btn v-else color='primary' block round :loading='this.progress'>借りる</v-btn>
           <div>
             最終貸出日: {{this.readableTime}}
           </div>
@@ -102,6 +103,10 @@ export default class BookDetail extends Vue {
     return `${d.getFullYear()}/${(d.getMonth() + 1)}/${d.getDate()}`;
   }
 
+  get isBorrowUser(): boolean {
+    return this.Book.LastBorrowUserId === this.$store.getters.User.Id;
+  }
+
   private async Commit(): Promise<any> {
     this.Book.Modified = new Date();
     this.Book.ModifiedUserId = this.$store.getters.User.Id;
@@ -112,6 +117,17 @@ export default class BookDetail extends Vue {
     this.progress = true;
     try {
       await this.Book.Rent(this.$store.getters.User.Id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.progress = false;
+    }
+  }
+
+  private async Return(): Promise<void> {
+    this.progress = true;
+    try {
+      await this.Book.Return();
     } catch (error) {
       console.log(error);
     } finally {
