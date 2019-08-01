@@ -13,9 +13,6 @@ export default class Books {
       booksmeta.forEach(async (bookmeta) => {
         const book = Object.assign(new Book(), bookmeta.data());
 
-        book.CreatedUserName = await User.GetName(book.CreatedUserId);
-        book.ModifiedUserName = await User.GetName(book.ModifiedUserId);
-
         if (book.Cover.length === 0) {
           book.Cover = '/img/noimage.png';
         }

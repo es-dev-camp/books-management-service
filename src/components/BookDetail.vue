@@ -60,12 +60,12 @@
       </v-chip>
     </template>
   </v-combobox>
-            <v-flex xs12>
+            <!-- <v-flex xs12>
               登録: {{ $attrs.Book.Created | displayDate }} ({{ $attrs.Book.CreatedUserName }})
             </v-flex>
             <v-flex xs12>
               更新: {{ $attrs.Book.Modified | displayDate }} ({{ $attrs.Book.ModifiedUserName }})
-            </v-flex>
+            </v-flex> -->
           </v-layout>
         </v-flex>
         <v-flex xs4>
