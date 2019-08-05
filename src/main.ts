@@ -1,11 +1,14 @@
 import Vue from 'vue';
-import './plugins/vuetify';
-import App from './App.vue';
-import store from './store/store';
-import router from './router';
+import Vuex from 'vuex';
+import Router from 'vue-router';
+import '@/plugins/vuetify';
+import App from '@/App.vue';
+import { createStore } from '@/store';
+import { createRouter } from '@/router';
 import moment from 'moment';
 
 Vue.config.productionTip = false;
+
 Vue.filter('displayDate', (value: any) => {
   try {
     const dateFormat = 'YYYY/MM/DD';
@@ -24,10 +27,16 @@ Vue.filter('displayDate', (value: any) => {
   }
 });
 
+Vue.use(Vuex);
+Vue.use(Router);
+
+const store = createStore();
+const router = createRouter(store);
+
 new Vue({
-  render: (h) => h(App),
-  store,
-  router,
+  render: h => h(App),
+  router: router,
+  store: store,
   components: { App },
-  template: '<App/>',
+  template: '<App/>'
 }).$mount('#app');
