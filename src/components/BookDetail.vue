@@ -99,19 +99,19 @@ import User from '@/model/User';
 
 @Component
 export default class BookDetail extends Vue {
-  private isEditMode = false;
-  private progress = false;
-  private items: Array<{title: string, action: () => void }> = [
+  isEditMode = false;
+  progress = false;
+  items: Array<{title: string, action: () => void }> = [
     {title: 'Edit', action: () => {
       this.change();
     }},
   ];
 
-  private change() {
+  change(): void {
     this.isEditMode = true;
   }
 
-  private Close(): void {
+  Close(): void {
     this.isEditMode = false;
     this.$emit('close-dialog');
   }
@@ -128,13 +128,13 @@ export default class BookDetail extends Vue {
     return (this.$attrs.Book as any).LastBorrowUserId === this.$store.getters.User.Id;
   }
 
-  private async Commit(): Promise<any> {
+  async Commit(): Promise<any> {
     (this.$attrs.Book as any).Modified = new Date();
     (this.$attrs.Book as any).ModifiedUserId = this.$store.getters.User.Id;
     await (this.$attrs.Book as any).Save();
   }
 
-  private async Rent(): Promise<void> {
+  async Rent(): Promise<void> {
     this.progress = true;
     try {
       await (this.$attrs.Book as any).Rent(this.$store.getters.User.Id);
@@ -145,7 +145,7 @@ export default class BookDetail extends Vue {
     }
   }
 
-  private async Return(): Promise<void> {
+  async Return(): Promise<void> {
     this.progress = true;
     try {
       await (this.$attrs.Book as any).Return();
@@ -156,12 +156,12 @@ export default class BookDetail extends Vue {
     }
   }
 
-  private async Save(): Promise<any> {
+  async Save(): Promise<any> {
     await this.Commit();
     this.Close();
   }
 
-  private remove(item: string) {
+  remove(item: string) {
     (this.$attrs.Book as any).Authors = (this.$attrs.Book as any).Authors.filter((a: any) => a !== item);
   }
 }
