@@ -1,11 +1,11 @@
 <template>
   <v-card>
     <v-card-title class='headline grey lighten-2' primary-title>
-      {{ $attrs.Book.Title }}
+      {{ getCurrentBook.Title }}
       <v-spacer></v-spacer>
       <v-text-field class="px-1" v-if='isEditMode'
-        label="location" v-model="$attrs.Book.Location" />
-      <v-chip v-else color="secondary" dark>{{ $attrs.Book.Location }}</v-chip>
+        label="location" v-model="getCurrentBook.Location" />
+      <v-chip v-else color="secondary" dark>{{ getCurrentBook.Location }}</v-chip>
       <v-menu :visible='!this.isEditMode'>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -31,21 +31,21 @@
     <v-card-text>
       <v-layout align-start wrap>
         <v-flex xs2>
-          <v-img :src='$attrs.Book.Cover' />
+          <v-img :src='getCurrentBook.Cover' />
         </v-flex>
         <v-flex xs6>
           <v-layout align-center row wrap>
             <v-flex xs12>
               <v-text-field class="px-1" v-if="isEditMode" :readonly='!isEditMode'
-                label="title" v-model="$attrs.Book.Title" />
+                label="title" v-model="getCurrentBook.Title" />
             </v-flex>
             <v-flex xs12>
               <v-text-field class="px-1" :readonly='!isEditMode'
-                label="publishDate" v-model="$attrs.Book.PublishDate" />
+                label="publishDate" v-model="getCurrentBook.PublishDate" />
             </v-flex>
   <v-combobox
-    v-model="$attrs.Book.Authors"
-    label="authorss"
+    v-model="getCurrentBook.Authors"
+    label="authors"
     chip
     solo
     multiple
@@ -61,15 +61,15 @@
     </template>
   </v-combobox>
             <!-- <v-flex xs12>
-              登録: {{ $attrs.Book.Created | displayDate }} ({{ $attrs.Book.CreatedUserName }})
+              登録: {{ getCurrentBook.Created | displayDate }} ({{ getCurrentBook.CreatedUserName }})
             </v-flex>
             <v-flex xs12>
-              更新: {{ $attrs.Book.Modified | displayDate }} ({{ $attrs.Book.ModifiedUserName }})
+              更新: {{ getCurrentBook.Modified | displayDate }} ({{ getCurrentBook.ModifiedUserName }})
             </v-flex> -->
           </v-layout>
         </v-flex>
         <v-flex xs4>
-          <span v-if='$attrs.Book.OnLoan'>
+          <span v-if='getCurrentBook.OnLoan'>
             <v-btn outline color='primary' block round v-if='this.isBorrowUser' @click='this.Return' :loading='this.progress'>返却する</v-btn>
             <v-btn block disabled v-else>貸出中です</v-btn>
           </span>
@@ -80,7 +80,7 @@
         </v-flex>
       </v-layout>
       <v-flex xs12>
-        <v-textarea :readonly='!isEditMode' label='Description' :value='$attrs.Book.Comment'/>
+        <v-textarea :readonly='!isEditMode' label='Description' :value='getCurrentBook.Comment'/>
       </v-flex>
     </v-card-text>
     <v-card-actions>
@@ -92,13 +92,21 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import { BooksModule } from '@/modules/BooksModule';
 import IBook from '@/model/IBook.ts';
 import Book from '@/model/Book.ts';
 import User from '@/model/User';
 
-@Component
-export default class BookDetail extends Vue {
+const Super = Vue.extend({
+  computed: BooksModule.mapGetters(["getCurrentBook"])
+});
+
+@Component({
+  components: { BookDetail },
+  computed: BooksModule.mapGetters(["getCurrentBook"])
+})
+export default class BookDetail extends Super {
   isEditMode = false;
   progress = false;
   items: Array<{title: string, action: () => void }> = [
@@ -117,27 +125,27 @@ export default class BookDetail extends Vue {
   }
 
   get readableTime(): string {
-    if (!((this.$attrs.Book as any).LastBorrowTimestamp)) {
+    if (!this.getCurrentBook.LastBorrowTimestamp) {
       return 'なし';
     }
-    const d = new Date((this.$attrs.Book as any).LastBorrowTimestamp.seconds * 1000);
+    const d = new Date(this.getCurrentBook.LastBorrowTimestamp.seconds * 1000);
     return `${d.getFullYear()}/${(d.getMonth() + 1)}/${d.getDate()}`;
   }
 
   get isBorrowUser(): boolean {
-    return (this.$attrs.Book as any).LastBorrowUserId === this.$store.getters.User.Id;
+    return this.getCurrentBook.LastBorrowUserId === this.$store.getters.User.Id;
   }
 
   async Commit(): Promise<any> {
-    (this.$attrs.Book as any).Modified = new Date();
-    (this.$attrs.Book as any).ModifiedUserId = this.$store.getters.User.Id;
-    await (this.$attrs.Book as any).Save();
+    this.getCurrentBook.Modified = new Date();
+    this.getCurrentBook.ModifiedUserId = this.$store.getters.User.Id;
+    await this.getCurrentBook.Save();
   }
 
   async Rent(): Promise<void> {
     this.progress = true;
     try {
-      await (this.$attrs.Book as any).Rent(this.$store.getters.User.Id);
+      await this.getCurrentBook.Rent(this.$store.getters.User.Id);
     } catch (error) {
       console.log(error);
     } finally {
@@ -148,7 +156,7 @@ export default class BookDetail extends Vue {
   async Return(): Promise<void> {
     this.progress = true;
     try {
-      await (this.$attrs.Book as any).Return();
+      await this.getCurrentBook.Return();
     } catch (error) {
       console.log(error);
     } finally {
@@ -162,7 +170,7 @@ export default class BookDetail extends Vue {
   }
 
   remove(item: string) {
-    (this.$attrs.Book as any).Authors = (this.$attrs.Book as any).Authors.filter((a: any) => a !== item);
+    this.getCurrentBook.Authors = this.getCurrentBook.Authors.filter((author) => author !== item);
   }
 }
 </script>

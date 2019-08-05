@@ -1,9 +1,11 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import IBook from '@/model/IBook';
 import Books from '@/model/Books';
+import Book from '@/model/Book';
 
 class BooksState {
     books: IBook[] = new Array<IBook>();
+    currentBook: IBook = new Book();
     filter: string = '';
 }
 
@@ -19,6 +21,9 @@ class BooksGetters extends Getters<BooksState> {
     get getFilter() {
       return this.state.filter;
     }
+    get getCurrentBook() {
+      return this.state.currentBook;
+    }
 }
 
 class BooksMutations extends Mutations<BooksState> {
@@ -27,6 +32,9 @@ class BooksMutations extends Mutations<BooksState> {
   }
   setFilter(filter: string) {
     this.state.filter = filter;
+  }
+  setCurrentBook(book: IBook) {
+    this.state.currentBook = book;
   }
 }
 
@@ -42,6 +50,9 @@ class BooksActions extends Actions<
   }
   setFilter(filter: string) {
     this.commit('setFilter', filter);
+  }
+  setCurrentBook(book: IBook) {
+    this.commit('setCurrentBook', book);
   }
 }
 

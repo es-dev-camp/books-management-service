@@ -15,7 +15,7 @@
     </v-layout>
     <v-dialog :value='isShowDetail' @input='isShowDetail = false'
         width='80%' max-width='700px'>
-      <BookDetail :Book='selectedBook' @close-dialog='isShowDetail = false'></BookDetail>
+      <BookDetail @close-dialog='isShowDetail = false'></BookDetail>
     </v-dialog>
   </v-container>
 </template>
@@ -28,7 +28,7 @@ import Book from '@/model/Book';
 import BookDetail from '../components/BookDetail.vue';
 
 const Super = Vue.extend({
-  methods: BooksModule.mapActions(["updateList"])
+  methods: BooksModule.mapActions(["updateList", "setCurrentBook"])
 });
 
 @Component({
@@ -37,15 +37,14 @@ const Super = Vue.extend({
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;
-  selectedBook: IBook = new Book();
 
   async created() {
     await this.updateList();
   }
 
   ShowDetail(book: IBook): void {
+    this.setCurrentBook(book);
     this.isShowDetail = true;
-    this.selectedBook = book;
   }
 }
 </script>
