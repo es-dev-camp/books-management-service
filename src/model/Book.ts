@@ -1,10 +1,9 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
 import IBook from '@/model/IBook.ts';
-import {Timestamp} from './Timestamp';
+import { Timestamp } from './Timestamp';
 
 export default class Book implements IBook {
-
   public static async Init(isbn: string, userId: string): Promise<any> {
     try {
       const summary = await Book.GetBookInfo(isbn);
@@ -46,8 +45,9 @@ export default class Book implements IBook {
   }
 
   private static collectionName: string = 'book';
-  private static collection: firebase.firestore.CollectionReference =
-                              firebase.firestore().collection(Book.collectionName);
+  private static collection: firebase.firestore.CollectionReference = firebase
+    .firestore()
+    .collection(Book.collectionName);
 
   private static async SetCreated(book: IBook): Promise<void> {
     const bookmeta = await Book.collection.doc(book.ISBN).get();
@@ -63,7 +63,9 @@ export default class Book implements IBook {
   }
 
   private static async GetBookInfo(isbn: string): Promise<any> {
-    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+    const response = await axios.get(
+      `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
+    );
     if (response.data === undefined || response.data.totalItems === 0) {
       console.warn('Not found book infomation.', isbn);
       return null;
@@ -99,7 +101,9 @@ export default class Book implements IBook {
     if (!(created instanceof Date)) {
       this.Created = created.toDate();
     }
-    return `${this.Created.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })} --${this.CreatedUserId}`;
+    return `${this.Created.toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo'
+    })} --${this.CreatedUserId}`;
   }
 
   public get ModifiedInfo(): string {
@@ -111,7 +115,9 @@ export default class Book implements IBook {
     if (!(modified instanceof Date)) {
       this.Modified = modified.toDate();
     }
-    return `${this.Modified.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })} --${this.ModifiedUserId}`;
+    return `${this.Modified.toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo'
+    })} --${this.ModifiedUserId}`;
   }
 
   public async Save(): Promise<any> {
@@ -122,13 +128,13 @@ export default class Book implements IBook {
     return await Book.collection.doc(this.ISBN).update({
       OnLoan: true,
       LastBorrowUserId: userId,
-      LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
   }
 
   public async Return(): Promise<void> {
     return await Book.collection.doc(this.ISBN).update({
-      OnLoan: false,
+      OnLoan: false
     });
   }
 }
