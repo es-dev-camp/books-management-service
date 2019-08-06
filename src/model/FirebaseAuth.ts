@@ -32,7 +32,7 @@ export default class FirebaseAuth implements IAuth {
       Name: currentUser.displayName,
       Id: currentUser.uid,
       Email: currentUser.email,
-      ImageUrl: currentUser.photoURL,
+      ImageUrl: currentUser.photoURL
     };
   }
 }

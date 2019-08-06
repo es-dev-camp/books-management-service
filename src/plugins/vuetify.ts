@@ -4,9 +4,9 @@ import 'vuetify/src/stylus/app.styl';
 import VueLazyload from 'vue-lazyload';
 
 Vue.use(Vuetify, {
-  iconfont: 'md',
+  iconfont: 'md'
 });
 
 Vue.use(VueLazyload, {
-  preLoad: 1.3,
+  preLoad: 1.3
 });

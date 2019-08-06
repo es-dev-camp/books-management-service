@@ -1,27 +1,25 @@
 <template>
   <v-card>
-    <v-card-title class='headline grey lighten-2' primary-title>
+    <v-card-title class="headline grey lighten-2" primary-title>
       {{ getCurrentBook.Title }}
       <v-spacer></v-spacer>
-      <v-text-field class="px-1" v-if='isEditMode'
-        label="location" v-model="getCurrentBook.Location" />
-      <v-chip v-else color="secondary" dark>{{ getCurrentBook.Location }}</v-chip>
-      <v-menu :visible='!this.isEditMode'>
+      <v-text-field
+        class="px-1"
+        v-if="isEditMode"
+        label="location"
+        v-model="getCurrentBook.Location"
+      />
+      <v-chip v-else color="secondary" dark>{{
+        getCurrentBook.Location
+      }}</v-chip>
+      <v-menu :visible="!this.isEditMode">
         <template v-slot:activator="{ on }">
-          <v-btn
-            dark
-            icon
-            v-on="on"
-          >
+          <v-btn dark icon v-on="on">
             <v-icon color="#333">more_vert</v-icon>
           </v-btn>
         </template>
         <v-list>
-          <v-list-tile
-            v-for="(item, i) in items"
-            :key="i"
-            @click='item.action'
-          >
+          <v-list-tile v-for="(item, i) in items" :key="i" @click="item.action">
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -31,35 +29,44 @@
     <v-card-text>
       <v-layout align-start wrap>
         <v-flex xs2>
-          <v-img :src='getCurrentBook.Cover' />
+          <v-img :src="getCurrentBook.Cover" />
         </v-flex>
         <v-flex xs6>
           <v-layout align-center row wrap>
             <v-flex xs12>
-              <v-text-field class="px-1" v-if="isEditMode" :readonly='!isEditMode'
-                label="title" v-model="getCurrentBook.Title" />
+              <v-text-field
+                class="px-1"
+                v-if="isEditMode"
+                :readonly="!isEditMode"
+                label="title"
+                v-model="getCurrentBook.Title"
+              />
             </v-flex>
             <v-flex xs12>
-              <v-text-field class="px-1" :readonly='!isEditMode'
-                label="publishDate" v-model="getCurrentBook.PublishDate" />
+              <v-text-field
+                class="px-1"
+                :readonly="!isEditMode"
+                label="publishDate"
+                v-model="getCurrentBook.PublishDate"
+              />
             </v-flex>
-  <v-combobox
-    v-model="getCurrentBook.Authors"
-    label="authors"
-    chip
-    solo
-    multiple
-  >
-    <template v-slot:selection="data">
-      <v-chip
-        :selected="data.selected"
-        :close="isEditMode"
-        @input="remove(data.item)"
-      >
-        {{ data.item }}
-      </v-chip>
-    </template>
-  </v-combobox>
+            <v-combobox
+              v-model="getCurrentBook.Authors"
+              label="authors"
+              chip
+              solo
+              multiple
+            >
+              <template v-slot:selection="data">
+                <v-chip
+                  :selected="data.selected"
+                  :close="isEditMode"
+                  @input="remove(data.item)"
+                >
+                  {{ data.item }}
+                </v-chip>
+              </template>
+            </v-combobox>
             <!-- <v-flex xs12>
               登録: {{ getCurrentBook.Created | displayDate }} ({{ getCurrentBook.CreatedUserName }})
             </v-flex>
@@ -69,34 +76,55 @@
           </v-layout>
         </v-flex>
         <v-flex xs4>
-          <span v-if='getCurrentBook.OnLoan'>
-            <v-btn outline color='primary' block round v-if='this.isBorrowUser' @click='this.Return' :loading='this.progress'>返却する</v-btn>
+          <span v-if="getCurrentBook.OnLoan">
+            <v-btn
+              outline
+              color="primary"
+              block
+              round
+              v-if="this.isBorrowUser"
+              @click="this.Return"
+              :loading="this.progress"
+              >返却する</v-btn
+            >
             <v-btn block disabled v-else>貸出中です</v-btn>
           </span>
-          <v-btn v-else color='primary' block round @click='this.Rent' :loading='this.progress'>借りる</v-btn>
-          <div>
-            最終貸出日: {{this.readableTime}}
-          </div>
+          <v-btn
+            v-else
+            color="primary"
+            block
+            round
+            @click="this.Rent"
+            :loading="this.progress"
+            >借りる</v-btn
+          >
+          <div>最終貸出日: {{ this.readableTime }}</div>
         </v-flex>
       </v-layout>
       <v-flex xs12>
-        <v-textarea :readonly='!isEditMode' label='Description' :value='getCurrentBook.Comment'/>
+        <v-textarea
+          :readonly="!isEditMode"
+          label="Description"
+          :value="getCurrentBook.Comment"
+        />
       </v-flex>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click='this.Close'>Close</v-btn>
-      <v-btn v-if='this.isEditMode' color='primary' @click='this.Save'>Save</v-btn>
+      <v-btn @click="this.Close">Close</v-btn>
+      <v-btn v-if="this.isEditMode" color="primary" @click="this.Save"
+        >Save</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
 
-<script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
-import { BooksModule } from '@/modules/BooksModule';
-import IBook from '@/model/IBook.ts';
-import Book from '@/model/Book.ts';
-import User from '@/model/User';
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { BooksModule } from "@/modules/BooksModule";
+import IBook from "@/model/IBook.ts";
+import Book from "@/model/Book.ts";
+import User from "@/model/User";
 
 const Super = Vue.extend({
   computed: BooksModule.mapGetters(["getCurrentBook"])
@@ -109,10 +137,13 @@ const Super = Vue.extend({
 export default class BookDetail extends Super {
   isEditMode = false;
   progress = false;
-  items: Array<{title: string, action: () => void }> = [
-    {title: 'Edit', action: () => {
-      this.change();
-    }},
+  items: Array<{ title: string; action: () => void }> = [
+    {
+      title: "Edit",
+      action: () => {
+        this.change();
+      }
+    }
   ];
 
   change(): void {
@@ -121,15 +152,15 @@ export default class BookDetail extends Super {
 
   Close(): void {
     this.isEditMode = false;
-    this.$emit('close-dialog');
+    this.$emit("close-dialog");
   }
 
   get readableTime(): string {
     if (!this.getCurrentBook.LastBorrowTimestamp) {
-      return 'なし';
+      return "なし";
     }
     const d = new Date(this.getCurrentBook.LastBorrowTimestamp.seconds * 1000);
-    return `${d.getFullYear()}/${(d.getMonth() + 1)}/${d.getDate()}`;
+    return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
   }
 
   get isBorrowUser(): boolean {
@@ -170,13 +201,15 @@ export default class BookDetail extends Super {
   }
 
   remove(item: string) {
-    this.getCurrentBook.Authors = this.getCurrentBook.Authors.filter((author) => author !== item);
+    this.getCurrentBook.Authors = this.getCurrentBook.Authors.filter(
+      author => author !== item
+    );
   }
 }
 </script>
 
 <style>
 .theme--light.v-messages {
-    min-height: 0;
+  min-height: 0;
 }
 </style>

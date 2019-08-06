@@ -16,8 +16,9 @@ export default class User {
   }
 
   private static collectionName: string = 'user';
-  private static collection: firebase.firestore.CollectionReference =
-                              firebase.firestore().collection(User.collectionName);
+  private static collection: firebase.firestore.CollectionReference = firebase
+    .firestore()
+    .collection(User.collectionName);
 
   public IsSignin: boolean = false;
   public Name: string | null = 'Anonymous';
