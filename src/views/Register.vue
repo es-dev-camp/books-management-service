@@ -38,73 +38,73 @@
             {{ registeredBook.Title }}
           </v-card-title>
           <v-list two-line>
-            <v-list-tile>
-              <v-list-tile-action>
+            <v-list-item>
+              <v-list-item-action>
                 <v-icon color="indigo">notes</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ registeredBook.Comment }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
             <v-divider inset></v-divider>
 
-            <v-list-tile>
-              <v-list-tile-action>
+            <v-list-item>
+              <v-list-item-action>
                 <v-icon color="indigo">publish</v-icon>
-              </v-list-tile-action>
+              </v-list-item-action>
 
-              <v-list-tile-content>
-                <v-list-tile-title>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ registeredBook.PublishDate }}
-                </v-list-tile-title>
-                <v-list-tile-sub-title>Published date</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+                <v-list-item-subtitle>Published date</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-            <v-list-tile>
-              <v-list-tile-action>
+            <v-list-item>
+              <v-list-item-action>
                 <v-icon color="indigo">account_circle</v-icon>
-              </v-list-tile-action>
+              </v-list-item-action>
 
-              <v-list-tile-content>
-                <v-list-tile-title>
+              <v-list-item-content>
+                <v-list-item-title>
                   <template v-for="author in registeredBook.Authors">
                     <span bold v-bind:key="author"> {{ author }} </span>
                   </template>
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
             <v-divider inset></v-divider>
 
-            <v-list-tile>
-              <v-list-tile-action>
+            <v-list-item>
+              <v-list-item-action>
                 <v-icon color="indigo">update</v-icon>
-              </v-list-tile-action>
+              </v-list-item-action>
 
-              <v-list-tile-content>
-                <v-list-tile-title>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ registeredBook.ModifiedInfo }}
-                </v-list-tile-title>
-                <v-list-tile-sub-title></v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+                <v-list-item-subtitle></v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-            <v-list-tile>
-              <v-list-tile-action>
+            <v-list-item>
+              <v-list-item-action>
                 <v-icon color="indigo">fiber_new</v-icon>
-              </v-list-tile-action>
+              </v-list-item-action>
 
-              <v-list-tile-content>
-                <v-list-tile-title>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ registeredBook.CreatedInfo }}
-                </v-list-tile-title>
-                <v-list-tile-sub-title></v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+                <v-list-item-subtitle></v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
           <v-img :src="registeredBook.Cover" />
         </v-card>
