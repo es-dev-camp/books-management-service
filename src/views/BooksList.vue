@@ -33,7 +33,10 @@
       width="80%"
       max-width="700px"
     >
-      <BookDetail @close-dialog="isShowDetail = false"></BookDetail>
+      <BookDetail
+        @close-dialog="isShowDetail = false"
+        :CurrentUser="getUser"
+      ></BookDetail>
     </v-dialog>
   </v-container>
 </template>
@@ -41,6 +44,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { BooksModule } from "@/modules/BooksModule";
+import { SignInModule } from "@/modules/SignInModule";
 import IBook from "@/model/IBook";
 import Book from "@/model/Book";
 import BookDetail from "../components/BookDetail.vue";
@@ -51,7 +55,10 @@ const Super = Vue.extend({
 
 @Component({
   components: { BookDetail },
-  computed: BooksModule.mapGetters(["getFilterdBooks"])
+  computed: {
+    ...BooksModule.mapGetters(["getFilterdBooks"]),
+    ...SignInModule.mapGetters(["getUser"])
+  }
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;
