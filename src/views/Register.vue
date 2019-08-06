@@ -107,15 +107,20 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import Book from '@/model/Book.ts';
 import IBook from '@/model/IBook.ts';
 import Snack from '@/model/Snack.ts';
+import { BooksModule } from '@/modules/BooksModule';
+
+const Super = Vue.extend({
+  methods: BooksModule.mapActions(["updateList"])
+});
 
 @Component
-export default class Register extends Vue {
-  private isbn: string = '';
-  private isBusy: boolean = false;
-  private snack: Snack = new Snack();
-  private registeredBook: IBook = new Book();
+export default class Register extends Super {
+  isbn: string = '';
+  isBusy: boolean = false;
+  snack: Snack = new Snack();
+  registeredBook: IBook = new Book();
 
-  private async AddBook(): Promise<void> {
+  async AddBook(): Promise<void> {
     this.isBusy = true;
 
     if (this.isbn === '' || this.isbn.length !== 13) {
@@ -136,6 +141,7 @@ export default class Register extends Vue {
     try {
       await book.Save();
       this.registeredBook = book;
+      await this.updateList();
       this.ShowSnack('success', 'Successfull data save to FireStore.', ['top']);
     } catch (error) {
       this.ShowSnack('error', 'Failed save.', ['top']);
@@ -145,12 +151,12 @@ export default class Register extends Vue {
     }
   }
 
-  private ClearInput(): void {
+  ClearInput(): void {
     this.isbn = '';
     this.isBusy = false;
   }
 
-  private ShowSnack(color: string, message: string, args: string[]): void {
+  ShowSnack(color: string, message: string, args: string[]): void {
     this.snack.Show(color, message, args);
   }
 }

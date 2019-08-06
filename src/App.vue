@@ -7,6 +7,16 @@
             <span>Books</span>
             <span class='font-weight-light'>Manager</span>
         </v-toolbar-title>
+
+        <v-text-field
+          text
+          solo-inverted
+          hide-details
+          prepend-inner-icon="search"
+          label="Search"
+          class="mx-5 hidden-sm-and-down"
+          v-model="filter"
+        ></v-text-field>
         
         <v-spacer></v-spacer>
         <v-btn icon large to='/'>
@@ -19,10 +29,10 @@
           <template v-slot:activator='{ on }'>
             <v-avatar @click='signOut' dark v-on='on' 
                       slot='offset' class='mx-auto d-block' size='40'>
-              <img :src='ImageUrl'>
+              <img :src='getUser.photoURL'>
             </v-avatar>
           </template>
-          <span> {{ UserName }} </span>
+          <span> {{ getUser.displayName }} </span>
         </v-tooltip>
       </v-flex>
     </v-toolbar>
@@ -40,24 +50,25 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import { SignInModule } from '@/modules/SignInModule';
+import { BooksModule } from '@/modules/BooksModule';
 
-@Component
-export default class App extends Vue {
-  get IsSignin(): boolean {
-    return this.$store.getters.IsSignin;
+const Super = Vue.extend({
+  methods: BooksModule.mapActions(["setFilter"]),
+  computed: BooksModule.mapGetters(["getFilter"])
+});
+
+@Component({
+  computed: SignInModule.mapGetters(["getUser", "isSignIn"]),
+  methods: SignInModule.mapActions(["signOut"])
+})
+export default class App extends Super {
+  get filter(): string {
+    return this.getFilter;
   }
 
-  get UserName(): string | null {
-    return this.$store.getters.User.Name;
-  }
-
-  get ImageUrl(): string | null {
-    return this.$store.getters.User.ImageUrl;
-  }
-
-  private signOut(): void {
-    this.$store.dispatch('Signout');
-    this.$router.push('/signin');
+  set filter(val: string) {
+    this.setFilter(val);
   }
 }
 </script>
