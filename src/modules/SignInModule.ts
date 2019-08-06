@@ -15,9 +15,7 @@ class SignInState {
 
 class SignInGetters extends Getters<SignInState> {
   get getUser() {
-    return this.state.user
-      ? this.state.user
-      : nullUser;
+    return this.state.user ? this.state.user : nullUser;
   }
 
   get isSignIn() {
