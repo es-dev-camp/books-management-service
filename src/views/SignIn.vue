@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container>
-      <v-layout text-xs-center wrap>
+      <v-layout text-center wrap>
         <v-flex mb-4>
           <v-btn color="primary" @click="signIn">Google sign in</v-btn>
         </v-flex>

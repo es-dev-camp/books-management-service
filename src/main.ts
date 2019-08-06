@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Router from 'vue-router';
-import '@/plugins/vuetify';
+import vuetify from '@/plugins/vuetify';
 import App from '@/App.vue';
 import { createStore } from '@/store';
 import { createRouter } from '@/router';
@@ -38,5 +38,6 @@ new Vue({
   router: router,
   store: store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  vuetify: vuetify
 }).$mount('#app');

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
+    <v-app-bar app>
       <v-flex align-center layout py-2>
         <v-toolbar-title class="headline text-uppercase">
           <span>Books</span>
@@ -18,13 +18,13 @@
         ></v-text-field>
 
         <v-spacer></v-spacer>
-        <v-btn icon large to="/">
+        <v-btn class="mx-2" icon large to="/">
           <v-icon>list</v-icon>
         </v-btn>
-        <v-btn icon large to="/register">
+        <v-btn class="mx-2" icon large to="/register">
           <v-icon>add</v-icon>
         </v-btn>
-        <v-tooltip bottom>
+        <v-tooltip class="mx-2" bottom>
           <template v-slot:activator="{ on }">
             <v-avatar
               @click="signOut"
@@ -40,15 +40,11 @@
           <span> {{ getUser.displayName }} </span>
         </v-tooltip>
       </v-flex>
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center fluid column>
-          <v-fade-transition mode="out-in">
-            <router-view></router-view>
-          </v-fade-transition>
-        </v-layout>
-      </v-container>
+      <v-fade-transition mode="out-in">
+        <router-view></router-view>
+      </v-fade-transition>
     </v-content>
   </v-app>
 </template>

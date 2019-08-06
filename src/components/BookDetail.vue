@@ -19,23 +19,22 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-tile v-for="(item, i) in items" :key="i" @click="item.action">
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile>
+          <v-list-item v-for="(item, i) in items" :key="i" @click="item.action">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-card-title>
 
-    <v-card-text>
+    <v-card-text class="pt-2">
       <v-layout align-start wrap>
         <v-flex xs2>
           <v-img :src="getCurrentBook.Cover" />
         </v-flex>
-        <v-flex xs6>
-          <v-layout align-center row wrap>
+        <v-flex xs6 class="px-2">
+          <v-layout align-center wrap>
             <v-flex xs12>
               <v-text-field
-                class="px-1"
                 v-if="isEditMode"
                 :readonly="!isEditMode"
                 label="title"
@@ -44,7 +43,6 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field
-                class="px-1"
                 :readonly="!isEditMode"
                 label="publishDate"
                 v-model="getCurrentBook.PublishDate"
@@ -52,6 +50,7 @@
             </v-flex>
             <v-combobox
               v-model="getCurrentBook.Authors"
+              :readonly="!isEditMode"
               label="authors"
               chip
               solo
@@ -59,7 +58,7 @@
             >
               <template v-slot:selection="data">
                 <v-chip
-                  :selected="data.selected"
+                  :input-value="data.selected"
                   :close="isEditMode"
                   @input="remove(data.item)"
                 >
@@ -75,13 +74,13 @@
             </v-flex> -->
           </v-layout>
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs4 class="px-2">
           <span v-if="getCurrentBook.OnLoan">
             <v-btn
               outline
               color="primary"
               block
-              round
+              rounded
               v-if="this.isBorrowUser"
               @click="this.Return"
               :loading="this.progress"
@@ -93,7 +92,7 @@
             v-else
             color="primary"
             block
-            round
+            rounded
             @click="this.Rent"
             :loading="this.progress"
             >借りる</v-btn
