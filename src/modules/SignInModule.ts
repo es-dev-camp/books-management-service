@@ -2,13 +2,14 @@ import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import firebase from 'firebase/app';
 import IUser from '@/model/IUser';
 
+const nullUser: IUser = {
+  Id: '',
+  Email: '',
+  displayName: 'Anonymous',
+  photoURL: null
+};
 class SignInState {
-  user: IUser = {
-    Id: '',
-    Email: '',
-    displayName: 'Anonymous',
-    photoURL: null
-  };
+  user: IUser = nullUser;
   isSignIn: boolean = false;
 }
 
@@ -16,7 +17,7 @@ class SignInGetters extends Getters<SignInState> {
   get getUser() {
     return this.state.user
       ? this.state.user
-      : { displayName: '', photoURL: '' };
+      : nullUser;
   }
 
   get isSignIn() {
@@ -51,12 +52,7 @@ class SignInActions extends Actions<
       this.commit('setUser', currentUser);
       this.commit('setIsSignIn', true);
     } else {
-      const currentUser: IUser = {
-        Id: '',
-        Email: '',
-        displayName: 'Anonymous',
-        photoURL: null
-      };
+      const currentUser: IUser = nullUser;
       this.commit('setUser', currentUser);
       this.commit('setIsSignIn', false);
     }

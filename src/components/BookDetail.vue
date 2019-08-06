@@ -171,14 +171,14 @@ export default class BookDetail extends Super {
 
   async Commit(): Promise<any> {
     this.getCurrentBook.Modified = new Date();
-    this.getCurrentBook.ModifiedUserId = this.$store.getters.User.Id;
+    this.getCurrentBook.ModifiedUserId = this.CurrentUser.Id;
     await this.getCurrentBook.Save();
   }
 
   async Rent(): Promise<void> {
     this.progress = true;
     try {
-      await this.getCurrentBook.Rent(this.$store.getters.User.Id);
+      await this.getCurrentBook.Rent(this.CurrentUser.Id);
     } catch (error) {
       console.log(error);
     } finally {
