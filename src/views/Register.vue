@@ -119,9 +119,11 @@ import Book from "@/model/Book.ts";
 import IBook from "@/model/IBook.ts";
 import Snack from "@/model/Snack.ts";
 import { BooksModule } from "@/modules/BooksModule";
+import { SignInModule } from "@/modules/SignInModule";
 
 const Super = Vue.extend({
-  methods: BooksModule.mapActions(["updateList"])
+  methods: BooksModule.mapActions(["updateList"]),
+  computed: SignInModule.mapGetters(["getUser"])
 });
 
 @Component
@@ -140,10 +142,7 @@ export default class Register extends Super {
       return;
     }
 
-    const book = (await Book.Init(
-      this.isbn,
-      this.$store.getters.User.Id
-    )) as IBook;
+    const book = (await Book.Init(this.isbn, this.getUser.Id)) as IBook;
     if (book === null) {
       this.ShowSnack("warning", `Not found book infomation ${this.isbn}`, [
         "top"
