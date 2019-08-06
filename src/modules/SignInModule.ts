@@ -1,8 +1,14 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import firebase from 'firebase/app';
+import IUser from '@/model/IUser';
 
 class SignInState {
-  user: firebase.User | null = null;
+  user: IUser = {
+    Id: '',
+    Email: '',
+    displayName: 'Anonymous',
+    photoURL: null
+  };
   isSignIn: boolean = false;
 }
 
@@ -19,7 +25,7 @@ class SignInGetters extends Getters<SignInState> {
 }
 
 class SignInMutations extends Mutations<SignInState> {
-  setUser(user: firebase.User | null) {
+  setUser(user: IUser) {
     this.state.user = user;
   }
   setIsSignIn(flag: boolean) {
@@ -34,10 +40,26 @@ class SignInActions extends Actions<
   SignInActions
 > {
   async updateCurrentUser() {
-    const user = await firebase.auth().currentUser;
-    const isSignIn = user ? true : false;
-    this.commit('setUser', user);
-    this.commit('setIsSignIn', isSignIn);
+    const firebaseUser = await firebase.auth().currentUser;
+    if (firebaseUser) {
+      const currentUser: IUser = {
+        Id: firebaseUser.uid,
+        Email: firebaseUser.email,
+        displayName: firebaseUser.displayName,
+        photoURL: firebaseUser.photoURL
+      };
+      this.commit('setUser', currentUser);
+      this.commit('setIsSignIn', true);
+    } else {
+      const currentUser: IUser = {
+        Id: '',
+        Email: '',
+        displayName: 'Anonymous',
+        photoURL: null
+      };
+      this.commit('setUser', currentUser);
+      this.commit('setIsSignIn', false);
+    }
   }
   async signIn() {
     const provider = new firebase.auth.GoogleAuthProvider();

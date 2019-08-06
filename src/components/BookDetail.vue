@@ -120,21 +120,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import { BooksModule } from "@/modules/BooksModule";
 import IBook from "@/model/IBook.ts";
 import Book from "@/model/Book.ts";
-import User from "@/model/User";
 
 const Super = Vue.extend({
   computed: BooksModule.mapGetters(["getCurrentBook"])
 });
+import { Component, Prop, Vue } from "vue-property-decorator";
+import IUser from "@/model/IUser";
 
 @Component({
   components: { BookDetail },
   computed: BooksModule.mapGetters(["getCurrentBook"])
 })
 export default class BookDetail extends Super {
+  @Prop({ type: Object, default: null })
+  CurrentUser!: IUser;
   isEditMode = false;
   progress = false;
   items: Array<{ title: string; action: () => void }> = [
@@ -164,7 +166,7 @@ export default class BookDetail extends Super {
   }
 
   get isBorrowUser(): boolean {
-    return this.getCurrentBook.LastBorrowUserId === this.$store.getters.User.Id;
+    return this.getCurrentBook.LastBorrowUserId === this.CurrentUser.Id;
   }
 
   async Commit(): Promise<any> {
