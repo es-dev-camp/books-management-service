@@ -77,7 +77,7 @@
         <v-flex xs4 class="px-2">
           <span v-if="getCurrentBook.OnLoan">
             <v-btn
-              outline
+              outlined
               color="primary"
               block
               rounded
@@ -98,6 +98,7 @@
             >借りる</v-btn
           >
           <div>最終貸出日: {{ this.readableTime }}</div>
+          <div>ISBN: {{ getCurrentBook.ISBN }}</div>
         </v-flex>
       </v-layout>
       <v-flex xs12>
@@ -124,7 +125,8 @@ import IBook from "@/model/IBook.ts";
 import Book from "@/model/Book.ts";
 
 const Super = Vue.extend({
-  computed: BooksModule.mapGetters(["getCurrentBook"])
+  computed: BooksModule.mapGetters(["getCurrentBook"]),
+  methods: BooksModule.mapActions(["updateBook"])
 });
 import { Component, Prop, Vue } from "vue-property-decorator";
 import IUser from "@/model/IUser";
@@ -178,6 +180,7 @@ export default class BookDetail extends Super {
     this.progress = true;
     try {
       await this.getCurrentBook.Rent(this.CurrentUser.Id);
+      await this.updateBook(this.getCurrentBook.ISBN);
     } catch (error) {
       console.log(error);
     } finally {
@@ -189,6 +192,7 @@ export default class BookDetail extends Super {
     this.progress = true;
     try {
       await this.getCurrentBook.Return();
+      await this.updateBook(this.getCurrentBook.ISBN);
     } catch (error) {
       console.log(error);
     } finally {
