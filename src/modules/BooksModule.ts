@@ -31,6 +31,16 @@ class BooksMutations extends Mutations<BooksState> {
   async updateBooks(_: any) {
     this.state.books = await Books.GetList();
   }
+  async updateBook(ISBN: string) {
+    const book = await Books.ReloadBook(ISBN);
+    if (!book) {
+      return;
+    }
+    const currentBooks = this.state.books;
+    const index = currentBooks.findIndex(x => x.ISBN === ISBN);
+    this.state.books.splice(index, 1, book);
+    this.setCurrentBook(book);
+  }
   setFilter(filter: string) {
     this.state.filter = filter;
   }
@@ -47,6 +57,9 @@ class BooksActions extends Actions<
 > {
   async updateList() {
     await this.commit('updateBooks', null);
+  }
+  async updateBook(ISBN: string) {
+    await this.commit('updateBook', ISBN);
   }
   setFilter(filter: string) {
     this.commit('setFilter', filter);
