@@ -30,10 +30,11 @@
                   xl="11"
                   class="pa-1"
                 >
+                  {{ convertUserName(item.user) }} が
                   <span class="primary--text" @click="ShowDetail(item.book)">
                     {{ convertBookTitle(item.book) }}
                   </span>
-                  が {{ convertOperationStr(item.subtype) }}
+                  を {{ convertOperationStr(item.subtype) }}
                 </v-col>
               </v-row>
             </v-container>
@@ -60,6 +61,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { AuditModule } from "@/modules/AuditModule";
 import { BooksModule } from "@/modules/BooksModule";
 import { SignInModule } from "@/modules/SignInModule";
+import { UserModule } from "@/modules/UserModule";
 import * as booksManagementEvent from "@common/booksManagementEvent";
 import IBook from "@/model/IBook";
 import BookDetail from "../components/BookDetail.vue";
@@ -67,7 +69,8 @@ import BookDetail from "../components/BookDetail.vue";
 const Super = Vue.extend({
   methods: {
     ...BooksModule.mapActions(["updateList", "setCurrentBook"]),
-    ...AuditModule.mapActions(["updateBookEventList"])
+    ...AuditModule.mapActions(["updateBookEventList"]),
+    ...UserModule.mapActions(["updateUserList"])
   }
 });
 
@@ -85,6 +88,16 @@ export default class BooksList extends Super {
   async created() {
     await this.updateList();
     await this.updateBookEventList();
+    await this.updateUserList();
+  }
+
+  convertUserName(userId: string): string {
+    const ctx = UserModule.context(this.$store);
+    const users = ctx.getters.getUserList;
+    const findUsers = users.filter(x => x.Id === userId);
+    return !findUsers || findUsers.length === 0
+      ? "不明な人物"
+      : "" + findUsers[0].displayName;
   }
 
   convertBookTitle(isbn: string): string {
@@ -99,15 +112,15 @@ export default class BooksList extends Super {
   convertOperationStr(subtype: string): string {
     switch (subtype) {
       case "created":
-        return "追加されました";
+        return "追加しました";
       case "deleted":
-        return "削除されました";
+        return "削除しました";
       case "edited":
-        return "編集されました";
+        return "編集しました";
       case "borrowed":
-        return "貸し出されました";
+        return "借りました";
       case "returned":
-        return "返却されました";
+        return "返却しました";
       default:
         return "(不明な操作ログです)";
     }
