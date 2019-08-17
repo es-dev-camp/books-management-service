@@ -17,7 +17,8 @@
     "firebase-admin": "~7.0.0",
     "firebase-functions": "^2.3.0",
     "lodash": "^4.17.14",
-    "lodash.merge": "^4.6.2"
+    "lodash.merge": "^4.6.2",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "tslint": "^5.12.0",
