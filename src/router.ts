@@ -7,6 +7,7 @@ import SignIn from '@/views/SignIn.vue';
 import Books from '@/views/BooksList.vue';
 import Register from '@/views/Register.vue';
 import BookEventList from '@/views/BookEventList.vue';
+import { SignInModule } from '@/modules/SignInModule';
 
 export const AppRoutes: RouteConfig[] = [
   {
@@ -44,8 +45,10 @@ export function createRouter(store: Store<any>) {
     routes: Routes
   });
 
+  const signInCtx = SignInModule.context(store);
+
   firebase.auth().onAuthStateChanged(async user => {
-    await store.dispatch('SignInModule/updateCurrentUser');
+    await signInCtx.actions.updateCurrentUser();
     console.debug('on auth state changed');
     if (user) {
       // NOTE: 認証済みの場合はsign_inを表示できないようにする
@@ -56,12 +59,10 @@ export function createRouter(store: Store<any>) {
     }
   });
 
-  // TODO: fix types
-  const state = store.state as any;
   router.beforeEach((to, from, next) => {
     if (
       to.matched.some(record => !record.meta.noAuth) &&
-      !state.SignInModule.isSignIn
+      !signInCtx.getters.isSignIn
     ) {
       let counter = 0;
       const interval = 100;
@@ -69,14 +70,14 @@ export function createRouter(store: Store<any>) {
       const iid = setInterval(() => {
         if (counter < waitMaxmiliSec / interval) {
           counter++;
-          if (state.SignInModule.isSignIn) {
+          if (signInCtx.getters.isSignIn) {
             clearInterval(iid);
             next();
           }
         } else {
           console.log('wait exceeded');
           clearInterval(iid);
-          if (!state.SignInModule.isSignIn) {
+          if (!signInCtx.getters.isSignIn) {
             console.log('move signIn');
             next({
               path: '/signin',
