@@ -15,7 +15,7 @@ const lightThemeSettings = {
   // TODO: いい感じなテーマカラーにする
   primary: colors.blue,
   // secondary: colors.green.base,
-  accent: colors.pink,
+  accent: colors.pink
   // error: '#FF5252',
   // info: '#2196F3',
   // success: '#4CAF50',
