@@ -18,8 +18,11 @@
         ></v-text-field>
 
         <v-spacer></v-spacer>
+        <v-btn class="mx-2" icon large to="/book-event-list">
+          <v-icon>announcement</v-icon>
+        </v-btn>
         <v-btn class="mx-2" icon large to="/">
-          <v-icon>list</v-icon>
+          <v-icon>view_comfy</v-icon>
         </v-btn>
         <v-btn class="mx-2" icon large to="/register">
           <v-icon>add</v-icon>

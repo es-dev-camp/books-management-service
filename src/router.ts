@@ -6,6 +6,7 @@ import { RouteConfig } from 'vue-router';
 import SignIn from '@/views/SignIn.vue';
 import Books from '@/views/BooksList.vue';
 import Register from '@/views/Register.vue';
+import BookEventList from '@/views/BookEventList.vue';
 
 export const AppRoutes: RouteConfig[] = [
   {
@@ -17,6 +18,11 @@ export const AppRoutes: RouteConfig[] = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/book-event-list',
+    name: 'BookEventList',
+    component: BookEventList
   }
 ];
 
