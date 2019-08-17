@@ -6,11 +6,16 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["../common/*"]
+    },
   },
   "compileOnSave": true,
   "include": [
-    "src"
+    "src",
+    "../common/*.ts"
   ],
   "exclude": ["node_modules"]
 }

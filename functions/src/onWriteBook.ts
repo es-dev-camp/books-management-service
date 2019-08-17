@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import * as booksManagementEvent from './booksManagementEvent';
+import * as booksManagementEvent from '@common/booksManagementEvent';
 import * as moment from 'moment';
 
 const db = admin.firestore();
