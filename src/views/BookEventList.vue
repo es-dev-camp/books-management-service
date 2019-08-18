@@ -72,16 +72,17 @@ const Super = Vue.extend({
     ...BooksModule.mapActions(["updateList", "setCurrentBook"]),
     ...AuditModule.mapActions(["updateBookEventList"]),
     ...UserModule.mapActions(["updateUserList"])
+  },
+  computed: {
+    ...BooksModule.mapGetters(["getFilterdBooks"]),
+    ...AuditModule.mapGetters(["getBookEventList"]),
+    ...SignInModule.mapGetters(["getUser"]),
+    ...UserModule.mapGetters(["getUserList"])
   }
 });
 
 @Component({
-  components: { BookDetail },
-  computed: {
-    ...BooksModule.mapGetters(["getFilterdBooks"]),
-    ...AuditModule.mapGetters(["getBookEventList"]),
-    ...SignInModule.mapGetters(["getUser"])
-  }
+  components: { BookDetail }
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;
@@ -93,8 +94,7 @@ export default class BooksList extends Super {
   }
 
   convertUserName(userId: string): string {
-    const ctx = UserModule.context(this.$store);
-    const users = ctx.getters.getUserList;
+    const users = this.getUserList;
     const findUsers = users.filter(x => x.Id === userId);
     return !findUsers || findUsers.length === 0
       ? "不明な人物"
@@ -102,8 +102,7 @@ export default class BooksList extends Super {
   }
 
   convertBookTitle(isbn: string): string {
-    const ctx = BooksModule.context(this.$store);
-    const books = ctx.getters.getFilterdBooks;
+    const books = this.getFilterdBooks;
     const findBooks = books.filter(x => x.ISBN === isbn);
     return !findBooks || findBooks.length === 0
       ? "不明な書籍"
@@ -128,8 +127,7 @@ export default class BooksList extends Super {
   }
 
   ShowDetail(isbn: string): void {
-    const ctx = BooksModule.context(this.$store);
-    const books = ctx.getters.getFilterdBooks as IBook[];
+    const books = this.getFilterdBooks as IBook[];
     const findBooks = books.filter(x => x.ISBN === isbn);
     if (!findBooks || findBooks.length === 0) {
       return;
