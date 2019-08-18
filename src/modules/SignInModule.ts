@@ -49,6 +49,11 @@ class SignInActions extends Actions<
       };
       this.commit('setUser', currentUser);
       this.commit('setIsSignIn', true);
+      await firebase
+        .firestore()
+        .collection('user')
+        .doc(currentUser.Id)
+        .set(currentUser, { merge: true });
     } else {
       const currentUser: IUser = nullUser;
       this.commit('setUser', currentUser);
