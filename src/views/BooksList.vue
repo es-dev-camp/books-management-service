@@ -16,6 +16,7 @@
             <img
               v-lazy="book.Cover"
               class="grey lighten-4"
+              style="cursor: pointer;"
               width="128px"
               height="166px"
               @click="ShowDetail(book)"
