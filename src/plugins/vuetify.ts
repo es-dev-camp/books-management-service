@@ -13,9 +13,9 @@ Vue.use(VueLazyload, {
 
 const lightThemeSettings = {
   // TODO: いい感じなテーマカラーにする
-  primary: colors.blue,
+  primary: colors.blue.base,
   // secondary: colors.green.base,
-  accent: colors.pink
+  accent: colors.pink.base
   // error: '#FF5252',
   // info: '#2196F3',
   // success: '#4CAF50',
