@@ -1,6 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import * as booksManagementEvent from '@common/booksManagementEvent';
+
+// FIXME: firebase deploy 時に @common/ が解釈できないため、相対パス指定に戻している
+import * as booksManagementEvent from '../../common/booksManagementEvent';
 import * as moment from 'moment';
 
 const db = admin.firestore();
