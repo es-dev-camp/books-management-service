@@ -1,6 +1,8 @@
-name: DefaultCI
+name: nightly
 
-on: [push, pull_request]
+on:
+  schedule:
+  - cron: 0 1 * * *
 
 jobs:
   build:
