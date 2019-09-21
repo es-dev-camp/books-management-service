@@ -1,5 +1,7 @@
 # book-management-service
 
+![](https://github.com/MakotoUwaya/books-management-service/workflows/DefaultCI/badge.svg)
+
 ## Create .env file
 ```
 touch .env
