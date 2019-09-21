@@ -4,21 +4,28 @@ module.exports = {
     '^.+\\.vue$': 'vue-jest',
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
-    '^.+\\.tsx?$': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'babel-jest'
   },
-  transformIgnorePatterns: ['/node_modules/'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(vuetify/|@storybook/.*\\.vue$|.*\\.css$))'
+  ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   snapshotSerializers: ['jest-serializer-vue'],
   testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
+    '<rootDir>/src/**/*.spec.(ts|tsx)',
+    '<rootDir>/storyshots/storyshots.spec.ts'
   ],
   testURL: 'http://localhost/',
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
   ],
+  collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.{ts,vue}', '!**/node_modules/**'],
+  coverageReporters: ['json', 'lcov', 'text-summary'],
   globals: {
     'ts-jest': {
       babelConfig: true

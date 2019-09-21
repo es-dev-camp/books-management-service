@@ -8,9 +8,10 @@
     "strict": true,
     "target": "es2017",
     "baseUrl": ".",
+    "types": ["jest"],
     "paths": {
       "@common/*": ["../common/*"]
-    },
+    }
   },
   "compileOnSave": true,
   "include": [

@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "jest && npm --prefix functions run test",
+    "build": "vue-cli-service build && npm --prefix functions run build",
+    "serve": "vue-cli-service serve"
   },
   "husky": {
     "hooks": {
@@ -38,7 +39,6 @@
   "devDependencies": {
     "@types/jest": "^23.1.4",
     "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.9.2",
     "@vue/cli-plugin-pwa": "^3.8.0",
     "@vue/cli-plugin-typescript": "^3.8.0",
@@ -51,7 +51,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "firebase-tools": "^7.3.2",
     "husky": "^2.4.1",
+    "jest": "^24.9.0",
     "querystringify": "^2.1.1",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
