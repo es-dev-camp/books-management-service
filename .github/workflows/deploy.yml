@@ -32,4 +32,4 @@ jobs:
     - name: Firebase deploy
       run: |
         ./node_modules/.bin/firebase use release --token ${{ secrets.FIREBASE_TOKEN }}
-        ./node_modules/.bin/firebase deploy --only hosting,firestore --token ${{ secrets.FIREBASE_TOKEN }}
+        ./node_modules/.bin/firebase deploy --only hosting,firestore,functions --token ${{ secrets.FIREBASE_TOKEN }}
