@@ -48,7 +48,7 @@ export function createRouter(store: Store<any>) {
   const signInCtx = SignInModule.context(store);
 
   firebase.auth().onAuthStateChanged(async user => {
-    await signInCtx.actions.updateCurrentUser();
+    await signInCtx.actions.updateCurrentUser(user);
     console.debug('on auth state changed');
     if (user) {
       // NOTE: 認証済みの場合はsign_inを表示できないようにする
