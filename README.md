@@ -1,6 +1,6 @@
 # book-management-service
 
-![](https://github.com/MakotoUwaya/books-management-service/workflows/DefaultCI/badge.svg)
+![](https://github.com/es-dev-camp/books-management-service/workflows/deploy/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/nightly/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/build/badge.svg)
 
 ## Create .env file
 ```
