@@ -120,20 +120,19 @@
 </template>
 
 <script lang="ts">
-import { BooksModule } from "@/modules/BooksModule";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import IUser from "@/model/IUser";
 import IBook from "@/model/IBook.ts";
 import Book from "@/model/Book.ts";
+import { BooksModule } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
   computed: BooksModule.mapGetters(["getCurrentBook"]),
   methods: BooksModule.mapActions(["updateBook"])
 });
-import { Component, Prop, Vue } from "vue-property-decorator";
-import IUser from "@/model/IUser";
 
 @Component({
-  components: { BookDetail },
-  computed: BooksModule.mapGetters(["getCurrentBook"])
+  components: { BookDetail }
 })
 export default class BookDetail extends Super {
   @Prop({ type: Object, default: null })
