@@ -1,13 +1,14 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-layout text-center wrap>
-        <v-flex mb-4>
-          <v-btn color="primary" @click="onSignIn">Google sign in</v-btn>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-app>
+  <v-container>
+    <v-col cols="12">
+      <v-row align="center" justify="center">
+        <v-btn color="primary" @click="onSignIn">sign in</v-btn>
+      </v-row>
+      <v-row align="center" justify="center">
+        <span>BOOKS MANAGER を利用する</span>
+      </v-row>
+    </v-col>
+  </v-container>
 </template>
 
 <script lang="ts">
