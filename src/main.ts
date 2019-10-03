@@ -22,7 +22,8 @@ Vue.filter('displayDate', (value: any) => {
       return `昨日 ${date.format('HH:mm')}`;
     }
     return date.format(dateFormat);
-  } catch {
+  } catch (err) {
+    console.debug(err);
     return 'Unknown';
   }
 });

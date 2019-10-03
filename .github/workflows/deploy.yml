@@ -25,11 +25,11 @@ jobs:
       run: |
         npm ci
         npm --prefix functions ci
-        npm run build --if-present
-        npm test
+        npm run build
+        npm run test:unit
       env:
         CI: true
     - name: Firebase deploy
       run: |
         ./node_modules/.bin/firebase use release --token ${{ secrets.FIREBASE_TOKEN }}
-        ./node_modules/.bin/firebase deploy --only hosting,firestore --token ${{ secrets.FIREBASE_TOKEN }}
+        ./node_modules/.bin/firebase deploy --only hosting,firestore,functions --token ${{ secrets.FIREBASE_TOKEN }}

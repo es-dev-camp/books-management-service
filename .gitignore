@@ -66,3 +66,6 @@ typings/
 # firebase
 .firebase/
 dist/
+
+# git infomation file
+.gitinfo

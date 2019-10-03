@@ -14,17 +14,18 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   snapshotSerializers: ['jest-serializer-vue'],
-  testMatch: [
-    '<rootDir>/src/**/*.spec.(ts|tsx)',
-    '<rootDir>/storyshots/storyshots.spec.ts'
-  ],
+  testMatch: ['**/(src|fuctions)/**/*.spec.(js|jsx|ts|tsx)'],
   testURL: 'http://localhost/',
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
   ],
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{ts,vue}', '!**/node_modules/**'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,vue}',
+    '!**/node_modules/**',
+    '!src/**/*.d.ts'
+  ],
   coverageReporters: ['json', 'lcov', 'text-summary'],
   globals: {
     'ts-jest': {
