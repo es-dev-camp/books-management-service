@@ -72,6 +72,13 @@ export class Auth0Client {
   signOut() {
     this._idToken = null;
     this._profile = nullUser;
+    this._auth0Client.logout({
+      clientID: clientId,
+      federated: false,
+      returnTo: isDevelopMode
+        ? 'http://localhost:8080/'
+        : `https://${process.env.VUE_APP_AUTH_DOMAIN}`
+    });
   }
 }
 
