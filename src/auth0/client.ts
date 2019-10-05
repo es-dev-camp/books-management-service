@@ -40,6 +40,10 @@ export class Auth0Client {
     return this._profile;
   }
 
+  get isSignIn() {
+    return this._idToken !== null;
+  }
+
   handleCallback() {
     return new Promise((resolve, reject) => {
       this._auth0Client.parseHash(async (err, authResult) => {
