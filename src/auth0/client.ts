@@ -26,7 +26,7 @@ export class Auth0Client {
         ? 'http://localhost:8080/'
         : `https://${process.env.VUE_APP_AUTH_DOMAIN}`,
       responseType: 'token id_token',
-      scope: 'openid profile'
+      scope: 'openid profile email'
     });
   }
 
@@ -54,8 +54,7 @@ export class Auth0Client {
         const user = authResult.idTokenPayload;
         this._profile = {
           Id: user.sub,
-          // TODO: Email 情報を取得したい
-          Email: '',
+          Email: user.email,
           displayName: user.name,
           photoURL: user.picture
         } as IUser;

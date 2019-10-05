@@ -48,6 +48,9 @@ class SignInMutations extends Mutations<SignInState> {
       displayName: profile.displayName,
       photoURL: profile.photoURL
     });
+    if (profile.Email) {
+      await currentUser.updateEmail(profile.Email);
+    }
 
     await firebase
       .firestore()
