@@ -2,8 +2,11 @@ import auth0 from 'auth0-js';
 import IUser from '@/model/IUser';
 
 const appDomain = process.env.VUE_APP_AUTH0_DOMAIN;
-const clientId = process.env.VUE_APP_AUTH0_API_AUDIENCE;
+const clientID = process.env.VUE_APP_AUTH0_API_AUDIENCE;
 const isDevelopMode = process.env.NODE_ENV === 'develop';
+const redirectUri = isDevelopMode
+  ? 'http://localhost:8080'
+  : `https://${process.env.VUE_APP_AUTH_DOMAIN}`;
 
 const nullUser: IUser = {
   Id: '',
@@ -21,10 +24,8 @@ export class Auth0Client {
     this._auth0Client = new auth0.WebAuth({
       domain: appDomain,
       audience: `https://${appDomain}/userinfo`,
-      clientID: clientId,
-      redirectUri: isDevelopMode
-        ? 'http://localhost:8080/'
-        : `https://${process.env.VUE_APP_AUTH_DOMAIN}`,
+      clientID,
+      redirectUri,
       responseType: 'token id_token',
       scope: 'openid profile email'
     });
@@ -65,19 +66,20 @@ export class Auth0Client {
     });
   }
 
-  signIn() {
-    this._auth0Client.authorize();
+  signIn(redirectPath: string) {
+    console.log(redirectUri, redirectPath);
+    this._auth0Client.authorize({
+      redirectUri: `${redirectUri}${redirectPath}`
+    });
   }
 
   signOut() {
     this._idToken = null;
     this._profile = nullUser;
     this._auth0Client.logout({
-      clientID: clientId,
+      clientID,
       federated: false,
-      returnTo: isDevelopMode
-        ? 'http://localhost:8080/'
-        : `https://${process.env.VUE_APP_AUTH_DOMAIN}`
+      returnTo: redirectUri
     });
   }
 }
