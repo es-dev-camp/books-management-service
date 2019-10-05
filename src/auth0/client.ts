@@ -28,6 +28,7 @@ export class Auth0Client {
       responseType: 'token id_token',
       scope: 'openid profile email'
     });
+    // TODO: ここでSSOの認証状態を確認して SignIn.vue に遷移しないようにする
   }
 
   get idToken() {

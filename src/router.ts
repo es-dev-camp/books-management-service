@@ -66,7 +66,7 @@ export function createRouter(store: Store<any>) {
     ) {
       let counter = 0;
       const interval = 100;
-      const waitMaxmiliSec = 3000;
+      const waitMaxmiliSec = 1500;
       const iid = setInterval(() => {
         if (counter < waitMaxmiliSec / interval) {
           counter++;

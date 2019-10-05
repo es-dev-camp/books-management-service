@@ -1,14 +1,5 @@
 <template>
-  <v-container>
-    <v-col cols="12">
-      <v-row align="center" justify="center">
-        <v-btn color="primary" @click="onSignIn">sign in</v-btn>
-      </v-row>
-      <v-row align="center" justify="center">
-        <span>BOOKS MANAGER を利用する</span>
-      </v-row>
-    </v-col>
-  </v-container>
+  <div></div>
 </template>
 
 <script lang="ts">
@@ -21,7 +12,7 @@ const Super = Vue.extend({
 
 @Component
 export default class Login extends Super {
-  async onSignIn() {
+  async created() {
     await this.signIn();
   }
 }
