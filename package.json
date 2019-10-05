@@ -5,8 +5,8 @@
   "scripts": {
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "build": "vue-cli-service build && npm --prefix functions run build",
-    "serve": "vue-cli-service serve"
+    "build": "vue-cli-service build --mode production && npm --prefix functions run build",
+    "serve": "vue-cli-service serve --mode develop"
   },
   "husky": {
     "hooks": {

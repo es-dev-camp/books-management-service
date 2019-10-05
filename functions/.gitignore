@@ -10,4 +10,4 @@ node_modules/
 
 # firebase config files
 .runtimeconfig.json
-firebase-key.json
+admin.json

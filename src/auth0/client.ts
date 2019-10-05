@@ -3,7 +3,7 @@ import IUser from '@/model/IUser';
 
 const appDomain = process.env.VUE_APP_AUTH0_DOMAIN;
 const clientId = process.env.VUE_APP_AUTH0_API_AUDIENCE;
-const isDevelopMode = process.env.VUE_APP_BUILD_MODE === 'develop';
+const isDevelopMode = process.env.NODE_ENV === 'develop';
 
 const nullUser: IUser = {
   Id: '',

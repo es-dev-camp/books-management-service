@@ -2,7 +2,7 @@ import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import firebase from 'firebase/app';
 import { Auth0Client, auth0Client } from '@/auth0/client';
 
-const isDevelopMode = process.env.VUE_APP_BUILD_MODE === 'develop';
+const isDevelopMode = process.env.NODE_ENV === 'develop';
 
 class SignInState {
   user: Auth0Client = auth0Client;
