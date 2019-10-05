@@ -5,4 +5,9 @@
 # Typescript v1 declaration files
 typings/
 
+# node modules
 node_modules/
+
+# firebase config files
+.runtimeconfig.json
+admin.json

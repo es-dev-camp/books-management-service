@@ -1,21 +1,17 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import firebase from 'firebase/app';
-import IUser from '@/model/IUser';
+import { Auth0Client, auth0Client } from '@/auth0/client';
 
-const nullUser: IUser = {
-  Id: '',
-  Email: '',
-  displayName: 'Anonymous',
-  photoURL: null
-};
+const isDevelopMode = process.env.NODE_ENV === 'develop';
+
 class SignInState {
-  user: IUser = nullUser;
+  user: Auth0Client = auth0Client;
   isSignIn: boolean = false;
 }
 
 class SignInGetters extends Getters<SignInState> {
   get getUser() {
-    return this.state.user ? this.state.user : nullUser;
+    return this.state.user.profile;
   }
 
   get isSignIn() {
@@ -24,11 +20,57 @@ class SignInGetters extends Getters<SignInState> {
 }
 
 class SignInMutations extends Mutations<SignInState> {
-  setUser(user: IUser) {
-    this.state.user = user;
+  async setFirebaseCustomToken(user: firebase.User | null) {
+    const response = await fetch(
+      isDevelopMode
+        ? `http://localhost:5000/${process.env.VUE_APP_PROJECT_ID}/us-central1/auth`
+        : `https://us-central1-${process.env.VUE_APP_PROJECT_ID}.cloudfunctions.net/auth`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.user.idToken}`
+        }
+      }
+    );
+
+    // 受け取ったトークンを使ってサインインする
+    const data = await response.json();
+    await firebase.auth().signInWithCustomToken(data.firebaseToken);
+
+    // Firebase の認証結果を確認して情報更新
+    const currentUser = firebase.auth().currentUser;
+    console.log('currentUser', currentUser);
+    if (!currentUser) {
+      return;
+    }
+
+    const profile = this.state.user.profile;
+    await currentUser.updateProfile({
+      displayName: profile.displayName,
+      photoURL: profile.photoURL
+    });
+    if (profile.Email) {
+      await currentUser.updateEmail(profile.Email);
+    }
+
+    await firebase
+      .firestore()
+      .collection('user')
+      .doc(profile.Id)
+      .set(profile, { merge: true });
   }
-  setIsSignIn(flag: boolean) {
-    this.state.isSignIn = flag;
+  async updateCurrentUser(user: firebase.User | null) {
+    const loggedInThroughCallback = await auth0Client.handleCallback();
+    if (loggedInThroughCallback) {
+      this.state.isSignIn = true;
+      await this.setFirebaseCustomToken(user);
+    }
+  }
+  async signIn(_: null) {
+    this.state.user.signIn();
+  }
+  async signOut(_: null) {
+    this.state.user.signOut();
+    this.state.isSignIn = false;
   }
 }
 
@@ -38,47 +80,16 @@ class SignInActions extends Actions<
   SignInMutations,
   SignInActions
 > {
-  async updateCurrentUser() {
-    const firebaseUser = await firebase.auth().currentUser;
-    if (firebaseUser) {
-      const currentUser: IUser = {
-        Id: firebaseUser.uid,
-        Email: firebaseUser.email,
-        displayName: firebaseUser.displayName,
-        photoURL: firebaseUser.photoURL
-      };
-      this.commit('setUser', currentUser);
-      this.commit('setIsSignIn', true);
-      await firebase
-        .firestore()
-        .collection('user')
-        .doc(currentUser.Id)
-        .set(currentUser, { merge: true });
-    } else {
-      const currentUser: IUser = nullUser;
-      this.commit('setUser', currentUser);
-      this.commit('setIsSignIn', false);
-    }
+  async updateCurrentUser(user: firebase.User | null) {
+    this.commit('updateCurrentUser', user);
+    console.log('updateCurrentUser');
   }
   async signIn() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    await firebase
-      .auth()
-      .signInWithPopup(provider)
-      .catch(err => {
-        console.log('error: ', err);
-      });
+    this.commit('signIn', null);
     console.log('signIn');
   }
-
   async signOut() {
-    await firebase
-      .auth()
-      .signOut()
-      .catch(err => {
-        console.log('error: ', err);
-      });
+    this.commit('signOut', null);
     console.log('signOut');
   }
 }

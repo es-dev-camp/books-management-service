@@ -48,7 +48,7 @@ export function createRouter(store: Store<any>) {
   const signInCtx = SignInModule.context(store);
 
   firebase.auth().onAuthStateChanged(async user => {
-    await signInCtx.actions.updateCurrentUser();
+    await signInCtx.actions.updateCurrentUser(user);
     console.debug('on auth state changed');
     if (user) {
       // NOTE: 認証済みの場合はsign_inを表示できないようにする
@@ -66,7 +66,7 @@ export function createRouter(store: Store<any>) {
     ) {
       let counter = 0;
       const interval = 100;
-      const waitMaxmiliSec = 3000;
+      const waitMaxmiliSec = 1500;
       const iid = setInterval(() => {
         if (counter < waitMaxmiliSec / interval) {
           counter++;

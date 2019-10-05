@@ -1,4 +1,3 @@
-const buildTarget = process.env.VUE_APP_BUILDTARGET;
 const devTool = process.env.VUE_APP_DEVTOOL;
 const path = require('path');
 

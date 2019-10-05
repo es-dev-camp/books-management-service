@@ -1,23 +1,21 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-layout text-center wrap>
-        <v-flex mb-4>
-          <v-btn color="primary" @click="signIn">Google sign in</v-btn>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-app>
+  <div></div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { SignInModule } from "@/modules/SignInModule";
 
-@Component({
+const Super = Vue.extend({
   methods: SignInModule.mapActions(["signIn"])
-})
-export default class Login extends Vue {}
+});
+
+@Component
+export default class Login extends Super {
+  async created() {
+    await this.signIn();
+  }
+}
 </script>
 
 <style></style>
