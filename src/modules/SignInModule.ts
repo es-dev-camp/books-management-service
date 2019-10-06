@@ -6,7 +6,6 @@ const isDevelopMode = process.env.NODE_ENV === 'develop';
 
 class SignInState {
   user: Auth0Client = auth0Client;
-  isSignIn: boolean = false;
 }
 
 class SignInGetters extends Getters<SignInState> {
@@ -15,7 +14,7 @@ class SignInGetters extends Getters<SignInState> {
   }
 
   get isSignIn() {
-    return this.state.isSignIn;
+    return this.state.user.isSignIn;
   }
 }
 
@@ -61,16 +60,14 @@ class SignInMutations extends Mutations<SignInState> {
   async updateCurrentUser(user: firebase.User | null) {
     const loggedInThroughCallback = await auth0Client.handleCallback();
     if (loggedInThroughCallback) {
-      this.state.isSignIn = true;
       await this.setFirebaseCustomToken(user);
     }
   }
-  async signIn(_: null) {
-    this.state.user.signIn();
+  async signIn(redirectUri: string) {
+    this.state.user.signIn(redirectUri);
   }
   async signOut(_: null) {
     this.state.user.signOut();
-    this.state.isSignIn = false;
   }
 }
 
@@ -84,8 +81,8 @@ class SignInActions extends Actions<
     this.commit('updateCurrentUser', user);
     console.log('updateCurrentUser');
   }
-  async signIn() {
-    this.commit('signIn', null);
+  async signIn(redirectUri: string) {
+    this.commit('signIn', redirectUri);
     console.log('signIn');
   }
   async signOut() {

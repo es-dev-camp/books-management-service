@@ -3,7 +3,6 @@ import { Store } from 'vuex';
 import Router from 'vue-router';
 import { RouteConfig } from 'vue-router';
 
-import SignIn from '@/views/SignIn.vue';
 import Books from '@/views/BooksList.vue';
 import Register from '@/views/Register.vue';
 import BookEventList from '@/views/BookEventList.vue';
@@ -27,16 +26,7 @@ export const AppRoutes: RouteConfig[] = [
   }
 ];
 
-export const SignInRoute: RouteConfig = {
-  path: '/signin',
-  name: 'SignIn',
-  component: SignIn,
-  meta: {
-    noAuth: true
-  }
-};
-
-export const Routes: RouteConfig[] = [...AppRoutes, SignInRoute];
+export const Routes: RouteConfig[] = [...AppRoutes];
 
 export function createRouter(store: Store<any>) {
   const router = new Router({
@@ -50,13 +40,6 @@ export function createRouter(store: Store<any>) {
   firebase.auth().onAuthStateChanged(async user => {
     await signInCtx.actions.updateCurrentUser(user);
     console.debug('on auth state changed');
-    if (user) {
-      // NOTE: 認証済みの場合はsign_inを表示できないようにする
-      if (location.href.indexOf(SignInRoute.path) > -1) {
-        console.log('push', AppRoutes[0].path);
-        router.push(AppRoutes[0].path);
-      }
-    }
   });
 
   router.beforeEach((to, from, next) => {
@@ -67,7 +50,7 @@ export function createRouter(store: Store<any>) {
       let counter = 0;
       const interval = 100;
       const waitMaxmiliSec = 1500;
-      const iid = setInterval(() => {
+      const iid = setInterval(async () => {
         if (counter < waitMaxmiliSec / interval) {
           counter++;
           if (signInCtx.getters.isSignIn) {
@@ -79,10 +62,7 @@ export function createRouter(store: Store<any>) {
           clearInterval(iid);
           if (!signInCtx.getters.isSignIn) {
             console.log('move signIn');
-            next({
-              path: '/signin',
-              query: { redirect: to.fullPath }
-            });
+            await signInCtx.actions.signIn(to.fullPath);
           }
         }
       }, interval);
