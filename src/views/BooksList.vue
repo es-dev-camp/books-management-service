@@ -1,33 +1,31 @@
 <template>
-  <v-container grid-list-xs fluid>
-    <v-layout align-start justify-start row wrap>
-      <v-flex
+  <v-container fluid>
+    <v-row>
+      <v-col
         d-flex
-        xs4
-        sm3
-        md2
-        lg2
-        xl1
+        cols="4"
+        sm="3"
+        md="2"
+        lg="2"
+        xl="1"
         v-for="book in getFilterdBooks"
         v-bind:key="book.ISBN"
       >
-        <v-layout align-center justify-start column>
-          <v-flex d-flex>
-            <img
-              v-lazy="book.Cover"
-              class="grey lighten-4"
-              style="cursor: pointer;"
-              width="128px"
-              height="166px"
-              @click="ShowDetail(book)"
-            />
-          </v-flex>
-          <v-flex d-flex>
-            <span>{{ book.Title }}</span>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
+        <v-row align="center" justify="center">
+          <img
+            v-lazy="book.Cover"
+            class="grey lighten-4"
+            style="cursor: pointer;"
+            width="128px"
+            height="166px"
+            @click="ShowDetail(book)"
+          />
+        </v-row>
+        <v-row align="center" justify="center">
+          <span>{{ book.Title }}</span>
+        </v-row>
+      </v-col>
+    </v-row>
     <v-dialog
       :value="isShowDetail"
       @input="isShowDetail = false"
