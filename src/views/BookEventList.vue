@@ -1,48 +1,46 @@
 <template>
   <v-container grid-list-xs fluid>
-    <v-layout align-start justify-start row>
-      <v-row>
-        <v-col>
-          <div v-for="(item, index) in getBookEventList" v-bind:key="index">
-            <v-card
-              v-if="convertBookTitle(item.book) !== '不明な書籍'"
-              class="pa-2 ma-2"
-            >
-              <v-container class="pa-0 ma-0" justify-start>
-                <v-row no-gutters>
-                  <v-col
-                    cols="12"
-                    xs="12"
-                    sm="2"
-                    md="2"
-                    lg="1"
-                    xl="1"
-                    class="pa-1"
-                  >
-                    {{ item.ts | displayDate }}
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    xs="12"
-                    sm="10"
-                    md="10"
-                    lg="11"
-                    xl="11"
-                    class="pa-1"
-                  >
-                    {{ convertUserName(item.user) }} が
-                    <span class="primary--text" @click="ShowDetail(item.book)">
-                      {{ convertBookTitle(item.book) }}
-                    </span>
-                    を {{ convertOperationStr(item.subtype) }}
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card>
-          </div>
-        </v-col>
-      </v-row>
-    </v-layout>
+    <v-row>
+      <v-col>
+        <div v-for="(item, index) in getBookEventList" v-bind:key="index">
+          <v-card
+            v-if="convertBookTitle(item.book) !== '不明な書籍'"
+            class="pa-2 ma-2"
+          >
+            <v-container class="pa-0 ma-0" justify-start>
+              <v-row no-gutters>
+                <v-col
+                  cols="12"
+                  xs="12"
+                  sm="2"
+                  md="2"
+                  lg="1"
+                  xl="1"
+                  class="pa-1"
+                >
+                  {{ item.ts | displayDate }}
+                </v-col>
+                <v-col
+                  cols="12"
+                  xs="12"
+                  sm="10"
+                  md="10"
+                  lg="11"
+                  xl="11"
+                  class="pa-1"
+                >
+                  {{ convertUserName(item.user) }} が
+                  <span class="primary--text" @click="ShowDetail(item.book)">
+                    {{ convertBookTitle(item.book) }}
+                  </span>
+                  を {{ convertOperationStr(item.subtype) }}
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </div>
+      </v-col>
+    </v-row>
     <v-dialog
       :value="isShowDetail"
       @input="isShowDetail = false"

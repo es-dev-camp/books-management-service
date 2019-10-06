@@ -27,27 +27,27 @@
     </v-card-title>
 
     <v-card-text class="pt-2">
-      <v-layout align-start wrap>
-        <v-flex xs2>
+      <v-row>
+        <v-col cols="12" sm="2">
           <v-img :src="getCurrentBook.Cover" />
-        </v-flex>
-        <v-flex xs6 class="px-2">
-          <v-layout align-center wrap>
-            <v-flex xs12>
-              <v-text-field
-                v-if="isEditMode"
-                :readonly="!isEditMode"
-                label="title"
-                v-model="getCurrentBook.Title"
-              />
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                :readonly="!isEditMode"
-                label="publishDate"
-                v-model="getCurrentBook.PublishDate"
-              />
-            </v-flex>
+        </v-col>
+        <v-col cols="12" sm="6" class="px-2">
+          <v-row>
+            <v-text-field
+              v-if="isEditMode"
+              :readonly="!isEditMode"
+              label="title"
+              v-model="getCurrentBook.Title"
+            />
+          </v-row>
+          <v-row>
+            <v-text-field
+              :readonly="!isEditMode"
+              label="publishDate"
+              v-model="getCurrentBook.PublishDate"
+            />
+          </v-row>
+          <v-row>
             <v-combobox
               v-model="getCurrentBook.Authors"
               :readonly="!isEditMode"
@@ -66,15 +66,15 @@
                 </v-chip>
               </template>
             </v-combobox>
-            <!-- <v-flex xs12>
+          </v-row>
+          <!-- <v-row>
               登録: {{ getCurrentBook.Created | displayDate }} ({{ getCurrentBook.CreatedUserName }})
-            </v-flex>
-            <v-flex xs12>
+          </v-row> -->
+          <!-- <v-row>
               更新: {{ getCurrentBook.Modified | displayDate }} ({{ getCurrentBook.ModifiedUserName }})
-            </v-flex> -->
-          </v-layout>
-        </v-flex>
-        <v-flex xs4 class="px-2">
+          </v-row> -->
+        </v-col>
+        <v-col cols="12" sm="4" class="px-2">
           <span v-if="getCurrentBook.OnLoan">
             <v-btn
               outlined
@@ -99,15 +99,15 @@
           >
           <div>最終貸出日: {{ this.readableTime }}</div>
           <div>ISBN: {{ getCurrentBook.ISBN }}</div>
-        </v-flex>
-      </v-layout>
-      <v-flex xs12>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-textarea
           :readonly="!isEditMode"
           label="Description"
           :value="getCurrentBook.Comment"
         />
-      </v-flex>
+      </v-row>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>

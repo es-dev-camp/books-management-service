@@ -1,38 +1,26 @@
 <template>
-  <v-container fill-width fluid grid-list-xl>
-    <v-layout row justify-center>
-      <v-flex xs12 sm6>
+  <v-container>
+    <v-row align="center" justify="center" class="my-10">
+      <v-col cols="12" sm="6">
         <v-text-field
           autofocus
-          placeholder="Input ISBN-13 code, and Press Enter key."
+          placeholder="1234567890123"
+          hint="Input ISBN-13 code, and Press Enter key."
+          persistent-hint
           class="purple-input"
+          label="ISBN Code"
           v-model="isbn"
           v-on:keydown.enter="AddBook"
           style="ime-mode:inactive;"
         />
-      </v-flex>
-      <v-snackbar
-        :top="snack.Top"
-        :bottom="snack.Bottom"
-        :left="snack.Left"
-        :right="snack.Right"
-        :color="snack.Color"
-        v-model="snack.IsVisible"
-        dark
-      >
-        <v-icon color="white" class="mr-3">mdi-bell-plus</v-icon>
-        <div>{{ snack.Message }}</div>
-        <v-icon size="16" @click="snack.IsVisible = false"
-          >mdi-close-circle</v-icon
-        >
-      </v-snackbar>
-    </v-layout>
+      </v-col>
+    </v-row>
 
-    <v-layout row wrap justify-center>
-      <v-flex xs12>
+    <v-row align="center" justify="center">
+      <v-col cols="12">
         <v-progress-linear :indeterminate="isBusy" />
-      </v-flex>
-      <v-flex xs12 md6>
+      </v-col>
+      <v-col cols="12" sm="6">
         <v-card>
           <v-card-title class="headline grey lighten-2" primary-title>
             {{ registeredBook.Title }}
@@ -108,8 +96,23 @@
           </v-list>
           <v-img :src="registeredBook.Cover" />
         </v-card>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
+    <v-snackbar
+      :top="snack.Top"
+      :bottom="snack.Bottom"
+      :left="snack.Left"
+      :right="snack.Right"
+      :color="snack.Color"
+      v-model="snack.IsVisible"
+      dark
+    >
+      <v-icon color="white" class="mr-3">mdi-bell-plus</v-icon>
+      <div>{{ snack.Message }}</div>
+      <v-icon size="16" @click="snack.IsVisible = false"
+        >mdi-close-circle</v-icon
+      >
+    </v-snackbar>
   </v-container>
 </template>
 
