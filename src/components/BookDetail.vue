@@ -170,6 +170,11 @@ export default class BookDetail extends Super {
   }
 
   async Commit(): Promise<any> {
+    if (!this.CurrentUser) {
+      console.error("Cannot save. Failed to load user profile.");
+      return;
+    }
+
     this.getCurrentBook.Modified = new Date();
     this.getCurrentBook.ModifiedUserId = this.CurrentUser.Id;
     await this.getCurrentBook.Save();
