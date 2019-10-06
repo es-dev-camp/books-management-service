@@ -1,5 +1,5 @@
 import firebase from '@/firebase/firestore';
-import { IUser, userCollectionName } from './IUser';
+import { IUser, userCollectionName } from '@common/IUser';
 
 export class Users {
   static cache: IUser[] = [];

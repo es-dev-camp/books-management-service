@@ -1,7 +1,7 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
-import IBook from '@/model/IBook.ts';
-import { Timestamp } from './Timestamp';
+import { Timestamp } from '@common/Timestamp';
+import IBook from '@common/IBook';
 
 export default class Book implements IBook {
   public static async Init(isbn: string, userId: string): Promise<any> {

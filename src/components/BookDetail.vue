@@ -121,9 +121,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { IUser } from "@/model/IUser";
-import IBook from "@/model/IBook.ts";
-import Book from "@/model/Book.ts";
+import { IUser } from "@common/IUser";
+import IBook from "@common/IBook";
+import Book from "@/model/Book";
 import { BooksModule } from "@/modules/BooksModule";
 
 const Super = Vue.extend({

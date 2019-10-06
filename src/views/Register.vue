@@ -119,7 +119,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Book from "@/model/Book.ts";
-import IBook from "@/model/IBook.ts";
+import IBook from "@common/IBook";
 import Snack from "@/model/Snack.ts";
 import { BooksModule } from "@/modules/BooksModule";
 import { SignInModule } from "@/modules/SignInModule";
