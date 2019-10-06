@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from '@/firebase/firestore';
 import { Store } from 'vuex';
 import Router from 'vue-router';
 import { RouteConfig } from 'vue-router';
