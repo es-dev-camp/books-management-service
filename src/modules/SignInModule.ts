@@ -63,8 +63,8 @@ class SignInMutations extends Mutations<SignInState> {
       await this.setFirebaseCustomToken(user);
     }
   }
-  async signIn(_: null) {
-    this.state.user.signIn();
+  async signIn(redirectUri: string) {
+    this.state.user.signIn(redirectUri);
   }
   async signOut(_: null) {
     this.state.user.signOut();
@@ -81,8 +81,8 @@ class SignInActions extends Actions<
     this.commit('updateCurrentUser', user);
     console.log('updateCurrentUser');
   }
-  async signIn() {
-    this.commit('signIn', null);
+  async signIn(redirectUri: string) {
+    this.commit('signIn', redirectUri);
     console.log('signIn');
   }
   async signOut() {
