@@ -4,7 +4,10 @@ import { Timestamp } from '@common/Timestamp';
 import IBook from '@common/IBook';
 
 export default class Book implements IBook {
-  public static async Init(isbn: string, userId: string): Promise<any> {
+  public static async Init(
+    isbn: string,
+    userId: string
+  ): Promise<IBook | null> {
     try {
       const summary = await Book.GetBookInfo(isbn);
       if (summary === null) {
@@ -82,15 +85,13 @@ export default class Book implements IBook {
   public Publisher: string = '';
   public Comment: string = '';
   public Created!: Date;
-  public CreatedUserId: string = '';
-  public CreatedUserName: string = '';
+  public CreatedUserId: string | null = '';
   public Modified!: Date;
-  public ModifiedUserId: string = '';
-  public ModifiedUserName: string = '';
+  public ModifiedUserId: string | null = '';
   public Location: string = '';
-  public OnLoan?: boolean = false;
-  public LastBorrowUserId?: string = '';
-  public LastBorrowTimestamp?: null | Timestamp = null;
+  public OnLoan: boolean | null = false;
+  public LastBorrowUserId: string | null = '';
+  public LastBorrowTimestamp: Timestamp | null = null;
 
   public get CreatedInfo(): string {
     if (this.Created === undefined) {
@@ -121,10 +122,13 @@ export default class Book implements IBook {
   }
 
   public async Save(): Promise<any> {
-    await Book.collection.doc(this.ISBN).set(Object.assign({}, this));
+    await Book.collection
+      .doc(this.ISBN)
+      .set(Object.assign({}, this) as Partial<IBook>);
   }
 
   public async Rent(userId: string): Promise<void> {
+    // TODO: Partial<IBook> 型のデータを update() する
     return await Book.collection.doc(this.ISBN).update({
       OnLoan: true,
       LastBorrowUserId: userId,
@@ -135,6 +139,6 @@ export default class Book implements IBook {
   public async Return(): Promise<void> {
     return await Book.collection.doc(this.ISBN).update({
       OnLoan: false
-    });
+    } as Partial<IBook>);
   }
 }

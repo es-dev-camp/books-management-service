@@ -145,7 +145,7 @@ export default class Register extends Super {
       return;
     }
 
-    const book = (await Book.Init(this.isbn, this.getUser.Id)) as IBook;
+    const book = await Book.Init(this.isbn, this.getUser.Id);
     if (book === null) {
       this.ShowSnack("warning", `Not found book infomation ${this.isbn}`, [
         "top"

@@ -15,20 +15,20 @@ export const func = functions.firestore
     console.log('triggered onWrite Book (' + context.params.isbn + ')');
 
     if (!change.before.exists) {
-      const d = change.after.data();
+      const d = change.after.data() as Partial<IBook>;
       if (!d) {
         throw new Error('change.after.data() is undefined.');
       }
       await createEventData(
         context,
         booksManagementEvent.BookEventType.created,
-        d.CreatedUserId
+        d.CreatedUserId ? d.CreatedUserId : ''
       );
       return 0;
     }
 
     if (!change.after.exists) {
-      const d = change.after.data();
+      const d = change.after.data() as Partial<IBook>;
       if (!d) {
         throw new Error('change.after.data() is undefined.');
       }
@@ -41,15 +41,15 @@ export const func = functions.firestore
       return 0;
     }
 
-    const beforeData = change.before.data();
-    const afterData = change.after.data();
+    const beforeData = change.before.data() as Partial<IBook>;
+    const afterData = change.after.data() as Partial<IBook>;
     if (!beforeData || !afterData) {
       throw new Error('dat() is undefined.');
     }
 
     if (!beforeData.OnLoan !== !afterData.OnLoan) {
       if (afterData.OnLoan) {
-        const d = change.after.data();
+        const d = change.after.data() as Partial<IBook>;
         if (!d || !d.LastBorrowUserId) {
           throw new Error('change.after.data() is undefined.');
         }
@@ -60,7 +60,7 @@ export const func = functions.firestore
         );
         return 0;
       } else {
-        const d = change.after.data();
+        const d = change.after.data() as Partial<IBook>;
         if (!d || !d.LastBorrowUserId) {
           throw new Error('change.after.data() is undefined.');
         }
@@ -72,7 +72,7 @@ export const func = functions.firestore
         return 0;
       }
     } else {
-      const d = change.after.data();
+      const d = change.after.data() as Partial<IBook>;
       if (!d || !d.ModifiedUserId) {
         throw new Error('change.after.data() is undefined.');
       }
@@ -89,7 +89,7 @@ export const func = functions.firestore
 async function createEventData(
   context: functions.EventContext,
   eventSubType: booksManagementEvent.BookEventType,
-  user: string
+  userId: string
 ) {
   const eventTime = moment(context.timestamp);
   const ts = new admin.firestore.Timestamp(
@@ -103,7 +103,7 @@ async function createEventData(
     id: context.eventId,
     type: booksManagementEvent.EventType.book,
     subtype: eventSubType,
-    user: user
+    user: userId
   };
   const result = await db.collection('audit').add(newEvent);
   console.log(`Successfully added book event log (${result.id})`);
