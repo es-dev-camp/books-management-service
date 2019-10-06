@@ -102,9 +102,9 @@ export default class Book implements IBook {
     if (!(created instanceof Date)) {
       this.Created = created.toDate();
     }
-    return `${this.Created.toLocaleString('ja-JP', {
+    return this.Created.toLocaleString('ja-JP', {
       timeZone: 'Asia/Tokyo'
-    })} --${this.CreatedUserId}`;
+    });
   }
 
   public get ModifiedInfo(): string {
@@ -116,9 +116,9 @@ export default class Book implements IBook {
     if (!(modified instanceof Date)) {
       this.Modified = modified.toDate();
     }
-    return `${this.Modified.toLocaleString('ja-JP', {
+    return this.Modified.toLocaleString('ja-JP', {
       timeZone: 'Asia/Tokyo'
-    })} --${this.ModifiedUserId}`;
+    });
   }
 
   public async Save(): Promise<any> {
