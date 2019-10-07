@@ -60,7 +60,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { AuditModule } from "@/modules/AuditModule";
 import { BooksModule } from "@/modules/BooksModule";
 import { SignInModule } from "@/modules/SignInModule";
-import { UserModule } from "@/modules/UserModule";
+import { Users, getUser } from "@/model/Users";
 import * as booksManagementEvent from "@common/booksManagementEvent";
 import IBook from "@/model/IBook";
 import BookDetail from "../components/BookDetail.vue";
@@ -68,14 +68,12 @@ import BookDetail from "../components/BookDetail.vue";
 const Super = Vue.extend({
   methods: {
     ...BooksModule.mapActions(["updateList", "setCurrentBook"]),
-    ...AuditModule.mapActions(["updateBookEventList"]),
-    ...UserModule.mapActions(["updateUserList"])
+    ...AuditModule.mapActions(["updateBookEventList"])
   },
   computed: {
     ...BooksModule.mapGetters(["getFilterdBooks"]),
     ...AuditModule.mapGetters(["getBookEventList"]),
-    ...SignInModule.mapGetters(["getUser"]),
-    ...UserModule.mapGetters(["getUserList"])
+    ...SignInModule.mapGetters(["getUser"])
   }
 });
 
@@ -88,15 +86,11 @@ export default class BooksList extends Super {
   async created() {
     await this.updateList();
     await this.updateBookEventList();
-    await this.updateUserList();
   }
 
   convertUserName(userId: string): string {
-    const users = this.getUserList;
-    const findUsers = users.filter(x => x.Id === userId);
-    return !findUsers || findUsers.length === 0
-      ? "不明な人物"
-      : "" + findUsers[0].displayName;
+    const user = getUser(userId);
+    return user && user.displayName ? user.displayName : "不明な人物";
   }
 
   convertBookTitle(isbn: string): string {
