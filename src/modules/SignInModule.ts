@@ -1,5 +1,5 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
-import firebase from 'firebase/app';
+import firebase from '@/firebase/firestore';
 import { Auth0Client, auth0Client } from '@/auth0/client';
 
 const isDevelopMode = process.env.NODE_ENV === 'develop';
