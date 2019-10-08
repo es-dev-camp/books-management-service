@@ -39,7 +39,7 @@ export default class Book implements IBook {
       await Book.SetCreated(book);
       return book;
     } catch (error) {
-      console.exception(error);
+      console.error(error);
       return null;
     }
   }

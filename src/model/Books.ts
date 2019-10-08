@@ -14,7 +14,7 @@ export default class Books {
       });
       return books;
     } catch (error) {
-      console.exception(error);
+      console.error(error);
     }
   }
 
@@ -28,7 +28,7 @@ export default class Books {
       }
       book = this.Wrap(bookData);
     } catch (error) {
-      console.exception(error);
+      console.error(error);
     }
     return book;
   }

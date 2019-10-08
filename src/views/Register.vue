@@ -163,7 +163,7 @@ export default class Register extends Super {
       this.ShowSnack("success", "Successfull data save to FireStore.", ["top"]);
     } catch (error) {
       this.ShowSnack("error", "Failed save.", ["top"]);
-      console.exception(error);
+      console.error(error);
     } finally {
       this.ClearInput();
     }
