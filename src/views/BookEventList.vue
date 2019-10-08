@@ -93,12 +93,10 @@ export default class BooksList extends Super {
     return user && user.displayName ? user.displayName : "不明な人物";
   }
 
-  convertBookTitle(isbn: string): string {
+  convertBookTitle(isbn: string) {
     const books = this.getFilterdBooks;
-    const findBooks = books.filter(x => x.ISBN === isbn);
-    return !findBooks || findBooks.length === 0
-      ? "不明な書籍"
-      : findBooks[0].Title;
+    const book = books.find(x => x.ISBN === isbn);
+    return book ? book.Title : "不明な書籍";
   }
 
   convertOperationStr(subtype: string): string {
