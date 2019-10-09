@@ -143,7 +143,7 @@ export default class Register extends Super {
     this.isBusy = true;
 
     if (this.isbn === "" || this.isbn.length !== 13) {
-      this.ShowSnack("warning", "Invalid input for ISBN-13", ["top"]);
+      this.ShowSnack("warning", "Invalid input for ISBN-13");
       this.ClearInput();
       return;
     }
@@ -163,9 +163,9 @@ export default class Register extends Super {
       await book.Save();
       this.registeredBook = book;
       await this.updateList();
-      this.ShowSnack("success", "Successfull data save to FireStore.", ["top"]);
+      this.ShowSnack("success", "Successfull data save to FireStore.");
     } catch (error) {
-      this.ShowSnack("error", "Failed save.", ["top"]);
+      this.ShowSnack("error", "Failed save.");
       console.error(error);
     } finally {
       this.ClearInput();
@@ -182,7 +182,7 @@ export default class Register extends Super {
     return user && user.displayName ? user.displayName : "";
   }
 
-  ShowSnack(color: string, message: string, args: string[]): void {
+  ShowSnack(color: string, message: string, args: string[] = ["top"]): void {
     this.snack.Show(color, message, args);
   }
 }
