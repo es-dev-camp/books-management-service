@@ -5,10 +5,7 @@ import { IGoogleBookInfo } from '@common/IGoogleBookInfo';
 import { Timestamp } from '@common/Timestamp';
 
 export default class Book implements IBook {
-  public static async Init(
-    isbn: string,
-    userId: string
-  ): Promise<IBook | undefined> {
+  public static async Init(isbn: string, userId: string) {
     try {
       const summary = await Book.GetBookInfo(isbn);
       if (!summary) {
@@ -39,7 +36,7 @@ export default class Book implements IBook {
     .firestore()
     .collection(Book.collectionName);
 
-  private static async SetCreated(book: IBook): Promise<void> {
+  private static async SetCreated(book: IBook) {
     const bookmeta = await Book.collection.doc(book.ISBN).get();
 
     if (bookmeta.exists) {
@@ -52,7 +49,7 @@ export default class Book implements IBook {
     }
   }
 
-  private static async GetBookInfo(isbn: string): Promise<any> {
+  private static async GetBookInfo(isbn: string) {
     const response = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
     );
@@ -95,7 +92,7 @@ export default class Book implements IBook {
     });
   }
 
-  public get ModifiedInfo(): string {
+  public get ModifiedInfo() {
     if (this.Modified === undefined) {
       return '';
     }
@@ -109,13 +106,13 @@ export default class Book implements IBook {
     });
   }
 
-  public async Save(): Promise<any> {
+  public async Save() {
     await Book.collection
       .doc(this.ISBN)
       .set(Object.assign({}, this) as Partial<IBook>);
   }
 
-  public async Rent(userId: string): Promise<void> {
+  public async Rent(userId: string) {
     // TODO: Partial<IBook> 型のデータを update() する
     return await Book.collection.doc(this.ISBN).update({
       OnLoan: true,
@@ -124,8 +121,8 @@ export default class Book implements IBook {
     });
   }
 
-  public async Return(): Promise<void> {
-    return await Book.collection.doc(this.ISBN).update({
+  public async Return() {
+    await Book.collection.doc(this.ISBN).update({
       OnLoan: false
     } as Partial<IBook>);
   }
