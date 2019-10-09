@@ -149,7 +149,7 @@ export default class Register extends Super {
     }
 
     const book = await Book.Init(this.isbn, this.getUser.Id);
-    if (book === null) {
+    if (!book) {
       this.ShowSnack("warning", `Not found book infomation ${this.isbn}`, [
         "top"
       ]);

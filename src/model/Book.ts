@@ -1,49 +1,36 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
-import { Timestamp } from '@common/Timestamp';
 import IBook from '@common/IBook';
+import { IGoogleBookInfo } from '@common/IGoogleBookInfo';
+import { Timestamp } from '@common/Timestamp';
 
 export default class Book implements IBook {
   public static async Init(
     isbn: string,
     userId: string
-  ): Promise<IBook | null> {
+  ): Promise<IBook | undefined> {
     try {
       const summary = await Book.GetBookInfo(isbn);
-      if (summary === null) {
-        return null;
+      if (!summary) {
+        return undefined;
       }
 
-      const book = new Book();
+      const book = {} as IBook;
       book.ISBN = isbn;
-      book.Title = summary.title;
-      if (summary.imageLinks !== undefined) {
-        book.Cover = summary.imageLinks.thumbnail;
-      } else {
-        book.Cover = '';
-      }
-
-      if (summary.authors !== undefined) {
-        book.Authors = summary.authors;
-      }
-
-      book.PublishDate = summary.publishedDate;
-      if (summary.publisher !== undefined) {
-        book.Publisher = summary.publisher;
-      }
-
-      if (summary.description !== undefined) {
-        book.Comment = summary.description;
-      }
-
+      book.Title = summary.title || '';
+      book.Cover = summary.imageLinks ? summary.imageLinks.thumbnail : '';
+      book.Authors = summary.authors || [];
+      book.PublishDate = summary.publishedDate || '';
+      book.Publisher = summary.publisher || '';
+      book.Comment = summary.description || '';
       book.Modified = new Date();
       book.ModifiedUserId = userId;
-
       await Book.SetCreated(book);
+
       return book;
     } catch (error) {
       console.error(error);
-      return null;
+      return undefined;
     }
   }
 
@@ -69,18 +56,19 @@ export default class Book implements IBook {
     const response = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
     );
-    if (response.data === undefined || response.data.totalItems === 0) {
-      console.warn('Not found book infomation.', isbn);
-      return null;
-    }
 
-    return response.data.items[0].volumeInfo;
+    const bookInfo = response.data as IGoogleBookInfo;
+    if (bookInfo && bookInfo.totalItems > 0) {
+      return bookInfo.items[0].volumeInfo;
+    }
+    console.warn('Not found book infomation.', isbn);
+    return undefined;
   }
 
   public Title: string = '';
   public ISBN: string = '';
   public Cover: string = '';
-  public Authors: string[] = new Array<string>();
+  public Authors: string[] = [];
   public PublishDate: string = '';
   public Publisher: string = '';
   public Comment: string = '';
