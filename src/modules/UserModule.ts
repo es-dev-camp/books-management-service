@@ -1,33 +1,22 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
-import User from '@/model/User';
-import IUser from '@/model/IUser';
+import { Users } from '@/model/Users';
 
-class UserState {
-  userList: IUser[] = new Array<IUser>();
-}
+class UserState {}
 
 class UserGetters extends Getters<UserState> {
   get getUserList() {
-    return this.state.userList;
+    return Users.list;
   }
 }
 
-class UserMutations extends Mutations<UserState> {
-  async updateUserList(_: any) {
-    this.state.userList = await User.GetUserList();
-  }
-}
+class UserMutations extends Mutations<UserState> {}
 
 class UserActions extends Actions<
   UserState,
   UserGetters,
   UserMutations,
   UserActions
-> {
-  async updateUserList() {
-    await this.commit('updateUserList', null);
-  }
-}
+> {}
 
 export const UserModule = new Module({
   state: UserState,
