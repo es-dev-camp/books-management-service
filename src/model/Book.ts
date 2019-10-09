@@ -82,7 +82,7 @@ export default class Book implements IBook {
     if (this.Created === undefined) {
       return '';
     }
-
+    // TODO: 日付型は Timestamp で扱うようにしたい
     const created = this.Created as any;
     if (!(created instanceof Date)) {
       this.Created = created.toDate();
@@ -96,7 +96,7 @@ export default class Book implements IBook {
     if (this.Modified === undefined) {
       return '';
     }
-
+    // TODO: 日付型は Timestamp で扱うようにしたい
     const modified = this.Modified as any;
     if (!(modified instanceof Date)) {
       this.Modified = modified.toDate();
