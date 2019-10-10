@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import { App } from '@slack/bolt';
-// import IBook from '../../common/IBook';
+import IBook from '@common/IBook';
 
 const botToken = functions.config().slack.bot_token;
 const app = new App({
@@ -13,12 +13,11 @@ export const func = functions.firestore
   .document('book/{isbn}')
   .onCreate(async (snap, context) => {
     console.log('triggered onCreate Book (' + context.params.isbn + ')');
-    await sendMessage(snap.data());
+    await sendMessage(snap.data() as IBook);
     return 0;
   });
 
-// TODO: Common に移動されたら IBook で受け取るようにする
-async function sendMessage(book: any) {
+async function sendMessage(book: IBook) {
   try {
     const result = await app.client.chat.postMessage({
       token: botToken,

@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import IUser from '@/model/IUser';
+import { IUser } from '@common/IUser';
 
 const appDomain = process.env.VUE_APP_AUTH0_DOMAIN;
 const clientID = process.env.VUE_APP_AUTH0_API_AUDIENCE;

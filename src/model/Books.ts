@@ -1,5 +1,5 @@
 import firebase from '@/firebase/firestore';
-import IBook from '@/model/IBook.ts';
+import IBook from '@common/IBook';
 import Book from './Book';
 
 export default class Books {
