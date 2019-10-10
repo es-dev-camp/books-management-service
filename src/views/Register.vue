@@ -75,7 +75,8 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                  {{ registeredBook.ModifiedInfo }}
+                  {{ registeredBook.ModifiedInfo }} --
+                  {{ convertUserName(registeredBook.ModifiedUserId) }}
                 </v-list-item-title>
                 <v-list-item-subtitle></v-list-item-subtitle>
               </v-list-item-content>
@@ -88,7 +89,8 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                  {{ registeredBook.CreatedInfo }}
+                  {{ registeredBook.CreatedInfo }} --
+                  {{ convertUserName(registeredBook.CreatedUserId) }}
                 </v-list-item-title>
                 <v-list-item-subtitle></v-list-item-subtitle>
               </v-list-item-content>
@@ -121,6 +123,7 @@ import { Component, Vue } from "vue-property-decorator";
 import Book from "@/model/Book.ts";
 import IBook from "@common/IBook";
 import Snack from "@/model/Snack.ts";
+import { getUser } from "@/model/Users";
 import { BooksModule } from "@/modules/BooksModule";
 import { SignInModule } from "@/modules/SignInModule";
 
@@ -172,6 +175,11 @@ export default class Register extends Super {
   ClearInput(): void {
     this.isbn = "";
     this.isBusy = false;
+  }
+
+  convertUserName(userId: string) {
+    const user = getUser(userId);
+    return user && user.displayName ? user.displayName : "";
   }
 
   ShowSnack(color: string, message: string, args: string[]): void {

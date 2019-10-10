@@ -67,12 +67,16 @@
               </template>
             </v-combobox>
           </v-row>
-          <!-- <v-row>
-              登録: {{ getCurrentBook.Created | displayDate }} ({{ getCurrentBook.CreatedUserName }})
-          </v-row> -->
-          <!-- <v-row>
-              更新: {{ getCurrentBook.Modified | displayDate }} ({{ getCurrentBook.ModifiedUserName }})
-          </v-row> -->
+          <v-row>
+            登録: {{ getCurrentBook.Created | displayDate }} ({{
+              convertUserName(getCurrentBook.CreatedUserId)
+            }})
+          </v-row>
+          <v-row>
+            更新: {{ getCurrentBook.Modified | displayDate }} ({{
+              convertUserName(getCurrentBook.ModifiedUserId)
+            }})
+          </v-row>
         </v-col>
         <v-col cols="12" sm="4" class="px-2">
           <span v-if="getCurrentBook.OnLoan">
@@ -122,6 +126,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { IUser } from "@common/IUser";
+import { getUser } from "@/model/Users";
 import IBook from "@common/IBook";
 import Book from "@/model/Book";
 import { BooksModule } from "@/modules/BooksModule";
@@ -213,6 +218,11 @@ export default class BookDetail extends Super {
     this.getCurrentBook.Authors = this.getCurrentBook.Authors.filter(
       author => author !== item
     );
+  }
+
+  convertUserName(userId: string) {
+    const user = getUser(userId);
+    return user && user.displayName ? user.displayName : "";
   }
 }
 </script>
