@@ -1,5 +1,5 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
-import IBook from '@/model/IBook';
+import IBook from '@common/IBook';
 import Books from '@/model/Books';
 import Book from '@/model/Book';
 

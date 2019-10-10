@@ -1,3 +1,5 @@
+import { Timestamp } from './Timestamp';
+
 export interface event {
   id: string;
   user: string;
@@ -20,9 +22,4 @@ export enum BookEventType {
 
 export enum EventType {
   book = 'book'
-}
-
-export interface Timestamp {
-  nanoseconds: number;
-  seconds: number;
 }

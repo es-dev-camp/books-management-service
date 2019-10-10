@@ -62,8 +62,8 @@ import { BooksModule } from "@/modules/BooksModule";
 import { SignInModule } from "@/modules/SignInModule";
 import { Users, getUser } from "@/model/Users";
 import * as booksManagementEvent from "@common/booksManagementEvent";
-import IBook from "@/model/IBook";
-import BookDetail from "../components/BookDetail.vue";
+import IBook from "@common/IBook";
+import BookDetail from "@/components/BookDetail.vue";
 
 const Super = Vue.extend({
   methods: {
