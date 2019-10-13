@@ -1,6 +1,7 @@
 // Get json https://www.googleapis.com/books/v1/volumes?q=isbn:1234567890123
 // Generate .ts using http://www.json2ts.com/
 export interface IndustryIdentifier {
+  // 主に ISBN_10, ISBN_13 の種類
   type: string;
   identifier: string;
 }
@@ -16,6 +17,10 @@ export interface PanelizationSummary {
 }
 
 export interface ImageLinks {
+  extraLarge: string;
+  large: string;
+  medium: string;
+  small: string;
   smallThumbnail: string;
   thumbnail: string;
 }
@@ -31,6 +36,7 @@ export interface VolumeInfo {
   readingModes: ReadingModes;
   pageCount: number;
   printType: string;
+  printedPageCount: number;
   maturityRating: string;
   allowAnonLogging: boolean;
   contentVersion: string;

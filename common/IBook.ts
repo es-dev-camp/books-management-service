@@ -4,6 +4,7 @@ export default interface IBook {
   Title: string;
   ISBN: string;
   Cover: string;
+  Thumbnail: string;
   Authors: string[];
   PublishDate: string;
   Publisher: string;
