@@ -5,7 +5,7 @@ import { IGoogleBookInfo } from '@common/IGoogleBookInfo';
 import { Timestamp } from '@common/Timestamp';
 
 export default class Book implements IBook {
-  public static async Init(isbn: string, userId: string) {
+  static async Init(isbn: string, userId: string) {
     try {
       const summary = await Book.GetBookInfo(isbn);
       if (!summary) {
@@ -92,7 +92,7 @@ export default class Book implements IBook {
     });
   }
 
-  public get ModifiedInfo() {
+  get ModifiedInfo() {
     if (this.Modified === undefined) {
       return '';
     }
@@ -106,13 +106,13 @@ export default class Book implements IBook {
     });
   }
 
-  public async Save() {
+  async Save() {
     await Book.collection
       .doc(this.ISBN)
       .set(Object.assign({}, this) as Partial<IBook>);
   }
 
-  public async Rent(userId: string) {
+  async Rent(userId: string) {
     // TODO: Partial<IBook> 型のデータを update() する
     return await Book.collection.doc(this.ISBN).update({
       OnLoan: true,
@@ -121,7 +121,7 @@ export default class Book implements IBook {
     });
   }
 
-  public async Return() {
+  async Return() {
     await Book.collection.doc(this.ISBN).update({
       OnLoan: false
     } as Partial<IBook>);
