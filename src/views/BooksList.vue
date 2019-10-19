@@ -13,7 +13,7 @@
       >
         <v-row align="center" justify="center">
           <img
-            v-lazy="book.Cover"
+            v-lazy="book.Thumbnail"
             class="grey lighten-4"
             style="cursor: pointer;"
             width="128px"

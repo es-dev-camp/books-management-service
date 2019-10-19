@@ -35,7 +35,7 @@ ${book.Comment}`
           },
           accessory: {
             type: 'image',
-            image_url: book.Cover,
+            image_url: book.Thumbnail,
             alt_text: `${book.Title} 's image.`
           }
         }

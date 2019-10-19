@@ -1,49 +1,40 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
-import { Timestamp } from '@common/Timestamp';
 import IBook from '@common/IBook';
+import { IGoogleBookInfo, Item } from '@common/IGoogleBookInfo';
+import { Timestamp } from '@common/Timestamp';
 
 export default class Book implements IBook {
-  public static async Init(
-    isbn: string,
-    userId: string
-  ): Promise<IBook | null> {
+  static async Init(isbn: string, userId: string) {
     try {
       const summary = await Book.GetBookInfo(isbn);
-      if (summary === null) {
-        return null;
+      if (!summary) {
+        return undefined;
       }
 
       const book = new Book();
       book.ISBN = isbn;
-      book.Title = summary.title;
-      if (summary.imageLinks !== undefined) {
-        book.Cover = summary.imageLinks.thumbnail;
-      } else {
-        book.Cover = '';
-      }
-
-      if (summary.authors !== undefined) {
-        book.Authors = summary.authors;
-      }
-
-      book.PublishDate = summary.publishedDate;
-      if (summary.publisher !== undefined) {
-        book.Publisher = summary.publisher;
-      }
-
-      if (summary.description !== undefined) {
-        book.Comment = summary.description;
-      }
-
+      book.Title = summary.title || '';
+      book.Thumbnail =
+        summary.imageLinks && summary.imageLinks.thumbnail
+          ? summary.imageLinks.thumbnail.replace('http://', 'https://')
+          : '';
+      book.Cover =
+        summary.imageLinks && summary.imageLinks.large
+          ? summary.imageLinks.large.replace('http://', 'https://')
+          : book.Thumbnail;
+      book.Authors = summary.authors || [];
+      book.PublishDate = summary.publishedDate || '';
+      book.Publisher = summary.publisher || '';
+      book.Comment = summary.description || '';
       book.Modified = new Date();
       book.ModifiedUserId = userId;
-
       await Book.SetCreated(book);
+
       return book;
     } catch (error) {
       console.error(error);
-      return null;
+      return undefined;
     }
   }
 
@@ -52,7 +43,7 @@ export default class Book implements IBook {
     .firestore()
     .collection(Book.collectionName);
 
-  private static async SetCreated(book: IBook): Promise<void> {
+  private static async SetCreated(book: IBook) {
     const bookmeta = await Book.collection.doc(book.ISBN).get();
 
     if (bookmeta.exists) {
@@ -65,39 +56,46 @@ export default class Book implements IBook {
     }
   }
 
-  private static async GetBookInfo(isbn: string): Promise<any> {
-    const response = await axios.get(
+  private static async GetBookInfo(isbn: string) {
+    const response = await axios.get<IGoogleBookInfo>(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
     );
-    if (response.data === undefined || response.data.totalItems === 0) {
+
+    const bookInfo = response.data;
+    if (!bookInfo || bookInfo.totalItems === 0) {
       console.warn('Not found book infomation.', isbn);
-      return null;
+      return undefined;
     }
 
-    return response.data.items[0].volumeInfo;
+    const bookData = await axios.get<Item>(bookInfo.items[0].selfLink);
+    if (bookData.status !== 200) {
+      console.warn('Not found book infomation(selfLink).', isbn);
+      return undefined;
+    }
+    return bookData.data.volumeInfo;
   }
 
-  public Title: string = '';
-  public ISBN: string = '';
-  public Cover: string = '';
-  public Authors: string[] = new Array<string>();
-  public PublishDate: string = '';
-  public Publisher: string = '';
-  public Comment: string = '';
-  public Created!: Date;
-  public CreatedUserId: string | null = '';
-  public Modified!: Date;
-  public ModifiedUserId: string | null = '';
-  public Location: string = '';
-  public OnLoan: boolean | null = false;
-  public LastBorrowUserId: string | null = '';
-  public LastBorrowTimestamp: Timestamp | null = null;
-
-  public get CreatedInfo(): string {
+  Title: string = '';
+  ISBN: string = '';
+  Cover: string = '';
+  Thumbnail: string = '';
+  Authors: string[] = [];
+  PublishDate: string = '';
+  Publisher: string = '';
+  Comment: string = '';
+  Created!: Date;
+  CreatedUserId: string | null = '';
+  Modified!: Date;
+  ModifiedUserId: string | null = '';
+  Location: string = '';
+  OnLoan: boolean | null = false;
+  LastBorrowUserId: string | null = '';
+  LastBorrowTimestamp: Timestamp | null = null;
+  get CreatedInfo(): string {
     if (this.Created === undefined) {
       return '';
     }
-
+    // TODO: 日付型は Timestamp で扱うようにしたい
     const created = this.Created as any;
     if (!(created instanceof Date)) {
       this.Created = created.toDate();
@@ -107,11 +105,11 @@ export default class Book implements IBook {
     });
   }
 
-  public get ModifiedInfo(): string {
+  get ModifiedInfo() {
     if (this.Modified === undefined) {
       return '';
     }
-
+    // TODO: 日付型は Timestamp で扱うようにしたい
     const modified = this.Modified as any;
     if (!(modified instanceof Date)) {
       this.Modified = modified.toDate();
@@ -121,13 +119,15 @@ export default class Book implements IBook {
     });
   }
 
-  public async Save(): Promise<any> {
+  async Save() {
     await Book.collection
       .doc(this.ISBN)
-      .set(Object.assign({}, this) as Partial<IBook>);
+      .set(Object.assign({}, this) as Partial<IBook>, {
+        merge: true
+      });
   }
 
-  public async Rent(userId: string): Promise<void> {
+  async Rent(userId: string) {
     // TODO: Partial<IBook> 型のデータを update() する
     return await Book.collection.doc(this.ISBN).update({
       OnLoan: true,
@@ -136,8 +136,8 @@ export default class Book implements IBook {
     });
   }
 
-  public async Return(): Promise<void> {
-    return await Book.collection.doc(this.ISBN).update({
+  async Return() {
+    await Book.collection.doc(this.ISBN).update({
       OnLoan: false
     } as Partial<IBook>);
   }

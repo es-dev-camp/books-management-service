@@ -35,10 +35,8 @@ export default class Books {
 
   private static Wrap(bookData: firebase.firestore.DocumentData): IBook {
     const book = Object.assign(new Book(), bookData);
-
-    if (book.Cover.length === 0) {
-      book.Cover = '/img/noimage.png';
-    }
+    book.Cover = book.Cover || '/img/noimage.png';
+    book.Thumbnail = book.Thumbnail || '/img/noimage.png';
     return book;
   }
 
