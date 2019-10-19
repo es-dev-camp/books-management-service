@@ -15,9 +15,10 @@
           <v-img
             :src="book.Thumbnail"
             lazy-src="/img/noimage.png"
-            class="grey lighten-4 ma-4"
+            class="grey lighten-4 mx-4"
             style="cursor: pointer;"
-            aspect-ratio="0.7710"
+            max-width="128px"
+            max-height="166px"
             @click="ShowDetail(book)"
           />
         </v-row>
