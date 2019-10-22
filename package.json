@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit --silent",
+    "test:unit": "vue-cli-service test:unit --silent --forceExit",
     "updateSnapshot": "npm run test:unit -- -u",
     "build": "vue-cli-service build --mode production && npm --prefix functions run build",
     "serve": "vue-cli-service serve --mode develop",
