@@ -6,7 +6,8 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "build": "vue-cli-service build --mode production && npm --prefix functions run build",
-    "serve": "vue-cli-service serve --mode develop"
+    "serve": "vue-cli-service serve --mode develop",
+    "storybook": "start-storybook -p 6006"
   },
   "husky": {
     "hooks": {
@@ -32,6 +33,12 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.6.2",
+    "@storybook/addon-a11y": "^5.2.5",
+    "@storybook/addon-actions": "^5.2.5",
+    "@storybook/addon-console": "^1.2.1",
+    "@storybook/addon-links": "^5.2.5",
+    "@storybook/addon-viewport": "^5.2.4",
+    "@storybook/vue": "^5.2.4",
     "@types/auth0-js": "^9.10.6",
     "@types/axios": "^0.14.0",
     "@types/jest": "^24.0.18",
@@ -47,6 +54,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "babel-preset-vue": "^2.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
