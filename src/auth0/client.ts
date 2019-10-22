@@ -1,8 +1,8 @@
 import auth0 from 'auth0-js';
 import { IUser } from '@common/IUser';
 
-const appDomain = process.env.VUE_APP_AUTH0_DOMAIN;
-const clientID = process.env.VUE_APP_AUTH0_API_AUDIENCE;
+const appDomain = process.env.VUE_APP_AUTH0_DOMAIN || '';
+const clientID = process.env.VUE_APP_AUTH0_API_AUDIENCE || '';
 const isDevelopMode = process.env.NODE_ENV === 'develop';
 const redirectUri = isDevelopMode
   ? 'http://localhost:8080'
