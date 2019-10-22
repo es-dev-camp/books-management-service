@@ -19,8 +19,6 @@ jobs:
     - name: generate .env files
       run: |
         echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
-        ls -al
-        cat .env
     - name: npm install, build, and test
       run: |
         npm ci
