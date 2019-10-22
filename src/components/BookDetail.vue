@@ -1,17 +1,15 @@
 <template>
   <v-card>
     <v-card-title class="headline grey lighten-2" primary-title>
-      {{ getCurrentBook.Title }}
+      {{ currentBook.Title }}
       <v-spacer></v-spacer>
       <v-text-field
         class="px-1"
         v-if="isEditMode"
         label="location"
-        v-model="getCurrentBook.Location"
+        v-model="currentBook.Location"
       />
-      <v-chip v-else color="secondary" dark>{{
-        getCurrentBook.Location
-      }}</v-chip>
+      <v-chip v-else color="secondary" dark>{{ currentBook.Location }}</v-chip>
       <v-menu :visible="!this.isEditMode">
         <template v-slot:activator="{ on }">
           <v-btn dark icon v-on="on">
@@ -29,7 +27,7 @@
     <v-card-text class="pt-2">
       <v-row>
         <v-col cols="12" sm="2">
-          <v-img :src="getCurrentBook.Cover" />
+          <v-img :src="currentBook.Cover" />
         </v-col>
         <v-col cols="12" sm="6" class="px-2">
           <v-row>
@@ -37,19 +35,19 @@
               v-if="isEditMode"
               :readonly="!isEditMode"
               label="title"
-              v-model="getCurrentBook.Title"
+              v-model="currentBook.Title"
             />
           </v-row>
           <v-row>
             <v-text-field
               :readonly="!isEditMode"
               label="publishDate"
-              v-model="getCurrentBook.PublishDate"
+              v-model="currentBook.PublishDate"
             />
           </v-row>
           <v-row>
             <v-combobox
-              v-model="getCurrentBook.Authors"
+              v-model="currentBook.Authors"
               :readonly="!isEditMode"
               label="authors"
               chip
@@ -68,18 +66,18 @@
             </v-combobox>
           </v-row>
           <v-row>
-            登録: {{ getCurrentBook.Created | displayDate }} ({{
-              convertUserName(getCurrentBook.CreatedUserId)
+            登録: {{ currentBook.Created | displayDate }} ({{
+              convertUserName(currentBook.CreatedUserId)
             }})
           </v-row>
           <v-row>
-            更新: {{ getCurrentBook.Modified | displayDate }} ({{
-              convertUserName(getCurrentBook.ModifiedUserId)
+            更新: {{ currentBook.Modified | displayDate }} ({{
+              convertUserName(currentBook.ModifiedUserId)
             }})
           </v-row>
         </v-col>
         <v-col cols="12" sm="4" class="px-2">
-          <span v-if="getCurrentBook.OnLoan">
+          <span v-if="currentBook.OnLoan">
             <v-btn
               outlined
               color="primary"
@@ -102,14 +100,14 @@
             >借りる</v-btn
           >
           <div>最終貸出日: {{ this.readableTime }}</div>
-          <div>ISBN: {{ getCurrentBook.ISBN }}</div>
+          <div>ISBN: {{ currentBook.ISBN }}</div>
         </v-col>
       </v-row>
       <v-row>
         <v-textarea
           :readonly="!isEditMode"
           label="Description"
-          :value="getCurrentBook.Comment"
+          :value="currentBook.Comment"
         />
       </v-row>
     </v-card-text>
@@ -132,7 +130,6 @@ import Book from "@/model/Book";
 import { BooksModule } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
-  computed: BooksModule.mapGetters(["getCurrentBook"]),
   methods: BooksModule.mapActions(["updateBook"])
 });
 
@@ -140,8 +137,8 @@ const Super = Vue.extend({
   components: { BookDetail }
 })
 export default class BookDetail extends Super {
-  @Prop({ type: Object, default: null })
-  CurrentUser!: IUser;
+  @Prop({ type: Object, default: null }) currentBook!: IBook;
+  @Prop({ type: Object, default: null }) currentUser!: IUser;
   isEditMode = false;
   progress = false;
   items: Array<{ title: string; action: () => void }> = [
@@ -163,33 +160,33 @@ export default class BookDetail extends Super {
   }
 
   get readableTime(): string {
-    if (!this.getCurrentBook.LastBorrowTimestamp) {
+    if (!this.currentBook.LastBorrowTimestamp) {
       return "なし";
     }
-    const d = new Date(this.getCurrentBook.LastBorrowTimestamp.seconds * 1000);
+    const d = new Date(this.currentBook.LastBorrowTimestamp.seconds * 1000);
     return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
   }
 
   get isBorrowUser(): boolean {
-    return this.getCurrentBook.LastBorrowUserId === this.CurrentUser.Id;
+    return this.currentBook.LastBorrowUserId === this.currentUser.Id;
   }
 
   async Commit(): Promise<any> {
-    if (!this.CurrentUser) {
+    if (!this.currentUser) {
       console.error("Cannot save. Failed to load user profile.");
       return;
     }
 
-    this.getCurrentBook.Modified = new Date();
-    this.getCurrentBook.ModifiedUserId = this.CurrentUser.Id;
-    await this.getCurrentBook.Save();
+    this.currentBook.Modified = new Date();
+    this.currentBook.ModifiedUserId = this.currentUser.Id;
+    await this.currentBook.Save();
   }
 
   async Rent(): Promise<void> {
     this.progress = true;
     try {
-      await this.getCurrentBook.Rent(this.CurrentUser.Id);
-      await this.updateBook(this.getCurrentBook.ISBN);
+      await this.currentBook.Rent(this.currentUser.Id);
+      await this.updateBook(this.currentBook.ISBN);
     } catch (error) {
       console.log(error);
     } finally {
@@ -200,8 +197,8 @@ export default class BookDetail extends Super {
   async Return(): Promise<void> {
     this.progress = true;
     try {
-      await this.getCurrentBook.Return();
-      await this.updateBook(this.getCurrentBook.ISBN);
+      await this.currentBook.Return();
+      await this.updateBook(this.currentBook.ISBN);
     } catch (error) {
       console.log(error);
     } finally {
@@ -215,14 +212,14 @@ export default class BookDetail extends Super {
   }
 
   remove(item: string) {
-    this.getCurrentBook.Authors = this.getCurrentBook.Authors.filter(
+    this.currentBook.Authors = this.currentBook.Authors.filter(
       author => author !== item
     );
   }
 
   convertUserName(userId: string) {
     const user = getUser(userId);
-    return user && user.displayName ? user.displayName : "";
+    return user && user.displayName ? user.displayName : "不明な人物";
   }
 }
 </script>

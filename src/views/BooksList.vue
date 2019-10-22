@@ -33,10 +33,11 @@
       width="80%"
       max-width="700px"
     >
-      <BookDetail
+      <book-detail
         @close-dialog="isShowDetail = false"
-        :CurrentUser="getUser"
-      ></BookDetail>
+        :current-book="getCurrentBook"
+        :current-user="getUser"
+      />
     </v-dialog>
   </v-container>
 </template>
@@ -50,15 +51,15 @@ import Book from "@/model/Book";
 import BookDetail from "@/components/BookDetail.vue";
 
 const Super = Vue.extend({
-  methods: BooksModule.mapActions(["updateList", "setCurrentBook"])
+  methods: BooksModule.mapActions(["updateList", "setCurrentBook"]),
+  computed: {
+    ...BooksModule.mapGetters(["getFilterdBooks", "getCurrentBook"]),
+    ...SignInModule.mapGetters(["getUser"])
+  }
 });
 
 @Component({
-  components: { BookDetail },
-  computed: {
-    ...BooksModule.mapGetters(["getFilterdBooks"]),
-    ...SignInModule.mapGetters(["getUser"])
-  }
+  components: { BookDetail }
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;

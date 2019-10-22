@@ -47,10 +47,11 @@
       width="80%"
       max-width="700px"
     >
-      <BookDetail
+      <book-detail
         @close-dialog="isShowDetail = false"
-        :CurrentUser="getUser"
-      ></BookDetail>
+        :current-book="getCurrentBook"
+        :current-user="getUser"
+      />
     </v-dialog>
   </v-container>
 </template>
@@ -71,7 +72,7 @@ const Super = Vue.extend({
     ...AuditModule.mapActions(["updateBookEventList"])
   },
   computed: {
-    ...BooksModule.mapGetters(["getFilterdBooks"]),
+    ...BooksModule.mapGetters(["getFilterdBooks", "getCurrentBook"]),
     ...AuditModule.mapGetters(["getBookEventList"]),
     ...SignInModule.mapGetters(["getUser"])
   }
