@@ -35,6 +35,6 @@ jobs:
         npm ci
         npm --prefix functions ci
         npm run build
-        npm run test:unit
+        npm run test
       env:
         CI: true
