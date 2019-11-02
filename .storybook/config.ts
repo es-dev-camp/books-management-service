@@ -1,5 +1,6 @@
-import { configure, addDecorator } from '@storybook/vue';
+import { configure, addDecorator, addParameters } from '@storybook/vue';
 import '@storybook/addon-console';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { VApp } from 'vuetify/lib';
 
 import vuetify from '../src/plugins/vuetify';
@@ -17,6 +18,12 @@ const vuetifyDecorator = () => ({
 
 addDecorator(backgroundColorDecorator);
 addDecorator(vuetifyDecorator);
+
+addParameters({
+  viewport: {
+    viewports: INITIAL_VIEWPORTS,
+  },
+});
 
 const req = require.context('../src/', true, /.*\.stories\.ts$/);
 function loadStories() {
