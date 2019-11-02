@@ -17,5 +17,10 @@ module.exports = {
   pages: {
     index: entrypoint
   },
-  outputDir: outputDir
+  outputDir: outputDir,
+  pluginOptions: {
+    storybook: {
+      allowedPlugins: ['define']
+    }
+  }
 };

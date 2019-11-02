@@ -5,28 +5,11 @@ import vuetify from '@/plugins/vuetify';
 import App from '@/App.vue';
 import { createStore } from '@/store';
 import { createRouter } from '@/router';
-import moment from 'moment';
+import { displayDate } from '@/utilities/filters';
 
 Vue.config.productionTip = false;
 
-Vue.filter('displayDate', (value: any) => {
-  try {
-    const dateFormat = 'YYYY/MM/DD';
-    const now = moment();
-    const date = moment.unix(value.seconds);
-    if (date.format(dateFormat) === now.format(dateFormat)) {
-      return date.format('HH:mm');
-    }
-
-    if (date.add(1, 'days').format(dateFormat) === now.format(dateFormat)) {
-      return `昨日 ${date.format('HH:mm')}`;
-    }
-    return date.format(dateFormat);
-  } catch (err) {
-    console.debug(err);
-    return 'Unknown';
-  }
-});
+Vue.filter('displayDate', displayDate);
 
 Vue.use(Vuex);
 Vue.use(Router);

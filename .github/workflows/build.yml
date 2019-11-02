@@ -27,11 +27,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: generate .env files
+      run: |
+        echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
     - name: npm install, build, and test
       run: |
         npm ci
         npm --prefix functions ci
         npm run build
-        npm run test:unit
+        npm run test
       env:
         CI: true
