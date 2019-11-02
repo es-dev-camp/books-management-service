@@ -1,5 +1,6 @@
 module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue', 'ts', 'tsx'],
+  setupFiles: ['<rootDir>/.jest/register-context.js', 'jest-canvas-mock'],
   transform: {
     '^.+\\.vue$': 'vue-jest',
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
@@ -11,10 +12,14 @@ module.exports = {
     'node_modules/(?!(vuetify/|@storybook/.*\\.vue$|.*\\.css$))'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@common/(.*)$': '<rootDir>/common/$1'
   },
   snapshotSerializers: ['jest-serializer-vue'],
-  testMatch: ['**/(src|fuctions)/**/*.spec.(js|jsx|ts|tsx)'],
+  testMatch: [
+    '<rootDir>/(src|fuctions)/**/*.spec.(ts|tsx)',
+    '<rootDir>/storyshots/storyshots.spec.ts'
+  ],
   testURL: 'http://localhost/',
   watchPlugins: [
     'jest-watch-typeahead/filename',
@@ -24,7 +29,11 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,vue}',
     '!**/node_modules/**',
-    '!src/**/*.d.ts'
+    '!src/**/*.d.ts',
+    '!src/**/*.stories.ts',
+    // TODO: テスト内容を検討中なので一旦除外
+    '!src/**/App.vue',
+    '!src/**/{store,main,registerServiceWorker}.ts'
   ],
   coverageReporters: ['json', 'lcov', 'text-summary'],
   globals: {
