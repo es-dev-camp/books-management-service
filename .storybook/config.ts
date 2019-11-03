@@ -1,5 +1,6 @@
 import { configure, addDecorator, addParameters } from '@storybook/vue';
 import '@storybook/addon-console';
+import { withA11y } from '@storybook/addon-a11y';
 import { setConsoleOptions } from '@storybook/addon-console';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { VApp } from 'vuetify/lib';
@@ -13,6 +14,8 @@ const backgroundColorDecorator = () => ({
 setConsoleOptions({
   panelExclude: []
 });
+
+addDecorator(withA11y);
 
 const vuetifyDecorator = () => ({
   components: { VApp },
