@@ -4,6 +4,7 @@ import IBook from '@common/IBook';
 import { IGoogleBookInfo, Item } from '@common/IGoogleBookInfo';
 import { Timestamp } from '@common/Timestamp';
 
+// TODO: クラスにする意味が無いので function にする
 export default class Book implements IBook {
   static async Init(isbn: string, userId: string) {
     try {
@@ -29,7 +30,16 @@ export default class Book implements IBook {
       book.Comment = summary.description || '';
       book.Modified = new Date();
       book.ModifiedUserId = userId;
-      await Book.SetCreated(book);
+
+      const bookmeta = await Book.collection.doc(book.ISBN).get();
+      if (bookmeta.exists) {
+        const ref = bookmeta.data() as IBook;
+        book.Created = ref.Created;
+        book.CreatedUserId = ref.CreatedUserId;
+      } else {
+        book.Created = new Date();
+        book.CreatedUserId = book.ModifiedUserId;
+      }
 
       return book;
     } catch (error) {
@@ -42,19 +52,6 @@ export default class Book implements IBook {
   private static collection: firebase.firestore.CollectionReference = firebase
     .firestore()
     .collection(Book.collectionName);
-
-  private static async SetCreated(book: IBook) {
-    const bookmeta = await Book.collection.doc(book.ISBN).get();
-
-    if (bookmeta.exists) {
-      const ref = bookmeta.data() as IBook;
-      book.Created = ref.Created;
-      book.CreatedUserId = ref.CreatedUserId;
-    } else {
-      book.Created = new Date();
-      book.CreatedUserId = book.ModifiedUserId;
-    }
-  }
 
   private static async GetBookInfo(isbn: string) {
     const response = await axios.get<IGoogleBookInfo>(

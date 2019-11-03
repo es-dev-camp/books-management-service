@@ -173,7 +173,7 @@ exports[`Storyshots components/BookDetail show 1`] = `
                       </span>
                     </span>
                     <input
-                      autocomplete="off"
+                      autocomplete="disabled"
                       chip=""
                       id="input-<number>"
                       readonly="readonly"
