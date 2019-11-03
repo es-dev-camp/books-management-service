@@ -3,6 +3,7 @@ import '@storybook/addon-console';
 import { withA11y } from '@storybook/addon-a11y';
 import { setConsoleOptions } from '@storybook/addon-console';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { themes } from '@storybook/theming';
 import { VApp } from 'vuetify/lib';
 
 import vuetify from '../src/plugins/vuetify';
@@ -27,6 +28,9 @@ addParameters({
     { name: 'twitter', value: '#00aced' },
     { name: 'facebook', value: '#3b5998' },
   ],
+  options: {
+    theme: themes.light,
+  },
   viewport: {
     viewports: INITIAL_VIEWPORTS,
   }
