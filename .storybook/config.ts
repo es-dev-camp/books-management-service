@@ -7,9 +7,6 @@ import { VApp } from 'vuetify/lib';
 
 import vuetify from '../src/plugins/vuetify';
 
-const backgroundColorDecorator = () => ({
-  template:
-    '<div style="background-color: rgb(134, 212, 226); padding: 20px; width: 100%; height: 100%;"><story/></div>'
 // @ts-ignore
 setConsoleOptions({
   panelExclude: []
@@ -23,13 +20,16 @@ const vuetifyDecorator = () => ({
   vuetify: vuetify
 });
 
-addDecorator(backgroundColorDecorator);
 addDecorator(vuetifyDecorator);
 
 addParameters({
+  backgrounds: [
+    { name: 'twitter', value: '#00aced' },
+    { name: 'facebook', value: '#3b5998' },
+  ],
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-  },
+  }
 });
 
 const req = require.context('../src/', true, /.*\.stories\.ts$/);
