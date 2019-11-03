@@ -1,13 +1,19 @@
-import { configure, addDecorator } from '@storybook/vue';
+import { configure, addDecorator, addParameters } from '@storybook/vue';
 import '@storybook/addon-console';
+import { withA11y } from '@storybook/addon-a11y';
+import { setConsoleOptions } from '@storybook/addon-console';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { themes } from '@storybook/theming';
 import { VApp } from 'vuetify/lib';
 
 import vuetify from '../src/plugins/vuetify';
 
-const backgroundColorDecorator = () => ({
-  template:
-    '<div style="background-color: rgb(134, 212, 226); padding: 20px; width: 100%; height: 100%;"><story/></div>'
+// @ts-ignore
+setConsoleOptions({
+  panelExclude: []
 });
+
+addDecorator(withA11y);
 
 const vuetifyDecorator = () => ({
   components: { VApp },
@@ -15,8 +21,20 @@ const vuetifyDecorator = () => ({
   vuetify: vuetify
 });
 
-addDecorator(backgroundColorDecorator);
 addDecorator(vuetifyDecorator);
+
+addParameters({
+  backgrounds: [
+    { name: 'twitter', value: '#00aced' },
+    { name: 'facebook', value: '#3b5998' },
+  ],
+  options: {
+    theme: themes.light,
+  },
+  viewport: {
+    viewports: INITIAL_VIEWPORTS,
+  }
+});
 
 const req = require.context('../src/', true, /.*\.stories\.ts$/);
 function loadStories() {
