@@ -126,7 +126,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { IUser } from "@common/IUser";
 import { getUser } from "@/model/Users";
 import IBook from "@common/IBook";
-import Book from "@/model/Book";
+import { saveBook, rentBook, returnBook } from "@/model/Book";
 import { BooksModule } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
@@ -179,13 +179,13 @@ export default class BookDetail extends Super {
 
     this.currentBook.Modified = new Date();
     this.currentBook.ModifiedUserId = this.currentUser.Id;
-    await this.currentBook.Save();
+    await saveBook(this.currentBook);
   }
 
   async Rent(): Promise<void> {
     this.progress = true;
     try {
-      await this.currentBook.Rent(this.currentUser.Id);
+      await rentBook(this.currentBook.ISBN, this.currentUser.Id);
       await this.updateBook(this.currentBook.ISBN);
     } catch (error) {
       console.log(error);
@@ -197,7 +197,7 @@ export default class BookDetail extends Super {
   async Return(): Promise<void> {
     this.progress = true;
     try {
-      await this.currentBook.Return();
+      await returnBook(this.currentBook.ISBN);
       await this.updateBook(this.currentBook.ISBN);
     } catch (error) {
       console.log(error);

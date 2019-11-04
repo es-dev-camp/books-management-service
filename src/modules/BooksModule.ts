@@ -1,11 +1,10 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import IBook from '@common/IBook';
 import Books from '@/model/Books';
-import Book from '@/model/Book';
 
 class BooksState {
   books: IBook[] = new Array<IBook>();
-  currentBook: IBook = new Book();
+  currentBook: IBook = {} as IBook;
   filter: string = '';
 }
 

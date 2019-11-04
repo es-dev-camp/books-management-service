@@ -120,7 +120,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Book from "@/model/Book.ts";
+import { getBook, saveBook } from "@/model/Book";
 import IBook from "@common/IBook";
 import Snack from "@/model/Snack.ts";
 import { getUser } from "@/model/Users";
@@ -137,7 +137,7 @@ export default class Register extends Super {
   isbn: string = "";
   isBusy: boolean = false;
   snack: Snack = new Snack();
-  registeredBook: IBook = new Book();
+  registeredBook: IBook = {} as IBook;
 
   async AddBook(): Promise<void> {
     this.isBusy = true;
@@ -148,7 +148,7 @@ export default class Register extends Super {
       return;
     }
 
-    const book = await Book.Init(this.isbn, this.getUser.Id);
+    const book = await getBook(this.isbn, this.getUser.Id);
     if (!book) {
       this.ShowSnack("warning", `Not found book infomation ${this.isbn}`, [
         "top"
@@ -160,7 +160,7 @@ export default class Register extends Super {
     console.log(book);
 
     try {
-      await book.Save();
+      await saveBook(book);
       this.registeredBook = book;
       await this.updateList();
       this.ShowSnack("success", "Successfull data save to FireStore.");
