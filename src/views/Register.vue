@@ -75,7 +75,7 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                  {{ registeredBook.ModifiedInfo }} --
+                  {{ registeredBook.Modified | localDate }} --
                   {{ convertUserName(registeredBook.ModifiedUserId) }}
                 </v-list-item-title>
                 <v-list-item-subtitle></v-list-item-subtitle>
@@ -89,7 +89,7 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                  {{ registeredBook.CreatedInfo }} --
+                  {{ registeredBook.Created | localDate }} --
                   {{ convertUserName(registeredBook.CreatedUserId) }}
                 </v-list-item-title>
                 <v-list-item-subtitle></v-list-item-subtitle>
