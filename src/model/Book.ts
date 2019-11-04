@@ -3,8 +3,7 @@ import firebase from '@/firebase/firestore';
 import IBook from '@common/IBook';
 import { IGoogleBookInfo, Item, VolumeInfo } from '@common/IGoogleBookInfo';
 
-const collectionName = 'book';
-const collection = firebase.firestore().collection(collectionName);
+const currentDb = firebase.firestore();
 
 async function getBookSummary(isbn: string): Promise<VolumeInfo | undefined> {
   const response = await axios.get<IGoogleBookInfo>(
@@ -69,31 +68,48 @@ async function getBookInfo(
 
 export async function getBook(
   isbn: string,
-  userId: string
+  userId: string,
+  db: firebase.firestore.Firestore = currentDb
 ): Promise<Partial<IBook> | undefined> {
   try {
-    const bookmeta = await collection.doc(isbn).get();
-    return bookmeta.exists ? bookmeta.data() : await getBookInfo(isbn, userId);
+    const bookmeta = await db.doc(`book/${isbn}`).get();
+    return bookmeta.exists
+      ? (bookmeta.data() as IBook)
+      : getBookInfo(isbn, userId);
   } catch (err) {
     return undefined;
   }
 }
 
-export async function saveBook(payload: Partial<IBook>): Promise<void> {
-  await collection
-    .doc(payload.ISBN)
-    .set(Object.assign({}, payload), { merge: true });
+export async function saveBook(
+  payload: Partial<IBook>,
+  db: firebase.firestore.Firestore = currentDb
+): Promise<void> {
+  await db
+    .doc(`book/${payload.ISBN}`)
+    .set(Object.assign({}, payload) as Partial<IBook>, {
+      merge: true
+    });
 }
 
-export async function rentBook(isbn: string, userId: string): Promise<void> {
+export async function rentBook(
+  isbn: string,
+  userId: string,
+  db: firebase.firestore.Firestore = currentDb
+): Promise<void> {
   // TODO: Partial<IBook> 型のデータを update() する
-  return await collection.doc(isbn).update({
+  await db.doc(`book/${isbn}`).update({
     OnLoan: true,
     LastBorrowUserId: userId,
     LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp()
   });
 }
 
-export async function returnBook(isbn: string): Promise<void> {
-  await collection.doc(isbn).update({ OnLoan: false });
+export async function returnBook(
+  isbn: string,
+  db: firebase.firestore.Firestore = currentDb
+): Promise<void> {
+  await db.doc(`book/${isbn}`).update({
+    OnLoan: false
+  } as Partial<IBook>);
 }
