@@ -47,3 +47,50 @@ describe('getBook', () => {
     expect(book ? book.Title : '').toEqual('hoge');
   });
 });
+
+describe.skip('saveBook', () => {
+  test('本の情報が保存されること', async () => {
+    // arrange
+    const isbn = '1234567890123';
+
+    // action
+    await saveBook({ ISBN: isbn, Title: 'hoge' });
+
+    // assert
+    const book = await getBook(isbn, 'testUser');
+    expect(book ? book.Title : '').toEqual('hoge');
+  });
+});
+
+describe.skip('rentBook', () => {
+  test('本が貸出状態になること', async () => {
+    // arrange
+    const isbn = '1234567890123';
+    const testUser = 'testUser';
+
+    // action
+    await saveBook({ ISBN: isbn, Title: 'hoge' });
+    await rentBook(isbn, testUser);
+
+    // assert
+    const book = await getBook(isbn, testUser);
+    expect(book ? book.OnLoan : undefined).toEqual(true);
+  });
+});
+
+describe.skip('returnBook', () => {
+  test('本の情報が保存されること', async () => {
+    // arrange
+    const isbn = '1234567890123';
+    const testUser = 'testUser';
+
+    // action
+    await saveBook({ ISBN: isbn, Title: 'hoge' });
+    await rentBook(isbn, testUser);
+    await returnBook(isbn);
+
+    // assert
+    const book = await getBook(isbn, testUser);
+    expect(book ? book.OnLoan : undefined).toEqual(false);
+  });
+});
