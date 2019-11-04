@@ -206,7 +206,7 @@ export default class BookDetail extends Super {
     }
   }
 
-  async Save(): Promise<any> {
+  async Save() {
     await this.Commit();
     this.Close();
   }
