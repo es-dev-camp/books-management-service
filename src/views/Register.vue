@@ -137,7 +137,7 @@ export default class Register extends Super {
   isbn: string = "";
   isBusy: boolean = false;
   snack: Snack = new Snack();
-  registeredBook: IBook = {} as IBook;
+  registeredBook: Partial<IBook> = {};
 
   async AddBook(): Promise<void> {
     this.isBusy = true;

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
 import IBook from '@common/IBook';
-import { IGoogleBookInfo, Item } from '@common/IGoogleBookInfo';
+import { IGoogleBookInfo, Item, VolumeInfo } from '@common/IGoogleBookInfo';
 
 const collectionName = 'book';
 const collection = firebase.firestore().collection(collectionName);
 
-async function getBookSummary(isbn: string) {
+async function getBookSummary(isbn: string): Promise<VolumeInfo | undefined> {
   const response = await axios.get<IGoogleBookInfo>(
     `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
   );
@@ -25,7 +25,10 @@ async function getBookSummary(isbn: string) {
   return bookData.data.volumeInfo;
 }
 
-async function getBookInfo(isbn: string, userId: string) {
+async function getBookInfo(
+  isbn: string,
+  userId: string
+): Promise<Partial<IBook>> {
   const summary = await getBookSummary(isbn);
   if (!summary) {
     return {
@@ -36,7 +39,7 @@ async function getBookInfo(isbn: string, userId: string) {
       CreatedUserId: userId,
       Modified: new Date(),
       ModifiedUserId: userId
-    } as IBook;
+    };
   }
 
   const thumbnail =
@@ -61,29 +64,28 @@ async function getBookInfo(isbn: string, userId: string) {
     CreatedUserId: userId,
     Modified: new Date(),
     ModifiedUserId: userId
-  } as IBook;
+  };
 }
 
-export async function getBook(isbn: string, userId: string) {
+export async function getBook(
+  isbn: string,
+  userId: string
+): Promise<Partial<IBook> | undefined> {
   try {
     const bookmeta = await collection.doc(isbn).get();
-    return bookmeta.exists
-      ? (bookmeta.data() as IBook)
-      : getBookInfo(isbn, userId);
+    return bookmeta.exists ? bookmeta.data() : await getBookInfo(isbn, userId);
   } catch (err) {
     return undefined;
   }
 }
 
-export async function saveBook(payload: Partial<IBook>) {
+export async function saveBook(payload: Partial<IBook>): Promise<void> {
   await collection
     .doc(payload.ISBN)
-    .set(Object.assign({}, payload) as Partial<IBook>, {
-      merge: true
-    });
+    .set(Object.assign({}, payload), { merge: true });
 }
 
-export async function rentBook(isbn: string, userId: string) {
+export async function rentBook(isbn: string, userId: string): Promise<void> {
   // TODO: Partial<IBook> 型のデータを update() する
   return await collection.doc(isbn).update({
     OnLoan: true,
@@ -92,8 +94,6 @@ export async function rentBook(isbn: string, userId: string) {
   });
 }
 
-export async function returnBook(isbn: string) {
-  await collection.doc(isbn).update({
-    OnLoan: false
-  } as Partial<IBook>);
+export async function returnBook(isbn: string): Promise<void> {
+  await collection.doc(isbn).update({ OnLoan: false });
 }
