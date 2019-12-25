@@ -5,11 +5,12 @@ import vuetify from '@/plugins/vuetify';
 import App from '@/App.vue';
 import { createStore } from '@/store';
 import { createRouter } from '@/router';
-import { displayDate } from '@/utilities/filters';
+import { displayDate, localDate } from '@/utilities/filters';
 
 Vue.config.productionTip = false;
 
 Vue.filter('displayDate', displayDate);
+Vue.filter('localDate', localDate);
 
 Vue.use(Vuex);
 Vue.use(Router);

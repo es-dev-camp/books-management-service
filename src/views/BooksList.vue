@@ -47,7 +47,6 @@ import { Component, Vue } from "vue-property-decorator";
 import { BooksModule } from "@/modules/BooksModule";
 import { SignInModule } from "@/modules/SignInModule";
 import IBook from "@common/IBook";
-import Book from "@/model/Book";
 import BookDetail from "@/components/BookDetail.vue";
 
 const Super = Vue.extend({

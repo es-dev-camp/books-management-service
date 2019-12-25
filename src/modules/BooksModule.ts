@@ -1,11 +1,10 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import IBook from '@common/IBook';
 import Books from '@/model/Books';
-import Book from '@/model/Book';
 
 class BooksState {
   books: IBook[] = new Array<IBook>();
-  currentBook: IBook = new Book();
+  currentBook: IBook = {} as IBook;
   filter: string = '';
 }
 
@@ -55,11 +54,11 @@ class BooksActions extends Actions<
   BooksMutations,
   BooksActions
 > {
-  async updateList() {
-    await this.commit('updateBooks', null);
+  updateList() {
+    this.commit('updateBooks', null);
   }
-  async updateBook(ISBN: string) {
-    await this.commit('updateBook', ISBN);
+  updateBook(ISBN: string) {
+    this.commit('updateBook', ISBN);
   }
   setFilter(filter: string) {
     this.commit('setFilter', filter);

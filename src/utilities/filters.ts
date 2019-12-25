@@ -20,3 +20,16 @@ export function displayDate(value: any) {
     return 'Unknown';
   }
 }
+
+export function localDate(value: any) {
+  try {
+    if (!(value instanceof Date)) {
+      value = value.toDate();
+    }
+    return value.toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo'
+    });
+  } catch (err) {
+    return '';
+  }
+}
