@@ -18,17 +18,16 @@
 
 ### セットアップ
 
-1. プロジェクトルートで `yarn install`
-2. `./functions` に移動して `npm ci`
-3. Firebase にログイン `firebase login`
+1. プロジェクトルートで `yarn install:all`
+1. Firebase にログイン `firebase login`
     * もし book-management-service のプロジェクトに参照できないアカウントにログインしている場合は、ログアウトの上切り替える `firebase logout`
-4. `firebase projects:list` で自分のアカウントに紐付いている Firebase プロジェクトを確認しつつ、 book-management-service の Firebase プロジェクトに `(current)` が付いている(プロジェクトが選択されている)ことを確認する
+1. `firebase projects:list` で自分のアカウントに紐付いている Firebase プロジェクトを確認しつつ、 book-management-service の Firebase プロジェクトに `(current)` が付いている(プロジェクトが選択されている)ことを確認する
     * もしそうなっていない場合は `firebase use <project-id>` で指されているプロジェクトを変更する
-5. プロジェクトメンテナに確認して、各種シークレットをプロジェクトルートに `.env` ファイルとして保存する
+1. プロジェクトメンテナに確認して、各種シークレットをプロジェクトルートに `.env` ファイルとして保存する
 
 ### 開発
 
 次のコマンドを別々のターミナルで実行する。
 
 * プロジェクトルートで `yarn serve`
-* `./functions` で `npm run serve`
+* コマンドプロンプトを別途開いて `yarn serve:functions`

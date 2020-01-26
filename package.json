@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "install:all": "npm run ci && npm --prefix functions ci",
     "lint": "vue-cli-service lint",
     "serve:firestoreEmulator": "firebase emulators:start --only firestore",
     "test": "npm run test:unit",
@@ -11,6 +12,7 @@
     "updateSnapshot": "JEST_ARGS='-u' npm run test:unit",
     "build": "vue-cli-service build --mode production && npm --prefix functions run build",
     "serve": "vue-cli-service serve --mode develop",
+    "serve:functions": "npm --prefix functions run serve",
     "storybook": "start-storybook -p 6006"
   },
   "husky": {
