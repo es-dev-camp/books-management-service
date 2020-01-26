@@ -173,7 +173,7 @@ exports[`Storyshots components/BookDetail show 1`] = `
                       </span>
                     </span>
                     <input
-                      autocomplete="disabled"
+                      autocomplete="off"
                       chip=""
                       id="input-<number>"
                       readonly="readonly"
@@ -192,6 +192,10 @@ exports[`Storyshots components/BookDetail show 1`] = `
                       />
                     </div>
                   </div>
+                  <input
+                    type="hidden"
+                    value="Doug Rosenberg,Matt Stephens"
+                  />
                 </div>
                 <div
                   class="v-menu"
