@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "install:all": "npm run ci && npm --prefix functions ci",
+    "install:all": "npm ci && npm --prefix functions ci",
     "lint": "vue-cli-service lint",
     "serve:firestoreEmulator": "firebase emulators:start --only firestore",
     "test": "npm run test:unit",
