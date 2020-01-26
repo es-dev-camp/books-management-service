@@ -24,25 +24,25 @@ jobs:
         node-version: 10.x
     - name: generate .env files
       run: echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
-    - name: npm install
+    - name: yarn install
       run: |
-        npm ci
+        yarn install
         npm --prefix functions ci
       env:
         CI: true
     - name: build
-      run: npm run build
+      run: yarn build
       env:
         CI: true
     - name: rebuild
       uses: docker://oichan/firebase-emulator-docker:latest
       with:
-        args: npm rebuild
+        args: yarn install --force
       env:
         CI: true
     - name: test
       uses: docker://oichan/firebase-emulator-docker:latest
       with:
-        args: npm run test
+        args: yarn test
       env:
         CI: true
