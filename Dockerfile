@@ -1,16 +1,15 @@
-FROM node:lts-alpine
-
+FROM node:10.18.1 AS build
+ARG MODE=production
 WORKDIR /app
 
-RUN npm install -g http-server
-
-COPY package*.json ./
-
-RUN npm install
+COPY package*.json .
+RUN npm ci
 
 COPY . .
 
-RUN npm run build
+RUN npx vue-cli-service build --mode $MODE
 
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+FROM nginx:stable-alpine as runtime
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
