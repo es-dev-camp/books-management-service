@@ -2,37 +2,33 @@
 
 ![](https://github.com/es-dev-camp/books-management-service/workflows/deploy/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/nightly/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/build/badge.svg)
 
-## Create .env file
-```
-touch .env
-```
-See reference `.env.sample`
+## 開発環境構築
 
+### 事前準備
 
-## Project setup
-```
-npm install
-```
+下記のコマンドが使える状態になっている必要があります。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+* `node`
+    * 10.x.y 系が望ましいです(firebase functions のランタイムが10系のため)
+    * [Node.js 公式過去リリース](https://nodejs.org/dist/latest-v10.x/) から入手するか [nvm](https://github.com/nvm-sh/nvm) (もしくは [nvm-windows](https://github.com/coreybutler/nvm-windows)) を使ってインストールして下さい(長期的にNode.jsを触るのであればnvmがオススメです)
+* `yarn`
+    * [yarn](https://legacy.yarnpkg.com/lang/ja/)
+* `firebase`
+    * [Firebase CLI](https://firebase.google.com/docs/cli?hl=ja)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### セットアップ
 
-### Run your tests
-```
-npm run test
-```
+1. プロジェクトルートで `yarn install`
+2. `./functions` に移動して `npm ci`
+3. Firebase にログイン `firebase login`
+    * もし book-management-service のプロジェクトに参照できないアカウントにログインしている場合は、ログアウトの上切り替える `firebase logout`
+4. `firebase projects:list` で自分のアカウントに紐付いている Firebase プロジェクトを確認しつつ、 book-management-service の Firebase プロジェクトに `(current)` が付いている(プロジェクトが選択されている)ことを確認する
+    * もしそうなっていない場合は `firebase use <project-id>` で指されているプロジェクトを変更する
+5. プロジェクトメンテナに確認して、各種シークレットをプロジェクトルートに `.env` ファイルとして保存する
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 開発
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+次のコマンドを別々のターミナルで実行する。
+
+* プロジェクトルートで `yarn serve`
+* `./functions` で `npm run serve`
