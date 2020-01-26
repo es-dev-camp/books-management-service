@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "install:all": "npm ci && npm --prefix functions ci",
+    "install:all": "yarn install && yarn --cwd ./functions install",
     "lint": "vue-cli-service lint",
     "serve:firestoreEmulator": "firebase emulators:start --only firestore",
-    "test": "npm run test:unit",
+    "test": "yarn test:unit",
     "test:unit": "start-server-and-test serve:firestoreEmulator http-get://localhost:5000 test:unit:cmd",
     "test:unit:cmd": "cross-env FIRESTORE_EMULATOR_HOST=localhost:5000 vue-cli-service test:unit --forceExit ${JEST_ARGS}",
-    "updateSnapshot": "JEST_ARGS='-u' npm run test:unit",
-    "build": "vue-cli-service build --mode production && npm --prefix functions run build",
+    "updateSnapshot": "JEST_ARGS='-u' yarn test:unit",
+    "build": "vue-cli-service build --mode production && yarn --cwd ./functions run build",
     "serve": "vue-cli-service serve --mode develop",
-    "serve:functions": "npm --prefix functions run serve",
+    "serve:functions": "yarn --cwd ./functions serve",
     "storybook": "start-storybook -p 6006"
   },
   "husky": {
