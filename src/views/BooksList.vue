@@ -22,9 +22,16 @@
           />
         </v-row>
         <v-row align="center" justify="center" class="pa-2">
-          <span class="body-2 font-weight-light yt-ui-ellipsis rows-2">{{
-            book.Title
-          }}</span>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <span
+                class="body-2 font-weight-light yt-ui-ellipsis rows-2"
+                v-on="on"
+                >{{ book.Title }}</span
+              >
+            </template>
+            {{ book.Title }}
+          </v-tooltip>
         </v-row>
       </v-col>
     </v-row>
