@@ -24,10 +24,8 @@ jobs:
         node-version: 10.x
     - name: generate .env files
       run: echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
-    - name: yarn install
-      run: |
-        yarn install
-        npm --prefix functions ci
+    - name: yarn install all
+      run: yarn install:all
       env:
         CI: true
     - name: build
