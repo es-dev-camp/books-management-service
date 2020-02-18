@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Router from 'vue-router';
+import VueAnalytics from 'vue-analytics';
 import vuetify from '@/plugins/vuetify';
 import App from '@/App.vue';
 import { createStore } from '@/store';
@@ -17,6 +18,12 @@ Vue.use(Router);
 
 const store = createStore();
 const router = createRouter(store);
+
+Vue.use(VueAnalytics, {
+  id: process.env.VUE_APP_ANALYTICS_ID,
+  router,
+  property: '$ga'
+});
 
 new Vue({
   render: h => h(App),
