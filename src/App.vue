@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <v-overlay :value="isSignOut" />
     <v-app-bar app hide-on-scroll>
       <v-toolbar-title class="headline text-uppercase">
         <span>Books</span>
@@ -26,21 +27,54 @@
       <v-btn class="mx-2" icon large to="/register">
         <v-icon>add</v-icon>
       </v-btn>
-      <v-tooltip class="mx-2" bottom>
-        <template v-slot:activator="{ on }">
-          <v-avatar
-            @click="signOut"
-            dark
-            v-on="on"
-            slot="offset"
-            class="mx-auto d-block"
-            size="40"
-          >
-            <img :src="getUser.photoURL" />
-          </v-avatar>
+      <v-menu :close-on-content-click="false" offset-y>
+        <template v-slot:activator="{ on: menu }">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on: tooltip }">
+              <v-avatar
+                dark
+                v-on="{ ...tooltip, ...menu }"
+                slot="offset"
+                class="mx-auto d-block"
+                size="40"
+              >
+                <img :src="getUser.photoURL" />
+              </v-avatar>
+            </template>
+            <span>{{ getUser.displayName }}</span
+            ><br />
+            <span class="caption font-weight-light">{{ getUser.Email }}</span>
+          </v-tooltip>
         </template>
-        <span> {{ getUser.displayName }} </span>
-      </v-tooltip>
+
+        <v-card>
+          <v-list>
+            <v-list-item>
+              <v-list-item-avatar size="60">
+                <img :src="getUser.photoURL" :alt="getUser.displayName" />
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ getUser.displayName }}</v-list-item-title>
+                <v-list-item-subtitle>{{ getUser.Email }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+
+          <v-divider></v-divider>
+          <v-row align="center" justify="center" class="ma-2">
+            <v-btn outlined @click="onSignOut">
+              Logout
+            </v-btn>
+          </v-row>
+          <v-divider></v-divider>
+          <v-card-actions class="pb-2">
+            <v-spacer></v-spacer>
+            <span class="subtitle-2 font-weight-light">es-dev-camp</span>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-menu>
     </v-app-bar>
     <v-content>
       <v-fade-transition mode="out-in">
@@ -56,21 +90,30 @@ import { SignInModule } from "@/modules/SignInModule";
 import { BooksModule } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
-  methods: BooksModule.mapActions(["setFilter"]),
+  methods: {
+    ...BooksModule.mapActions(["setFilter"]),
+    ...SignInModule.mapActions(["signOut"])
+  },
   computed: BooksModule.mapGetters(["getFilter"])
 });
 
 @Component({
-  computed: SignInModule.mapGetters(["getUser", "isSignIn"]),
-  methods: SignInModule.mapActions(["signOut"])
+  computed: SignInModule.mapGetters(["getUser", "isSignIn"])
 })
 export default class App extends Super {
+  isSignOut: boolean = false;
+
   get filter(): string {
     return this.getFilter;
   }
 
   set filter(val: string) {
     this.setFilter(val);
+  }
+
+  async onSignOut() {
+    this.isSignOut = true;
+    await this.signOut();
   }
 }
 </script>
