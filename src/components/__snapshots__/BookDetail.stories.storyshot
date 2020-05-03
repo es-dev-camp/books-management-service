@@ -45,11 +45,7 @@ exports[`Storyshots components/BookDetail show 1`] = `
           </i>
         </span>
       </button>
-      <div
-        class="v-menu__content theme--light "
-        role="menu"
-        style="max-height: auto; min-width: 0px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"
-      />
+      <!---->
     </div>
   </div>
    
@@ -199,11 +195,9 @@ exports[`Storyshots components/BookDetail show 1`] = `
                 </div>
                 <div
                   class="v-menu"
+                  offsety="true"
                 >
-                  <div
-                    class="v-menu__content theme--light v-autocomplete__content"
-                    style="max-height: 304px; min-width: 0px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"
-                  />
+                  <!---->
                 </div>
               </div>
               <div
