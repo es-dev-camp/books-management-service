@@ -58,9 +58,9 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { AuditModule } from "@/modules/AuditModule";
-import { BooksModule } from "@/modules/BooksModule";
-import { SignInModule } from "@/modules/SignInModule";
+import { AuditMapper } from "@/modules/AuditModule";
+import { BooksMapper } from "@/modules/BooksModule";
+import { SignInMapper } from "@/modules/SignInModule";
 import { Users, getUser } from "@/model/Users";
 import * as booksManagementEvent from "@common/booksManagementEvent";
 import IBook from "@common/IBook";
@@ -68,13 +68,13 @@ import BookDetail from "@/components/BookDetail.vue";
 
 const Super = Vue.extend({
   methods: {
-    ...BooksModule.mapActions(["updateList", "setCurrentBook"]),
-    ...AuditModule.mapActions(["updateBookEventList"])
+    ...BooksMapper.mapActions(["updateList", "setCurrentBook"]),
+    ...AuditMapper.mapActions(["updateBookEventList"])
   },
   computed: {
-    ...BooksModule.mapGetters(["getFilterdBooks", "getCurrentBook"]),
-    ...AuditModule.mapGetters(["getBookEventList"]),
-    ...SignInModule.mapGetters(["getUser"])
+    ...BooksMapper.mapGetters(["getFilterdBooks", "getCurrentBook"]),
+    ...AuditMapper.mapGetters(["getBookEventList"]),
+    ...SignInMapper.mapGetters(["getUser"])
   }
 });
 

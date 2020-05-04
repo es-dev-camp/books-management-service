@@ -1,4 +1,10 @@
-import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
+import {
+  Getters,
+  Mutations,
+  Actions,
+  Module,
+  createMapper
+} from 'vuex-smart-module';
 import IBook from '@common/IBook';
 import Books from '@/model/Books';
 
@@ -74,3 +80,5 @@ export const BooksModule = new Module({
   mutations: BooksMutations,
   actions: BooksActions
 });
+
+export const BooksMapper = createMapper(BooksModule);

@@ -1,4 +1,10 @@
-import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
+import {
+  Getters,
+  Mutations,
+  Actions,
+  Module,
+  createMapper
+} from 'vuex-smart-module';
 import firebase from '@/firebase/firestore';
 import { Auth0Client, auth0Client } from '@/auth0/client';
 
@@ -97,3 +103,5 @@ export const SignInModule = new Module({
   mutations: SignInMutations,
   actions: SignInActions
 });
+
+export const SignInMapper = createMapper(SignInModule);

@@ -86,19 +86,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { SignInModule } from "@/modules/SignInModule";
-import { BooksModule } from "@/modules/BooksModule";
+import { SignInMapper } from "@/modules/SignInModule";
+import { BooksMapper } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
   methods: {
-    ...BooksModule.mapActions(["setFilter"]),
-    ...SignInModule.mapActions(["signOut"])
+    ...BooksMapper.mapActions(["setFilter"]),
+    ...SignInMapper.mapActions(["signOut"])
   },
-  computed: BooksModule.mapGetters(["getFilter"])
+  computed: BooksMapper.mapGetters(["getFilter"])
 });
 
 @Component({
-  computed: SignInModule.mapGetters(["getUser", "isSignIn"])
+  computed: SignInMapper.mapGetters(["getUser", "isSignIn"])
 })
 export default class App extends Super {
   isSignOut: boolean = false;

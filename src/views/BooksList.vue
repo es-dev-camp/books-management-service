@@ -52,16 +52,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { BooksModule } from "@/modules/BooksModule";
-import { SignInModule } from "@/modules/SignInModule";
+import { BooksMapper } from "@/modules/BooksModule";
+import { SignInMapper } from "@/modules/SignInModule";
 import IBook from "@common/IBook";
 import BookDetail from "@/components/BookDetail.vue";
 
 const Super = Vue.extend({
-  methods: BooksModule.mapActions(["updateList", "setCurrentBook"]),
+  methods: BooksMapper.mapActions(["updateList", "setCurrentBook"]),
   computed: {
-    ...BooksModule.mapGetters(["getFilterdBooks", "getCurrentBook"]),
-    ...SignInModule.mapGetters(["getUser"])
+    ...BooksMapper.mapGetters(["getFilterdBooks", "getCurrentBook"]),
+    ...SignInMapper.mapGetters(["getUser"])
   }
 });
 

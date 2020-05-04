@@ -124,12 +124,12 @@ import { getBook, saveBook } from "@/model/Book";
 import IBook from "@common/IBook";
 import Snack from "@/model/Snack.ts";
 import { getUser } from "@/model/Users";
-import { BooksModule } from "@/modules/BooksModule";
-import { SignInModule } from "@/modules/SignInModule";
+import { BooksMapper } from "@/modules/BooksModule";
+import { SignInMapper } from "@/modules/SignInModule";
 
 const Super = Vue.extend({
-  methods: BooksModule.mapActions(["updateList"]),
-  computed: SignInModule.mapGetters(["getUser"])
+  methods: BooksMapper.mapActions(["updateList"]),
+  computed: SignInMapper.mapGetters(["getUser"])
 });
 
 @Component

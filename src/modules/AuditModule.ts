@@ -1,4 +1,10 @@
-import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
+import {
+  Getters,
+  Mutations,
+  Actions,
+  Module,
+  createMapper
+} from 'vuex-smart-module';
 import * as booksManagementEvent from '@common/booksManagementEvent';
 import Audit from '@/model/Audit';
 
@@ -37,3 +43,5 @@ export const AuditModule = new Module({
   mutations: AuditMutations,
   actions: AuditActions
 });
+
+export const AuditMapper = createMapper(AuditModule);
