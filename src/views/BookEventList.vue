@@ -64,7 +64,7 @@ import { SignInMapper } from "@/modules/SignInModule";
 import { Users, getUser } from "@/model/Users";
 import * as booksManagementEvent from "@common/booksManagementEvent";
 import IBook from "@common/IBook";
-import BookDetail from "@/components/BookDetail.vue";
+const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({
   methods: {

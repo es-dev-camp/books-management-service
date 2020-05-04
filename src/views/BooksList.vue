@@ -55,7 +55,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
 import IBook from "@common/IBook";
-import BookDetail from "@/components/BookDetail.vue";
+const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({
   methods: BooksMapper.mapActions(["updateList", "setCurrentBook"]),
