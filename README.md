@@ -1,6 +1,6 @@
 # book-management-service
 
-![](https://github.com/es-dev-camp/books-management-service/workflows/deploy/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/nightly/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/build/badge.svg)
+![](https://github.com/es-dev-camp/books-management-service/workflows/deploy/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/nightly/badge.svg) ![](https://github.com/es-dev-camp/books-management-service/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/es-dev-camp/books-management-service/branch/master/graph/badge.svg)](https://codecov.io/gh/es-dev-camp/books-management-service)
 
 ## 開発環境構築
 
