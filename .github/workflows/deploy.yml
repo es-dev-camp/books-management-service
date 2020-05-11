@@ -39,6 +39,10 @@ jobs:
         args: yarn test
       env:
         CI: true
+    - name: coverage report
+      run: yarn -s run codecov
+      env:
+        CI: true
     - name: Firebase deploy
       run: |
         ./node_modules/.bin/firebase use release --token ${{ secrets.FIREBASE_TOKEN }}

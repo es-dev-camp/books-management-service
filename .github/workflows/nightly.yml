@@ -37,3 +37,7 @@ jobs:
         args: yarn test
       env:
         CI: true
+    - name: coverage report
+      run: yarn -s run codecov
+      env:
+        CI: true
