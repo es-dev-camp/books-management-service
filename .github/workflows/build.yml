@@ -44,7 +44,7 @@ jobs:
         args: yarn test
       env:
         CI: true
-    - name: coverage report
-      run: yarn -s run codecov
-      env:
-        CI: true
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
