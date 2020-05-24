@@ -52,10 +52,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { VRow, VCol, VContainer, VImg, VTooltip, VDialog } from "vuetify/lib";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
 import IBook from "@common/IBook";
-import BookDetail from "@/components/BookDetail.vue";
+const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({
   methods: BooksMapper.mapActions(["updateList", "setCurrentBook"]),
@@ -66,7 +67,15 @@ const Super = Vue.extend({
 });
 
 @Component({
-  components: { BookDetail }
+  components: {
+    BookDetail,
+    VRow,
+    VCol,
+    VContainer,
+    VImg,
+    VTooltip,
+    VDialog
+  }
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;

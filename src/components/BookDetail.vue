@@ -123,6 +123,27 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import {
+  VRow,
+  VCol,
+  VContainer,
+  VTextField,
+  VTextarea,
+  VCombobox,
+  VImg,
+  VChip,
+  VMenu,
+  VBtn,
+  VIcon,
+  VSpacer,
+  VCard,
+  VCardTitle,
+  VCardText,
+  VCardActions,
+  VList,
+  VListItem,
+  VListItemTitle
+} from "vuetify/lib";
 import { IUser } from "@common/IUser";
 import { getUser } from "@/model/Users";
 import IBook from "@common/IBook";
@@ -134,7 +155,27 @@ const Super = Vue.extend({
 });
 
 @Component({
-  components: { BookDetail }
+  components: {
+    VRow,
+    VCol,
+    VContainer,
+    VTextField,
+    VTextarea,
+    VCombobox,
+    VImg,
+    VChip,
+    VMenu,
+    VBtn,
+    VIcon,
+    VSpacer,
+    VCard,
+    VCardTitle,
+    VCardText,
+    VCardActions,
+    VList,
+    VListItem,
+    VListItemTitle
+  }
 })
 export default class BookDetail extends Super {
   @Prop({ type: Object, default: null }) currentBook!: IBook;

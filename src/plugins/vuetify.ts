@@ -1,10 +1,18 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vuetify, { VBtn, VSnackbar } from 'vuetify/lib';
+import { Ripple } from 'vuetify/lib/directives';
 import ja from 'vuetify/lib/locale/ja';
 import colors from 'vuetify/lib/util/colors';
-import 'vuetify/dist/vuetify.min.css';
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  components: {
+    VBtn,
+    VSnackbar
+  },
+  directives: {
+    Ripple
+  }
+});
 
 const lightThemeSettings = {
   // TODO: いい感じなテーマカラーにする

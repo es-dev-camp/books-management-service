@@ -2,27 +2,28 @@ import firebase from '@/firebase/firestore';
 import { Store } from 'vuex';
 import Router from 'vue-router';
 import { RouteConfig } from 'vue-router';
-
-import Books from '@/views/BooksList.vue';
-import Register from '@/views/Register.vue';
-import BookEventList from '@/views/BookEventList.vue';
 import { SignInModule } from '@/modules/SignInModule';
 
 export const AppRoutes: RouteConfig[] = [
   {
     path: '/',
     name: 'Books',
-    component: Books
+    component: () =>
+      import(/* webpackChunkName: "books"*/ '@/views/BooksList.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: () =>
+      import(/* webpackChunkName: "register"*/ '@/views/Register.vue')
   },
   {
     path: '/book-event-list',
     name: 'BookEventList',
-    component: BookEventList
+    component: () =>
+      import(
+        /* webpackChunkName: "book-event-list"*/ '@/views/BookEventList.vue'
+      )
   }
 ];
 
