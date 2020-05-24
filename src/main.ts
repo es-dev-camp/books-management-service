@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Router from 'vue-router';
 import VueAnalytics from 'vue-analytics';
+import Vuetify from 'vuetify';
 import vuetify from '@/plugins/vuetify';
 import App from '@/App.vue';
 import { createStore } from '@/store';
@@ -15,6 +16,7 @@ Vue.filter('localDate', localDate);
 
 Vue.use(Vuex);
 Vue.use(Router);
+Vue.use(Vuetify);
 
 const store = createStore();
 const router = createRouter(store);

@@ -58,13 +58,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { VRow, VCol, VContainer, VCard, VDialog } from "vuetify/lib";
 import { AuditMapper } from "@/modules/AuditModule";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
 import { Users, getUser } from "@/model/Users";
 import * as booksManagementEvent from "@common/booksManagementEvent";
 import IBook from "@common/IBook";
-import BookDetail from "@/components/BookDetail.vue";
+const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({
   methods: {
@@ -79,7 +80,14 @@ const Super = Vue.extend({
 });
 
 @Component({
-  components: { BookDetail }
+  components: {
+    BookDetail,
+    VRow,
+    VCol,
+    VContainer,
+    VCard,
+    VDialog
+  }
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;
