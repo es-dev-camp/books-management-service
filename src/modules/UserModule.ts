@@ -1,4 +1,10 @@
-import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
+import {
+  Getters,
+  Mutations,
+  Actions,
+  Module,
+  createMapper
+} from 'vuex-smart-module';
 import { Users } from '@/model/Users';
 
 class UserState {}
@@ -24,3 +30,5 @@ export const UserModule = new Module({
   mutations: UserMutations,
   actions: UserActions
 });
+
+export const UserMapper = createMapper(UserModule);
