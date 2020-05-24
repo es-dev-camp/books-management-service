@@ -79,6 +79,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-preset-vue": "^2.0.2",
     "canvas": "^2.6.1",
+    "codecov": "^3.6.5",
     "cross-env": "^7.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.3",

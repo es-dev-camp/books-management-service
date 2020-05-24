@@ -26,6 +26,14 @@ module.exports = {
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
   ],
+  moduleFileExtensions: [
+    "ts",
+    "tsx",
+    "js",
+    "json",
+    "jsx"
+  ],
+  coverageDirectory: "./coverage/",
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{ts,vue}',
