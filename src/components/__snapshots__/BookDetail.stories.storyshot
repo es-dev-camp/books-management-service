@@ -59,7 +59,7 @@ exports[`Storyshots components/BookDetail show 1`] = `
         class="col-sm-2 col-12"
       >
         <div
-          class="v-responsive v-image"
+          class="v-image v-responsive theme--light"
         >
           <div
             class="v-image__image v-image__image--preload v-image__image--cover"
@@ -195,7 +195,6 @@ exports[`Storyshots components/BookDetail show 1`] = `
                 </div>
                 <div
                   class="v-menu"
-                  offsety="true"
                 >
                   <!---->
                 </div>
