@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import { App } from '@slack/bolt';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 
 const botToken = functions.config().slack.bot_token;
 const app = new App({

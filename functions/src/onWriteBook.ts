@@ -5,7 +5,7 @@ import * as functions from 'firebase-functions';
 // src/model/Audit.ts などの定義と何が違う？
 import * as booksManagementEvent from '../../common/booksManagementEvent';
 import * as moment from 'moment';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 
 const db = admin.firestore();
 

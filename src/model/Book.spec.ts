@@ -1,7 +1,7 @@
 import { getBook, saveBook, rentBook, returnBook } from './Book';
 import axios, { AxiosInstance } from 'axios';
 import FirestoreTestProvider from '../../tests/FirestoreTestProvider';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 
 jest.mock('axios');
 const myAxios: jest.Mocked<AxiosInstance> = axios as any;

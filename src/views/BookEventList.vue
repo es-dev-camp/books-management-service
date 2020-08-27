@@ -62,9 +62,8 @@ import { VRow, VCol, VContainer, VCard, VDialog } from "vuetify/lib";
 import { AuditMapper } from "@/modules/AuditModule";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
-import { Users, getUser } from "@/model/Users";
-import * as booksManagementEvent from "@common/booksManagementEvent";
-import IBook from "@common/IBook";
+import { getUser } from "@/model/Users";
+import { IBook } from "@common/IBook";
 const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({

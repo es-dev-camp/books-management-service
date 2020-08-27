@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from '@/firebase/firestore';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 import { IGoogleBookInfo, Item, VolumeInfo } from '@common/IGoogleBookInfo';
 
 const currentDb = firebase.firestore();

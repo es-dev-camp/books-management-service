@@ -5,7 +5,7 @@ import {
   Module,
   createMapper
 } from 'vuex-smart-module';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 import Books from '@/model/Books';
 
 class BooksState {

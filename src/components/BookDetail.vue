@@ -146,7 +146,7 @@ import {
 } from "vuetify/lib";
 import { IUser } from "@common/IUser";
 import { getUser } from "@/model/Users";
-import IBook from "@common/IBook";
+import { IBook } from "@common/IBook";
 import { saveBook, rentBook, returnBook } from "@/model/Book";
 import { BooksMapper } from "@/modules/BooksModule";
 

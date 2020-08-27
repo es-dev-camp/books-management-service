@@ -1,5 +1,5 @@
 import firebase from '@/firebase/firestore';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 
 export default class Books {
   public static async GetList(): Promise<any> {

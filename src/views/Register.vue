@@ -140,7 +140,7 @@ import {
   VIcon
 } from "vuetify/lib";
 import { getBook, saveBook } from "@/model/Book";
-import IBook from "@common/IBook";
+import { IBook } from "@common/IBook";
 import Snack from "@/model/Snack.ts";
 import { getUser } from "@/model/Users";
 import { BooksMapper } from "@/modules/BooksModule";

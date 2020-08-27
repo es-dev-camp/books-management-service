@@ -1,8 +1,8 @@
 import { IUser } from './IUser';
 
-export default interface IAuth {
+export type IAuth = {
   User: IUser;
   Siginin(): void;
   Siginout(): void;
   Update(): void;
-}
+};
