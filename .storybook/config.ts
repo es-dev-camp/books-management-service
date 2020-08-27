@@ -1,6 +1,5 @@
 import { configure, addDecorator, addParameters } from '@storybook/vue';
 import '@storybook/addon-console';
-import { withA11y } from '@storybook/addon-a11y';
 import { setConsoleOptions } from '@storybook/addon-console';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { themes } from '@storybook/theming';
@@ -13,8 +12,6 @@ setConsoleOptions({
   panelExclude: []
 });
 
-addDecorator(withA11y);
-
 const vuetifyDecorator = () => ({
   components: { VApp },
   template: '<v-app><story/></v-app>',
@@ -24,6 +21,12 @@ const vuetifyDecorator = () => ({
 addDecorator(vuetifyDecorator);
 
 addParameters({
+  a11y: {
+    element: '#root',
+    config: {},
+    options: {},
+    manual: true,
+  },
   backgrounds: [
     { name: 'twitter', value: '#00aced' },
     { name: 'facebook', value: '#3b5998' },
