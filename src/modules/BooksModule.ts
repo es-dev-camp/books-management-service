@@ -6,7 +6,7 @@ import {
   createMapper,
 } from 'vuex-smart-module';
 import { IBook } from '@common/IBook';
-import Books from '@/model/Books';
+import * as Books from '@/model/Books';
 
 class BooksState {
   books: IBook[] = new Array<IBook>();
@@ -34,10 +34,10 @@ class BooksGetters extends Getters<BooksState> {
 
 class BooksMutations extends Mutations<BooksState> {
   async updateBooks() {
-    this.state.books = await Books.GetList();
+    this.state.books = await Books.getBooks();
   }
   async updateBook(ISBN: string) {
-    const book = await Books.ReloadBook(ISBN);
+    const book = await Books.reloadBook(ISBN);
     if (!book) {
       return;
     }
