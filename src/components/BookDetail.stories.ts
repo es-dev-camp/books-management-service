@@ -10,7 +10,7 @@ const stories = storiesOf('components/BookDetail', module);
 
 stories
   .addParameters({
-    viewport: { defaultViewport: 'iphonex' }
+    viewport: { defaultViewport: 'iphonex' },
   })
   .add('show', () => ({
     components: { BookDetail },
@@ -39,9 +39,9 @@ stories
           Created: { seconds: 1559190359, nanoseconds: 837000000 },
           Modified: { seconds: 1559190359, nanoseconds: 547000000 },
           ShowDetail: false,
-          location: 'ビジアプ横の本棚'
+          location: 'ビジアプ横の本棚',
         },
-        currentUser: {}
+        currentUser: {},
       };
-    }
+    },
   }));

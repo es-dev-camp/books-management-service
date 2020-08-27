@@ -8,13 +8,13 @@
       </v-toolbar-title>
 
       <v-text-field
+        v-model="filter"
         text
         solo-inverted
         hide-details
         prepend-inner-icon="search"
         label="Search"
         class="mx-5 hidden-sm-and-down"
-        v-model="filter"
       ></v-text-field>
 
       <v-spacer></v-spacer>
@@ -32,11 +32,11 @@
           <v-tooltip bottom>
             <template v-slot:activator="{ on: tooltip }">
               <v-avatar
-                dark
-                v-on="{ ...tooltip, ...menu }"
                 slot="offset"
+                dark
                 class="mx-auto d-block"
                 size="40"
+                v-on="{ ...tooltip, ...menu }"
               >
                 <img :src="getUser.photoURL" />
               </v-avatar>
@@ -63,9 +63,7 @@
 
           <v-divider></v-divider>
           <v-row align="center" justify="center" class="ma-2">
-            <v-btn outlined @click="onSignOut">
-              Logout
-            </v-btn>
+            <v-btn outlined @click="onSignOut"> Logout </v-btn>
           </v-row>
           <v-divider></v-divider>
           <v-card-actions class="pb-2">
@@ -111,17 +109,17 @@ import {
   VRow,
   VCol,
   VFadeTransition,
-  VImg
+  VImg,
 } from "vuetify/lib";
 import { SignInMapper } from "@/modules/SignInModule";
 import { BooksMapper } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
+  computed: BooksMapper.mapGetters(["getFilter"]),
   methods: {
     ...BooksMapper.mapActions(["setFilter"]),
-    ...SignInMapper.mapActions(["signOut"])
+    ...SignInMapper.mapActions(["signOut"]),
   },
-  computed: BooksMapper.mapGetters(["getFilter"])
 });
 
 @Component({
@@ -150,9 +148,9 @@ const Super = Vue.extend({
     VRow,
     VCol,
     VFadeTransition,
-    VImg
+    VImg,
   },
-  computed: SignInMapper.mapGetters(["getUser", "isSignIn"])
+  computed: SignInMapper.mapGetters(["getUser", "isSignIn"]),
 })
 export default class App extends Super {
   isSignOut: boolean = false;

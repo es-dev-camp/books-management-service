@@ -12,7 +12,7 @@ const nullUser: IUser = {
   Id: '',
   Email: '',
   displayName: 'Anonymous',
-  photoURL: null
+  photoURL: null,
 };
 
 export class Auth0Client {
@@ -27,7 +27,7 @@ export class Auth0Client {
       clientID,
       redirectUri,
       responseType: 'token id_token',
-      scope: 'openid profile email'
+      scope: 'openid profile email',
     });
   }
 
@@ -61,7 +61,7 @@ export class Auth0Client {
           Id: user.sub,
           Email: user.email,
           displayName: user.name,
-          photoURL: user.picture
+          photoURL: user.picture,
         } as IUser;
 
         return resolve(true);
@@ -72,7 +72,7 @@ export class Auth0Client {
   signIn(redirectPath: string) {
     console.log(redirectUri, redirectPath);
     this._auth0Client.authorize({
-      redirectUri: `${redirectUri}${redirectPath}`
+      redirectUri: `${redirectUri}${redirectPath}`,
     });
   }
 
@@ -82,7 +82,7 @@ export class Auth0Client {
     this._auth0Client.logout({
       clientID,
       federated: false,
-      returnTo: redirectUri
+      returnTo: redirectUri,
     });
   }
 }

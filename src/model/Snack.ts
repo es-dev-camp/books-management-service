@@ -1,11 +1,11 @@
 export default class Snack {
-  public Top: boolean = true;
-  public Bottom: boolean = false;
-  public Left: boolean = false;
-  public Right: boolean = false;
-  public IsVisible: boolean = false;
-  public Color: string = 'info';
-  public Message: string = '';
+  public Top = true;
+  public Bottom = false;
+  public Left = false;
+  public Right = false;
+  public IsVisible = false;
+  public Color = 'info';
+  public Message = '';
 
   public Show(color: string, message: string, args: string[]): void {
     this.Initialize();

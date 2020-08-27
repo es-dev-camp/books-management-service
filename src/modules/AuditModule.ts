@@ -3,7 +3,7 @@ import {
   Mutations,
   Actions,
   Module,
-  createMapper
+  createMapper,
 } from 'vuex-smart-module';
 import * as booksManagementEvent from '@common/booksManagementEvent';
 import Audit from '@/model/Audit';
@@ -21,7 +21,7 @@ class AuditGetters extends Getters<AuditState> {
 }
 
 class AuditMutations extends Mutations<AuditState> {
-  async updateBookEventList(_: any) {
+  async updateBookEventList() {
     this.state.bookEventList = await Audit.GetBookEventList();
   }
 }
@@ -32,8 +32,8 @@ class AuditActions extends Actions<
   AuditMutations,
   AuditActions
 > {
-  async updateBookEventList() {
-    await this.commit('updateBookEventList', null);
+  updateBookEventList() {
+    this.commit('updateBookEventList');
   }
 }
 
@@ -41,7 +41,7 @@ export const AuditModule = new Module({
   state: AuditState,
   getters: AuditGetters,
   mutations: AuditMutations,
-  actions: AuditActions
+  actions: AuditActions,
 });
 
 export const AuditMapper = createMapper(AuditModule);

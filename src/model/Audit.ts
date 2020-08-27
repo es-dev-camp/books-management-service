@@ -2,7 +2,7 @@ import firebase from '@/firebase/firestore';
 import * as booksManagementEvent from '@common/booksManagementEvent';
 
 export default class AuditLog {
-  private static collectionName: string = 'audit';
+  private static collectionName = 'audit';
   private static collection: firebase.firestore.CollectionReference = firebase
     .firestore()
     .collection(AuditLog.collectionName);
@@ -13,7 +13,7 @@ export default class AuditLog {
 
       const bookEventQuerySnapshot = await bookEventQuery.get();
       const bookEventList = new Array<booksManagementEvent.bookEvent>();
-      bookEventQuerySnapshot.forEach(async bookEvent => {
+      bookEventQuerySnapshot.forEach((bookEvent) => {
         const book = Object.assign(
           bookEvent.data()
         ) as booksManagementEvent.bookEvent;

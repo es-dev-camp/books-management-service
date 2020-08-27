@@ -12,14 +12,14 @@ export class Users {
   static sub() {
     const collection = firebase.firestore().collection(userCollectionName);
     Users.unsub = collection.onSnapshot(
-      snapshot => {
+      (snapshot) => {
         const users: IUser[] = [];
-        snapshot.forEach(j => {
+        snapshot.forEach((j) => {
           users.push(j.data() as IUser);
         });
         Users.cache = users;
       },
-      err => {
+      (err) => {
         console.log(`Error(Users): ${err}`);
       }
     );
@@ -28,7 +28,7 @@ export class Users {
 
 export function getUser(userId: string) {
   if (Users.cache && Users.cache.length > 0) {
-    return Users.cache.find(u => u.Id === userId);
+    return Users.cache.find((u) => u.Id === userId);
   }
   return undefined;
 }

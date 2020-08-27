@@ -2,7 +2,7 @@
   <v-container grid-list-xs fluid>
     <v-row>
       <v-col>
-        <div v-for="(item, index) in getBookEventList" v-bind:key="index">
+        <div v-for="(item, index) in getBookEventList" :key="index">
           <v-card
             v-if="convertBookTitle(item.book) !== '不明な書籍'"
             class="pa-2 ma-2"
@@ -43,14 +43,14 @@
     </v-row>
     <v-dialog
       :value="isShowDetail"
-      @input="isShowDetail = false"
       width="80%"
       max-width="700px"
+      @input="isShowDetail = false"
     >
       <book-detail
-        @close-dialog="isShowDetail = false"
         :current-book="getCurrentBook"
         :current-user="getUser"
+        @close-dialog="isShowDetail = false"
       />
     </v-dialog>
   </v-container>
@@ -67,15 +67,15 @@ import { IBook } from "@common/IBook";
 const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({
-  methods: {
-    ...BooksMapper.mapActions(["updateList", "setCurrentBook"]),
-    ...AuditMapper.mapActions(["updateBookEventList"])
-  },
   computed: {
     ...BooksMapper.mapGetters(["getFilterdBooks", "getCurrentBook"]),
     ...AuditMapper.mapGetters(["getBookEventList"]),
-    ...SignInMapper.mapGetters(["getUser"])
-  }
+    ...SignInMapper.mapGetters(["getUser"]),
+  },
+  methods: {
+    ...BooksMapper.mapActions(["updateList", "setCurrentBook"]),
+    ...AuditMapper.mapActions(["updateBookEventList"]),
+  },
 });
 
 @Component({
@@ -85,8 +85,8 @@ const Super = Vue.extend({
     VCol,
     VContainer,
     VCard,
-    VDialog
-  }
+    VDialog,
+  },
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;
@@ -103,7 +103,7 @@ export default class BooksList extends Super {
 
   convertBookTitle(isbn: string) {
     const books = this.getFilterdBooks;
-    const book = books.find(x => x.ISBN === isbn);
+    const book = books.find((x) => x.ISBN === isbn);
     return book ? book.Title : "不明な書籍";
   }
 
@@ -126,7 +126,7 @@ export default class BooksList extends Super {
 
   ShowDetail(isbn: string): void {
     const books = this.getFilterdBooks as IBook[];
-    const findBooks = books.filter(x => x.ISBN === isbn);
+    const findBooks = books.filter((x) => x.ISBN === isbn);
     if (!findBooks || findBooks.length === 0) {
       return;
     }

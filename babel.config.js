@@ -3,7 +3,7 @@ if (process.env.NODE_ENV === 'production') {
   plugins.push('transform-remove-console');
 }
 
-module.exports = api => ({
+module.exports = (api) => ({
   presets: [['@vue/app', { useBuiltIns: 'entry' }]],
-  ...(api.env('test') && { plugins })
+  ...(api.env('test') && { plugins }),
 });

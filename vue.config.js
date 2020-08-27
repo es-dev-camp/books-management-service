@@ -10,17 +10,17 @@ module.exports = {
     devtool: !devTool ? false : devTool,
     resolve: {
       alias: {
-        '@common': path.resolve(__dirname, 'common')
-      }
-    }
+        '@common': path.resolve(__dirname, 'common'),
+      },
+    },
   },
   pages: {
-    index: entrypoint
+    index: entrypoint,
   },
   outputDir: outputDir,
   pluginOptions: {
     storybook: {
-      allowedPlugins: ['define']
-    }
-  }
+      allowedPlugins: ['define'],
+    },
+  },
 };

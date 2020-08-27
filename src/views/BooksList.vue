@@ -2,6 +2,8 @@
   <v-container fluid>
     <v-row>
       <v-col
+        v-for="book in getFilterdBooks"
+        :key="book.ISBN"
         d-flex
         cols="2"
         sm="2"
@@ -9,14 +11,12 @@
         lg="1"
         xl="1"
         class="ma-1"
-        v-for="book in getFilterdBooks"
-        v-bind:key="book.ISBN"
       >
         <v-row align="center" justify="center">
           <v-img
             :src="book.Thumbnail"
             lazy-src="/img/noimage.png"
-            style="cursor: pointer;"
+            style="cursor: pointer"
             aspect-ratio="0.7070"
             @click="ShowDetail(book)"
           />
@@ -37,14 +37,14 @@
     </v-row>
     <v-dialog
       :value="isShowDetail"
-      @input="isShowDetail = false"
       width="80%"
       max-width="700px"
+      @input="isShowDetail = false"
     >
       <book-detail
-        @close-dialog="isShowDetail = false"
         :current-book="getCurrentBook"
         :current-user="getUser"
+        @close-dialog="isShowDetail = false"
       />
     </v-dialog>
   </v-container>
@@ -59,11 +59,11 @@ import { IBook } from "@common/IBook";
 const BookDetail = () => import("@/components/BookDetail.vue");
 
 const Super = Vue.extend({
-  methods: BooksMapper.mapActions(["updateList", "setCurrentBook"]),
   computed: {
     ...BooksMapper.mapGetters(["getFilterdBooks", "getCurrentBook"]),
-    ...SignInMapper.mapGetters(["getUser"])
-  }
+    ...SignInMapper.mapGetters(["getUser"]),
+  },
+  methods: BooksMapper.mapActions(["updateList", "setCurrentBook"]),
 });
 
 @Component({
@@ -74,8 +74,8 @@ const Super = Vue.extend({
     VContainer,
     VImg,
     VTooltip,
-    VDialog
-  }
+    VDialog,
+  },
 })
 export default class BooksList extends Super {
   isShowDetail: boolean = false;

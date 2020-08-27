@@ -24,14 +24,14 @@ const router = createRouter(store);
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_ANALYTICS_ID,
   router,
-  property: '$ga'
+  property: '$ga',
 });
 
 new Vue({
-  render: h => h(App),
+  components: { App },
+  render: (h) => h(App),
   router: router,
   store: store,
-  components: { App },
   template: '<App/>',
-  vuetify: vuetify
+  vuetify: vuetify,
 }).$mount('#app');

@@ -8,7 +8,7 @@ export default class Books {
 
       const booksmeta = await booklist.get();
       const books = new Array<IBook>();
-      booksmeta.forEach(async bookmeta => {
+      booksmeta.forEach((bookmeta) => {
         books.push(this.Wrap(bookmeta.data()));
       });
       return books;
@@ -39,7 +39,7 @@ export default class Books {
     return book;
   }
 
-  private static collectionName: string = 'book';
+  private static collectionName = 'book';
   private static collection: firebase.firestore.CollectionReference = firebase
     .firestore()
     .collection(Books.collectionName);

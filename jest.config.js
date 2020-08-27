@@ -6,34 +6,27 @@ module.exports = {
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.jsx?$': 'babel-jest'
+    '^.+\\.jsx?$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(vuetify/|@storybook/.*\\.vue$|.*\\.css$))'
+    'node_modules/(?!(vuetify/|@storybook/.*\\.vue$|.*\\.css$))',
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@common/(.*)$': '<rootDir>/common/$1'
+    '^@common/(.*)$': '<rootDir>/common/$1',
   },
   snapshotSerializers: ['jest-serializer-vue'],
   testMatch: [
     '<rootDir>/src/**/*.spec.(ts|tsx)',
     '<rootDir>/functions/**/*.spec.(ts|tsx)',
-    '<rootDir>/storyshots/storyshots.spec.ts'
+    '<rootDir>/storyshots/storyshots.spec.ts',
   ],
   testURL: 'http://localhost/',
   watchPlugins: [
     'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
+    'jest-watch-typeahead/testname',
   ],
-  moduleFileExtensions: [
-    "ts",
-    "tsx",
-    "js",
-    "json",
-    "jsx"
-  ],
-  coverageDirectory: "./coverage/",
+  coverageDirectory: './coverage/',
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{ts,vue}',
@@ -42,12 +35,12 @@ module.exports = {
     '!src/**/*.stories.ts',
     // TODO: テスト内容を検討中なので一旦除外
     '!src/**/App.vue',
-    '!src/**/{store,main,registerServiceWorker}.ts'
+    '!src/**/{store,main,registerServiceWorker}.ts',
   ],
   coverageReporters: ['json', 'lcov', 'text-summary'],
   globals: {
     'ts-jest': {
-      babelConfig: true
-    }
-  }
+      babelConfig: true,
+    },
+  },
 };
