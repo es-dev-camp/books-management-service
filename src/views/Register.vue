@@ -173,8 +173,8 @@ const Super = Vue.extend({
   },
 })
 export default class Register extends Super {
-  isbn: string = "";
-  isBusy: boolean = false;
+  isbn = "";
+  isBusy = false;
   snack: Snack = new Snack();
   registeredBook: Partial<IBook> = {};
 

@@ -153,7 +153,7 @@ const Super = Vue.extend({
   computed: SignInMapper.mapGetters(["getUser", "isSignIn"]),
 })
 export default class App extends Super {
-  isSignOut: boolean = false;
+  isSignOut = false;
 
   get filter(): string {
     return this.getFilter;

@@ -5,7 +5,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
-
     'prettier',
     'prettier/@typescript-eslint',
   ],
@@ -17,20 +16,13 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-use-before-define': [
       'warn',
       { functions: false, classes: false },
     ],
     '@typescript-eslint/ban-ts-comment': 'off',
-    '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/no-namespace': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
-    'no-dupe-class-members': 'off',
     'no-prototype-builtins': 'warn',
     'require-await': 'warn',
   },
@@ -40,9 +32,7 @@ module.exports = {
       env: {
         jest: true,
       },
-      rules: {
-        '@typescript-eslint/no-var-requires': 'off',
-      },
+      rules: {},
     },
     {
       files: ['**/*.{ts,vue}'],
@@ -52,11 +42,7 @@ module.exports = {
       },
       extends: ['plugin:vue/recommended', 'prettier/vue'],
       rules: {
-        'no-console': 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-prototype-builtins': 'off',
-        'no-unused-vars': 'off',
-        'vue/no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
       },
     },

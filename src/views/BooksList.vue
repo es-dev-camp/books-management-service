@@ -78,7 +78,7 @@ const Super = Vue.extend({
   },
 })
 export default class BooksList extends Super {
-  isShowDetail: boolean = false;
+  isShowDetail = false;
 
   async created() {
     await this.updateList();

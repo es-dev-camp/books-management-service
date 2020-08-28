@@ -3,7 +3,7 @@ import { IUser, userCollectionName } from '@common/IUser';
 
 export class Users {
   static cache: IUser[] = [];
-  static unsub: () => void = () => {};
+  static unsub: () => void | undefined;
 
   static get list(): IUser[] {
     return Users.cache;
@@ -34,6 +34,7 @@ export function getUser(userId: string) {
 }
 
 export function unsub() {
+  if (!Users.unsub) return;
   Users.unsub();
 }
 
