@@ -3,7 +3,7 @@ import { IUser, userCollectionName } from '@common/IUser';
 
 export class Users {
   static cache: IUser[] = [];
-  static unsub: () => void = () => {};
+  static unsub: () => void | undefined;
 
   static get list(): IUser[] {
     return Users.cache;
@@ -12,14 +12,14 @@ export class Users {
   static sub() {
     const collection = firebase.firestore().collection(userCollectionName);
     Users.unsub = collection.onSnapshot(
-      snapshot => {
+      (snapshot) => {
         const users: IUser[] = [];
-        snapshot.forEach(j => {
+        snapshot.forEach((j) => {
           users.push(j.data() as IUser);
         });
         Users.cache = users;
       },
-      err => {
+      (err) => {
         console.log(`Error(Users): ${err}`);
       }
     );
@@ -28,12 +28,13 @@ export class Users {
 
 export function getUser(userId: string) {
   if (Users.cache && Users.cache.length > 0) {
-    return Users.cache.find(u => u.Id === userId);
+    return Users.cache.find((u) => u.Id === userId);
   }
   return undefined;
 }
 
 export function unsub() {
+  if (!Users.unsub) return;
   Users.unsub();
 }
 

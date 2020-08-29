@@ -1,6 +1,6 @@
 import { Timestamp } from './Timestamp';
 
-export default interface IBook {
+export type IBook = {
   Title: string;
   ISBN: string;
   Cover: string;
@@ -18,4 +18,4 @@ export default interface IBook {
   LastBorrowUserId: string | null;
   // TODO: Union type に firebase.firestore.FieldValue 追加する
   LastBorrowTimestamp: Timestamp | null;
-}
+};

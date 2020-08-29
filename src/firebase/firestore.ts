@@ -9,7 +9,7 @@ firebase.initializeApp({
   projectId: process.env.VUE_APP_PROJECT_ID,
   storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.VUE_APP_MESSAGEING_SENDER_ID,
-  appId: process.env.VUE_APP_APP_ID
+  appId: process.env.VUE_APP_APP_ID,
 });
 
 firebase.firestore().settings({});

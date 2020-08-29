@@ -10,8 +10,8 @@ export function createStore() {
       SignInModule,
       BooksModule,
       AuditModule,
-      UserModule
-    }
+      UserModule,
+    },
   });
 
   return cs(rootModule);

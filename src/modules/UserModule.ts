@@ -3,7 +3,7 @@ import {
   Mutations,
   Actions,
   Module,
-  createMapper
+  createMapper,
 } from 'vuex-smart-module';
 import { Users } from '@/model/Users';
 
@@ -28,7 +28,7 @@ export const UserModule = new Module({
   state: UserState,
   getters: UserGetters,
   mutations: UserMutations,
-  actions: UserActions
+  actions: UserActions,
 });
 
 export const UserMapper = createMapper(UserModule);

@@ -1,31 +1,31 @@
 // Get json https://www.googleapis.com/books/v1/volumes?q=isbn:1234567890123
 // Generate .ts using http://www.json2ts.com/
-export interface IndustryIdentifier {
+export type IndustryIdentifier = {
   // 主に ISBN_10, ISBN_13 の種類
   type: string;
   identifier: string;
 }
 
-export interface ReadingModes {
+export type ReadingModes = {
   text: boolean;
   image: boolean;
-}
+};
 
-export interface PanelizationSummary {
+export type PanelizationSummary = {
   containsEpubBubbles: boolean;
   containsImageBubbles: boolean;
-}
+};
 
-export interface ImageLinks {
+export type ImageLinks = {
   extraLarge: string;
   large: string;
   medium: string;
   small: string;
   smallThumbnail: string;
   thumbnail: string;
-}
+};
 
-export interface VolumeInfo {
+export type VolumeInfo = {
   title: string;
   subtitle: string;
   authors: string[];
@@ -46,23 +46,23 @@ export interface VolumeInfo {
   previewLink: string;
   infoLink: string;
   canonicalVolumeLink: string;
-}
+};
 
-export interface SaleInfo {
+export type SaleInfo = {
   country: string;
   saleability: string;
   isEbook: boolean;
-}
+};
 
-export interface Epub {
+export type Epub = {
   isAvailable: boolean;
-}
+};
 
-export interface Pdf {
+export type Pdf = {
   isAvailable: boolean;
-}
+};
 
-export interface AccessInfo {
+export type AccessInfo = {
   country: string;
   viewability: string;
   embeddable: boolean;
@@ -73,9 +73,9 @@ export interface AccessInfo {
   webReaderLink: string;
   accessViewStatus: string;
   quoteSharingAllowed: boolean;
-}
+};
 
-export interface Item {
+export type Item = {
   kind: string;
   id: string;
   etag: string;
@@ -83,10 +83,10 @@ export interface Item {
   volumeInfo: VolumeInfo;
   saleInfo: SaleInfo;
   accessInfo: AccessInfo;
-}
+};
 
-export interface IGoogleBookInfo {
+export type IGoogleBookInfo = {
   kind: string;
   totalItems: number;
   items: Item[];
-}
+};

@@ -3,15 +3,15 @@
     <v-row align="center" justify="center" class="my-10">
       <v-col cols="12" sm="6">
         <v-text-field
+          v-model="isbn"
           autofocus
           placeholder="1234567890123"
           hint="Input ISBN-13 code, and Press Enter key."
           persistent-hint
           class="purple-input"
           label="ISBN Code"
-          v-model="isbn"
-          v-on:keydown.enter="AddBook"
-          style="ime-mode:inactive;"
+          style="ime-mode: inactive"
+          @keydown.enter="AddBook"
         />
       </v-col>
     </v-row>
@@ -60,7 +60,7 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <template v-for="author in registeredBook.Authors">
-                    <span bold v-bind:key="author"> {{ author }} </span>
+                    <span :key="author" bold> {{ author }} </span>
                   </template>
                 </v-list-item-title>
               </v-list-item-content>
@@ -101,12 +101,12 @@
       </v-col>
     </v-row>
     <v-snackbar
+      v-model="snack.IsVisible"
       :top="snack.Top"
       :bottom="snack.Bottom"
       :left="snack.Left"
       :right="snack.Right"
       :color="snack.Color"
-      v-model="snack.IsVisible"
       dark
     >
       <v-icon color="white" class="mr-3">mdi-bell-plus</v-icon>
@@ -137,18 +137,18 @@ import {
   VDivider,
   VImg,
   VSnackbar,
-  VIcon
+  VIcon,
 } from "vuetify/lib";
 import { getBook, saveBook } from "@/model/Book";
-import IBook from "@common/IBook";
+import { IBook } from "@common/IBook";
 import Snack from "@/model/Snack.ts";
 import { getUser } from "@/model/Users";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
 
 const Super = Vue.extend({
+  computed: SignInMapper.mapGetters(["getUser"]),
   methods: BooksMapper.mapActions(["updateList"]),
-  computed: SignInMapper.mapGetters(["getUser"])
 });
 
 @Component({
@@ -169,12 +169,12 @@ const Super = Vue.extend({
     VDivider,
     VImg,
     VSnackbar,
-    VIcon
-  }
+    VIcon,
+  },
 })
 export default class Register extends Super {
-  isbn: string = "";
-  isBusy: boolean = false;
+  isbn = "";
+  isBusy = false;
   snack: Snack = new Snack();
   registeredBook: Partial<IBook> = {};
 
@@ -190,7 +190,7 @@ export default class Register extends Super {
     const book = await getBook(this.isbn, this.getUser.Id);
     if (!book) {
       this.ShowSnack("warning", `Not found book infomation ${this.isbn}`, [
-        "top"
+        "top",
       ]);
       this.ClearInput();
       return;

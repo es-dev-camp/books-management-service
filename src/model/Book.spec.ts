@@ -1,7 +1,7 @@
 import { getBook, saveBook, rentBook, returnBook } from './Book';
 import axios, { AxiosInstance } from 'axios';
 import FirestoreTestProvider from '../../tests/FirestoreTestProvider';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 
 jest.mock('axios');
 const myAxios: jest.Mocked<AxiosInstance> = axios as any;
@@ -15,10 +15,10 @@ beforeAll(async () => {
   await adminDB.doc(`book/${existBookIsbn}`).set({
     ISBN: existBookIsbn,
     Title: 'existBook',
-    OnLoan: false
+    OnLoan: false,
   } as IBook);
   db = provider.getFirestoreWithAuth({
-    uid: 'testuid'
+    uid: 'testuid',
   });
 });
 afterAll(async () => {
@@ -29,7 +29,7 @@ afterAll(async () => {
 describe('getBook', () => {
   test('存在しないISBNを指定すると、不明なタイトルの本オブジェクトが返ること', async () => {
     const empty = {
-      status: 404
+      status: 404,
     };
     const mockGet = jest.fn().mockReturnValueOnce(empty);
     // @ts-ignore
@@ -45,18 +45,18 @@ describe('getBook', () => {
         totalItems: 1,
         items: [
           {
-            selfLink: 'https://hogefuga/'
-          }
-        ]
-      }
+            selfLink: 'https://hogefuga/',
+          },
+        ],
+      },
     };
     const item = {
       status: 200,
       data: {
         volumeInfo: {
-          title: 'hoge'
-        }
-      }
+          title: 'hoge',
+        },
+      },
     };
     const mockGet = jest
       .fn()

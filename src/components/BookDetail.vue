@@ -4,13 +4,13 @@
       {{ currentBook.Title }}
       <v-spacer></v-spacer>
       <v-text-field
-        class="px-1"
         v-if="isEditMode"
-        label="location"
         v-model="currentBook.Location"
+        class="px-1"
+        label="location"
       />
       <v-chip v-else color="secondary" dark>{{ currentBook.Location }}</v-chip>
-      <v-menu :visible="!this.isEditMode">
+      <v-menu :visible="!isEditMode">
         <template v-slot:activator="{ on }">
           <v-btn dark icon v-on="on">
             <v-icon color="#333">more_vert</v-icon>
@@ -33,16 +33,16 @@
           <v-row>
             <v-text-field
               v-if="isEditMode"
+              v-model="currentBook.Title"
               :readonly="!isEditMode"
               label="title"
-              v-model="currentBook.Title"
             />
           </v-row>
           <v-row>
             <v-text-field
+              v-model="currentBook.PublishDate"
               :readonly="!isEditMode"
               label="publishDate"
-              v-model="currentBook.PublishDate"
             />
           </v-row>
           <v-row>
@@ -79,27 +79,27 @@
         <v-col cols="12" sm="4" class="px-2">
           <span v-if="currentBook.OnLoan">
             <v-btn
+              v-if="isBorrowUser"
               outlined
               color="primary"
               block
               rounded
-              v-if="this.isBorrowUser"
-              @click="this.Return"
-              :loading="this.progress"
+              :loading="progress"
+              @click="Return"
               >返却する</v-btn
             >
-            <v-btn block disabled v-else>貸出中です</v-btn>
+            <v-btn v-else block disabled>貸出中です</v-btn>
           </span>
           <v-btn
             v-else
             color="primary"
             block
             rounded
-            @click="this.Rent"
-            :loading="this.progress"
+            :loading="progress"
+            @click="Rent"
             >借りる</v-btn
           >
-          <div>最終貸出日: {{ this.readableTime }}</div>
+          <div>最終貸出日: {{ readableTime }}</div>
           <div>ISBN: {{ currentBook.ISBN }}</div>
         </v-col>
       </v-row>
@@ -113,10 +113,8 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click="this.Close">Close</v-btn>
-      <v-btn v-if="this.isEditMode" color="primary" @click="this.Save"
-        >Save</v-btn
-      >
+      <v-btn @click="Close">Close</v-btn>
+      <v-btn v-if="isEditMode" color="primary" @click="Save">Save</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -142,16 +140,16 @@ import {
   VCardActions,
   VList,
   VListItem,
-  VListItemTitle
+  VListItemTitle,
 } from "vuetify/lib";
 import { IUser } from "@common/IUser";
 import { getUser } from "@/model/Users";
-import IBook from "@common/IBook";
+import { IBook } from "@common/IBook";
 import { saveBook, rentBook, returnBook } from "@/model/Book";
 import { BooksMapper } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
-  methods: BooksMapper.mapActions(["updateBook"])
+  methods: BooksMapper.mapActions(["updateBook"]),
 });
 
 @Component({
@@ -174,12 +172,12 @@ const Super = Vue.extend({
     VCardActions,
     VList,
     VListItem,
-    VListItemTitle
-  }
+    VListItemTitle,
+  },
 })
 export default class BookDetail extends Super {
-  @Prop({ type: Object, default: null }) currentBook!: IBook;
-  @Prop({ type: Object, default: null }) currentUser!: IUser;
+  @Prop({ type: Object, required: true }) currentUser!: IUser;
+  @Prop({ type: Object, required: true }) currentBook!: IBook;
   isEditMode = false;
   progress = false;
   items: Array<{ title: string; action: () => void }> = [
@@ -187,8 +185,8 @@ export default class BookDetail extends Super {
       title: "Edit",
       action: () => {
         this.change();
-      }
-    }
+      },
+    },
   ];
 
   change(): void {
@@ -254,7 +252,7 @@ export default class BookDetail extends Super {
 
   remove(item: string) {
     this.currentBook.Authors = this.currentBook.Authors.filter(
-      author => author !== item
+      (author) => author !== item
     );
   }
 

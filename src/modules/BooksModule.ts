@@ -3,25 +3,25 @@ import {
   Mutations,
   Actions,
   Module,
-  createMapper
+  createMapper,
 } from 'vuex-smart-module';
-import IBook from '@common/IBook';
-import Books from '@/model/Books';
+import { IBook } from '@common/IBook';
+import * as Books from '@/model/Books';
 
 class BooksState {
   books: IBook[] = new Array<IBook>();
   currentBook: IBook = {} as IBook;
-  filter: string = '';
+  filter = '';
 }
 
 class BooksGetters extends Getters<BooksState> {
   get getFilterdBooks() {
     const regex = new RegExp(`^.*${this.state.filter}.*$`, 'i');
     return this.state.books.filter(
-      book =>
+      (book) =>
         regex.test(book.Title) ||
         regex.test(book.Comment) ||
-        book.Authors.some(author => regex.test(author))
+        book.Authors.some((author) => regex.test(author))
     );
   }
   get getFilter() {
@@ -33,16 +33,16 @@ class BooksGetters extends Getters<BooksState> {
 }
 
 class BooksMutations extends Mutations<BooksState> {
-  async updateBooks(_: any) {
-    this.state.books = await Books.GetList();
+  async updateBooks() {
+    this.state.books = await Books.getBooks();
   }
   async updateBook(ISBN: string) {
-    const book = await Books.ReloadBook(ISBN);
+    const book = await Books.reloadBook(ISBN);
     if (!book) {
       return;
     }
     const currentBooks = this.state.books;
-    const index = currentBooks.findIndex(x => x.ISBN === ISBN);
+    const index = currentBooks.findIndex((x) => x.ISBN === ISBN);
     this.state.books.splice(index, 1, book);
     this.setCurrentBook(book);
   }
@@ -78,7 +78,7 @@ export const BooksModule = new Module({
   state: BooksState,
   getters: BooksGetters,
   mutations: BooksMutations,
-  actions: BooksActions
+  actions: BooksActions,
 });
 
 export const BooksMapper = createMapper(BooksModule);

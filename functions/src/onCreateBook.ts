@@ -1,13 +1,14 @@
 import * as functions from 'firebase-functions';
 import { App } from '@slack/bolt';
-import IBook from '@common/IBook';
+import { IBook } from '@common/IBook';
 
 const botToken = functions.config().slack.bot_token;
 const app = new App({
   token: botToken,
   signingSecret: functions.config().slack.signing_secret
 });
-app.error(console.log);
+// TODO: Promise<void>型のメソッドにする
+// app.error(console.log);
 
 export const func = functions.firestore
   .document('book/{isbn}')

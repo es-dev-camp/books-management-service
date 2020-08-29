@@ -3,7 +3,7 @@ import {
   Mutations,
   Actions,
   Module,
-  createMapper
+  createMapper,
 } from 'vuex-smart-module';
 import firebase from '@/firebase/firestore';
 import { Auth0Client, auth0Client } from '@/auth0/client';
@@ -26,14 +26,15 @@ class SignInGetters extends Getters<SignInState> {
 
 class SignInMutations extends Mutations<SignInState> {
   async setFirebaseCustomToken(user: firebase.User | null) {
+    console.log(user);
     const response = await fetch(
       isDevelopMode
         ? `http://localhost:5000/${process.env.VUE_APP_PROJECT_ID}/us-central1/auth`
         : `https://us-central1-${process.env.VUE_APP_PROJECT_ID}.cloudfunctions.net/auth`,
       {
         headers: {
-          Authorization: `Bearer ${this.state.user.idToken}`
-        }
+          Authorization: `Bearer ${this.state.user.idToken}`,
+        },
       }
     );
 
@@ -51,7 +52,7 @@ class SignInMutations extends Mutations<SignInState> {
     const profile = this.state.user.profile;
     await currentUser.updateProfile({
       displayName: profile.displayName,
-      photoURL: profile.photoURL
+      photoURL: profile.photoURL,
     });
     if (profile.Email) {
       await currentUser.updateEmail(profile.Email);
@@ -69,10 +70,10 @@ class SignInMutations extends Mutations<SignInState> {
       await this.setFirebaseCustomToken(user);
     }
   }
-  async signIn(redirectUri: string) {
+  signIn(redirectUri: string) {
     this.state.user.signIn(redirectUri);
   }
-  async signOut(_: null) {
+  signOut() {
     this.state.user.signOut();
   }
 }
@@ -83,15 +84,15 @@ class SignInActions extends Actions<
   SignInMutations,
   SignInActions
 > {
-  async updateCurrentUser(user: firebase.User | null) {
+  updateCurrentUser(user: firebase.User | null) {
     this.commit('updateCurrentUser', user);
     console.log('updateCurrentUser');
   }
-  async signIn(redirectUri: string) {
+  signIn(redirectUri: string) {
     this.commit('signIn', redirectUri);
     console.log('signIn');
   }
-  async signOut() {
+  signOut() {
     this.commit('signOut', null);
     console.log('signOut');
   }
@@ -101,7 +102,7 @@ export const SignInModule = new Module({
   state: SignInState,
   getters: SignInGetters,
   mutations: SignInMutations,
-  actions: SignInActions
+  actions: SignInActions,
 });
 
 export const SignInMapper = createMapper(SignInModule);
