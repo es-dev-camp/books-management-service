@@ -17,7 +17,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test && yarn --cwd ./functions test"
     }
   },
   "lint-staged": {
@@ -33,6 +34,7 @@
     "core-js": "^3.6.5",
     "firebase": "^7.19.1",
     "http2": "^3.3.7",
+    "jest-canvas-mock": "^2.2.0",
     "moment": "^2.27.0",
     "regenerator-runtime": "^0.13.7",
     "register-service-worker": "^1.7.1",
@@ -61,8 +63,8 @@
     "@types/auth0-js": "^9.13.4",
     "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.10",
-    "@typescript-eslint/parser": "^3.10.1",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
     "@vue/babel-preset-app": "^4.5.4",
     "@vue/cli-plugin-babel": "^4.5.4",
     "@vue/cli-plugin-eslint": "^4.5.4",
@@ -80,7 +82,6 @@
     "babel-plugin-require-context-hook": "^1.0.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-preset-vue": "^2.0.2",
-    "canvas": "^2.6.1",
     "codecov": "^3.7.2",
     "cross-env": "^7.0.2",
     "eslint": "^7.7.0",
@@ -90,7 +91,6 @@
     "firebase-tools": "^8.9.2",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
-    "jest-canvas-mock": "^2.2.0",
     "lint-staged": "^10.2.13",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.1",

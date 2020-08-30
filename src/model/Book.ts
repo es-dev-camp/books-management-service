@@ -13,7 +13,13 @@ function refillBook(book: VolumeInfo | undefined) {
   book.publisher = book.publisher ?? '';
   book.description = book.description ?? '';
 
-  if (!book.imageLinks) return book;
+  if (!book.imageLinks) {
+    book.imageLinks = {
+      thumbnail: '',
+      large: '',
+    } as any;
+    return book;
+  }
   book.imageLinks.thumbnail = book.imageLinks.thumbnail.replace(
     'http://',
     'https://'
