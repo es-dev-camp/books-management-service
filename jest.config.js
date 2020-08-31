@@ -18,7 +18,6 @@ module.exports = {
   snapshotSerializers: ['jest-serializer-vue'],
   testMatch: [
     '<rootDir>/src/**/*.spec.(ts|tsx)',
-    '<rootDir>/functions/**/*.spec.(ts|tsx)',
     '<rootDir>/storyshots/storyshots.spec.ts',
   ],
   testURL: 'http://localhost/',

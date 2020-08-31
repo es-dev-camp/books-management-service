@@ -36,7 +36,7 @@ describe('getBook', () => {
     myAxios.get = mockGet;
 
     const book = await getBook('1234567890123', 'hoge', db);
-    expect(book ? book.Title : '').toEqual('不明なタイトル');
+    expect(book?.Title).toEqual('不明なタイトル');
   });
   test('存在するISBNを指定すると、適切なタイトルの本オブジェクトが返ること', async () => {
     const summary = {
@@ -66,7 +66,7 @@ describe('getBook', () => {
     myAxios.get = mockGet;
 
     const book = await getBook('9876543210987', 'hoge', db);
-    expect(book ? book.Title : '').toEqual('hoge');
+    expect(book?.Title).toEqual('hoge');
   });
   test('DBに存在するISBNを指定すると、適切なタイトルの本オブジェクトが返ること', async () => {
     const mockGet = jest.fn().mockReturnValue(undefined);
@@ -74,7 +74,7 @@ describe('getBook', () => {
     myAxios.get = mockGet;
 
     const book = await getBook(existBookIsbn, 'hoge', db);
-    expect(book ? book.Title : '').toEqual('existBook');
+    expect(book?.Title).toEqual('existBook');
   });
 });
 
@@ -84,7 +84,7 @@ describe.skip('saveBook', () => {
     await saveBook({ ISBN: existBookIsbn, Comment: comment }, db);
 
     const book = await getBook(existBookIsbn, 'testUser', db);
-    expect(book ? book.Comment : '').toEqual(comment);
+    expect(book?.Comment).toEqual(comment);
   });
 });
 
@@ -93,7 +93,7 @@ describe.skip('rentBook', () => {
     await rentBook(existBookIsbn, testUser, db);
 
     const book = await getBook(existBookIsbn, testUser, db);
-    expect(book ? book.OnLoan : undefined).toEqual(true);
+    expect(book?.OnLoan).toEqual(true);
   });
 });
 
@@ -103,6 +103,6 @@ describe.skip('returnBook', () => {
     await returnBook(existBookIsbn, db);
 
     const book = await getBook(existBookIsbn, testUser, db);
-    expect(book ? book.OnLoan : undefined).toEqual(false);
+    expect(book?.OnLoan).toEqual(false);
   });
 });

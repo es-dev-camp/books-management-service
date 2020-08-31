@@ -5,8 +5,33 @@ import { IGoogleBookInfo, Item, VolumeInfo } from '@common/IGoogleBookInfo';
 
 const currentDb = firebase.firestore();
 
+function refillBook(book: VolumeInfo | undefined) {
+  if (!book) return;
+  book.title = book.title ?? '';
+  book.authors = book.authors ?? [];
+  book.publishedDate = book.publishedDate ?? '';
+  book.publisher = book.publisher ?? '';
+  book.description = book.description ?? '';
+
+  if (!book.imageLinks) {
+    book.imageLinks = {
+      thumbnail: '',
+      large: '',
+    } as any;
+    return book;
+  }
+  book.imageLinks.thumbnail = book.imageLinks.thumbnail.replace(
+    'http://',
+    'https://'
+  );
+  book.imageLinks.large =
+    book.imageLinks.large.replace('http://', 'https://') ||
+    book.imageLinks.thumbnail;
+  return book;
+}
+
 async function getBookSummary(isbn: string): Promise<VolumeInfo | undefined> {
-  const response = await axios.get<IGoogleBookInfo>(
+  const response = await axios.get<IGoogleBookInfo | undefined>(
     `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
   );
 
@@ -21,7 +46,7 @@ async function getBookSummary(isbn: string): Promise<VolumeInfo | undefined> {
     console.warn('Not found book infomation(selfLink).', isbn);
     return undefined;
   }
-  return bookData.data.volumeInfo;
+  return refillBook(bookData.data.volumeInfo);
 }
 
 async function getBookInfo(
@@ -41,24 +66,15 @@ async function getBookInfo(
     };
   }
 
-  const thumbnail =
-    summary.imageLinks && summary.imageLinks.thumbnail
-      ? summary.imageLinks.thumbnail.replace('http://', 'https://')
-      : '';
-  const cover =
-    summary.imageLinks && summary.imageLinks.large
-      ? summary.imageLinks.large.replace('http://', 'https://')
-      : thumbnail;
-
   return {
     ISBN: isbn,
-    Title: summary.title || '',
-    Thumbnail: thumbnail,
-    Cover: cover,
-    Authors: summary.authors || [],
-    PublishDate: summary.publishedDate || '',
-    Publisher: summary.publisher || '',
-    Comment: summary.description || '',
+    Title: summary.title,
+    Thumbnail: summary.imageLinks.thumbnail,
+    Cover: summary.imageLinks.large,
+    Authors: summary.authors,
+    PublishDate: summary.publishedDate,
+    Publisher: summary.publisher,
+    Comment: summary.description,
     Created: new Date(),
     CreatedUserId: userId,
     Modified: new Date(),
