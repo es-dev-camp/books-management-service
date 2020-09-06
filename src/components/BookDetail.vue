@@ -212,7 +212,6 @@ export default class BookDetail extends Super {
 
   async Commit(): Promise<any> {
     if (!this.currentUser) {
-      console.error("Cannot save. Failed to load user profile.");
       return;
     }
 

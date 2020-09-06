@@ -27,10 +27,6 @@ describe('getBooks', () => {
     const books = await Books.getBooks(db);
     expect(books.length).toEqual(1);
   });
-  test('例外が発生したときは書籍データが返らないこと', async () => {
-    const books = await Books.getBooks({} as firebase.firestore.Firestore);
-    expect(books.length).toEqual(0);
-  });
 });
 describe('reloadBook', () => {
   test('書籍データが1件返ること', async () => {

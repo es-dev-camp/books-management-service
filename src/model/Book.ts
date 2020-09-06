@@ -37,13 +37,11 @@ async function getBookSummary(isbn: string): Promise<VolumeInfo | undefined> {
 
   const bookInfo = response.data;
   if (!bookInfo || bookInfo.totalItems === 0) {
-    console.warn('Not found book infomation.', isbn);
     return undefined;
   }
 
   const bookData = await axios.get<Item>(bookInfo.items[0].selfLink);
   if (bookData.status !== 200) {
-    console.warn('Not found book infomation(selfLink).', isbn);
     return undefined;
   }
   return refillBook(bookData.data.volumeInfo);
