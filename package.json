@@ -8,7 +8,7 @@
     "serve:firestoreEmulator": "firebase emulators:start --only firestore",
     "test": "yarn test:unit",
     "test:unit": "start-server-and-test serve:firestoreEmulator http-get://localhost:5000 test:unit:cmd",
-    "test:unit:cmd": "cross-env FIRESTORE_EMULATOR_HOST=localhost:5000 vue-cli-service test:unit --forceExit ${JEST_ARGS}",
+    "test:unit:cmd": "cross-env FIRESTORE_EMULATOR_HOST=localhost:5000 vue-cli-service test:unit ${JEST_ARGS}",
     "updateSnapshot": "JEST_ARGS='-u' yarn test:unit",
     "build": "vue-cli-service build --mode production && yarn --cwd ./functions run build",
     "serve": "vue-cli-service serve --mode develop",
