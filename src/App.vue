@@ -28,9 +28,9 @@
         <v-icon>add</v-icon>
       </v-btn>
       <v-menu :close-on-content-click="false" offset-y>
-        <template v-slot:activator="{ on: menu }">
+        <template #activator="{ on: menu }">
           <v-tooltip bottom>
-            <template v-slot:activator="{ on: tooltip }">
+            <template #activator="{ on: tooltip }">
               <v-avatar
                 slot="offset"
                 dark
