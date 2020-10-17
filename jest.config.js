@@ -2,6 +2,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue', 'ts', 'tsx'],
   setupFiles: ['<rootDir>/.jest/register-context.js', 'jest-canvas-mock'],
   transform: {
+    '^.+\\.stories\\.(ts|tsx)?$': '@storybook/addon-storyshots/injectFileName',
     '^.+\\.vue$': 'vue-jest',
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',

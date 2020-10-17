@@ -11,7 +11,7 @@
       />
       <v-chip v-else color="secondary" dark>{{ currentBook.Location }}</v-chip>
       <v-menu :visible="!isEditMode">
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-btn dark icon v-on="on">
             <v-icon color="#333">more_vert</v-icon>
           </v-btn>
@@ -54,7 +54,7 @@
               solo
               multiple
             >
-              <template v-slot:selection="data">
+              <template #selection="data">
                 <v-chip
                   :input-value="data.selected"
                   :close="isEditMode"

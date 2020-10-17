@@ -23,7 +23,7 @@
         </v-row>
         <v-row align="center" justify="center" class="pa-2">
           <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <span
                 class="body-2 font-weight-light yt-ui-ellipsis rows-2"
                 v-on="on"

@@ -1,5 +1,328 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots components/BookDetail Show 1`] = `
+<div
+  class="v-card v-sheet theme--light"
+>
+  <div
+    class="v-card__title headline grey lighten-2"
+    primary-title=""
+  >
+    
+    ユースケース駆動開発実践ガイド オブジェクト指向分析からSpringによる実装まで
+    
+    <div
+      class="spacer"
+    />
+     
+    <span
+      class="v-chip theme--dark v-size--default secondary"
+    >
+      <span
+        class="v-chip__content"
+      >
+        ビジアプ横の本棚
+      </span>
+    </span>
+     
+    <div
+      class="v-menu"
+      visible="visible"
+    >
+      <button
+        class="v-btn v-btn--flat v-btn--icon v-btn--round theme--dark v-size--default"
+        type="button"
+      >
+        <span
+          class="v-btn__content"
+        >
+          <i
+            aria-hidden="true"
+            class="v-icon notranslate material-icons theme--dark"
+            style="color: rgb(51, 51, 51); caret-color: #333;"
+          >
+            more_vert
+          </i>
+        </span>
+      </button>
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="v-card__text pt-2"
+  >
+    <div
+      class="row"
+    >
+      <div
+        class="col-sm-2 col-12"
+      >
+        <div
+          class="v-image v-responsive theme--light"
+        >
+          <div
+            class="v-image__image v-image__image--preload v-image__image--cover"
+            style="background-position: center center;"
+          />
+          <div
+            class="v-responsive__content"
+          />
+        </div>
+      </div>
+       
+      <div
+        class="px-2 col-sm-6 col-12"
+      >
+        <div
+          class="row"
+        >
+          <!---->
+        </div>
+         
+        <div
+          class="row"
+        >
+          <div
+            class="v-input v-input--is-label-active v-input--is-dirty v-input--is-readonly theme--light v-text-field"
+          >
+            <div
+              class="v-input__control"
+            >
+              <div
+                class="v-input__slot"
+              >
+                <div
+                  class="v-text-field__slot"
+                >
+                  <label
+                    class="v-label v-label--active theme--light"
+                    for="input-<number>"
+                    style="left: 0px; position: absolute;"
+                  >
+                    publishDate
+                  </label>
+                  <input
+                    id="input-<number>"
+                    readonly="readonly"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div
+                class="v-text-field__details"
+              >
+                <div
+                  class="v-messages theme--light"
+                >
+                  <div
+                    class="v-messages__wrapper"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+        <div
+          class="row"
+        >
+          <div
+            class="v-input v-input--is-label-active v-input--is-dirty v-input--is-readonly theme--light v-text-field v-text-field--single-line v-text-field--solo v-text-field--enclosed v-select v-select--is-multi v-autocomplete"
+          >
+            <div
+              class="v-input__control"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-owns="list-<number>"
+                class="v-input__slot"
+                role="combobox"
+              >
+                <div
+                  class="v-select__slot"
+                >
+                  <div
+                    class="v-select__selections"
+                  >
+                    <span
+                      class="v-chip v-chip--no-color theme--light v-size--default"
+                    >
+                      <span
+                        class="v-chip__content"
+                      >
+                        
+                Doug Rosenberg
+              
+                      </span>
+                    </span>
+                    <span
+                      class="v-chip v-chip--no-color theme--light v-size--default"
+                    >
+                      <span
+                        class="v-chip__content"
+                      >
+                        
+                Matt Stephens
+              
+                      </span>
+                    </span>
+                    <input
+                      autocomplete="off"
+                      chip=""
+                      id="input-<number>"
+                      readonly="readonly"
+                      type="text"
+                    />
+                  </div>
+                  <div
+                    class="v-input__append-inner"
+                  >
+                    <div
+                      class="v-input__icon v-input__icon--append"
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="v-icon notranslate mdi mdi-menu-down theme--light"
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="hidden"
+                    value="Doug Rosenberg,Matt Stephens"
+                  />
+                </div>
+                <div
+                  class="v-menu"
+                >
+                  <!---->
+                </div>
+              </div>
+              <div
+                class="v-text-field__details"
+              >
+                <div
+                  class="v-messages theme--light"
+                >
+                  <div
+                    class="v-messages__wrapper"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+        <div
+          class="row"
+        >
+          
+          登録: 2019/05/30 (不明な人物)
+        
+        </div>
+         
+        <div
+          class="row"
+        >
+          
+          更新: 2019/05/30 (不明な人物)
+        
+        </div>
+      </div>
+       
+      <div
+        class="px-2 col-sm-4 col-12"
+      >
+        <button
+          class="v-btn v-btn--block v-btn--contained v-btn--rounded theme--light v-size--default primary"
+          type="button"
+        >
+          <span
+            class="v-btn__content"
+          >
+            借りる
+          </span>
+        </button>
+         
+        <div>
+          最終貸出日: なし
+        </div>
+         
+        <div>
+          ISBN: 9784798114453
+        </div>
+      </div>
+    </div>
+     
+    <div
+      class="row"
+    >
+      <div
+        class="v-input v-textarea v-input--is-label-active v-input--is-dirty v-input--is-readonly theme--light v-text-field"
+      >
+        <div
+          class="v-input__control"
+        >
+          <div
+            class="v-input__slot"
+          >
+            <div
+              class="v-text-field__slot"
+            >
+              <label
+                class="v-label v-label--active theme--light"
+                for="input-<number>"
+                style="left: 0px; position: absolute;"
+              >
+                Description
+              </label>
+              <textarea
+                id="input-<number>"
+                readonly="readonly"
+                rows="5"
+              />
+            </div>
+          </div>
+          <div
+            class="v-text-field__details"
+          >
+            <div
+              class="v-messages theme--light"
+            >
+              <div
+                class="v-messages__wrapper"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+  <div
+    class="v-card__actions"
+  >
+    <div
+      class="spacer"
+    />
+     
+    <button
+      class="v-btn v-btn--contained theme--light v-size--default"
+      type="button"
+    >
+      <span
+        class="v-btn__content"
+      >
+        Close
+      </span>
+    </button>
+     
+    <!---->
+  </div>
+</div>
+`;
+
 exports[`Storyshots components/BookDetail show 1`] = `
 <div
   class="v-card v-sheet theme--light"

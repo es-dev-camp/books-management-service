@@ -9,7 +9,7 @@ declare module 'vuetify/lib' {
     validate(): boolean;
   }
 }
-
 declare module 'vuetify/lib/directives';
 declare module 'vuetify/lib/locale/ja';
 declare module 'vuetify/lib/util/colors';
+declare module 'fs';
