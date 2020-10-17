@@ -4,7 +4,7 @@ import { IBook } from '@common/IBook';
 
 const provider = new FirestoreTestProvider('test-book');
 const existBookIsbn = '1234512345123';
-let db: firebase.firestore.Firestore;
+let db: any;
 beforeAll(async () => {
   const adminDB = provider.getAdminFirestore();
   await adminDB.doc(`book/${existBookIsbn}`).set({

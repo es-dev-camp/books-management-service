@@ -9,7 +9,7 @@ const myAxios: jest.Mocked<AxiosInstance> = axios as any;
 const provider = new FirestoreTestProvider('test-book');
 const existBookIsbn = '1234512345123';
 const testUser = 'testUser';
-let db: firebase.firestore.Firestore;
+let db: any;
 beforeAll(async () => {
   const adminDB = provider.getAdminFirestore();
   await adminDB.doc(`book/${existBookIsbn}`).set({
