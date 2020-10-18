@@ -113,7 +113,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click="Close">Close</v-btn>
+      <v-btn @click="Close">{{ closeButtonLabel }}</v-btn>
       <v-btn v-if="isEditMode" color="primary" @click="Save">Save</v-btn>
     </v-card-actions>
   </v-card>
@@ -178,6 +178,7 @@ const Super = Vue.extend({
 export default class BookDetail extends Super {
   @Prop({ type: Object, required: true }) currentUser!: IUser;
   @Prop({ type: Object, required: true }) currentBook!: IBook;
+  @Prop({ type: String, default: "Close" }) closeButtonLabel!: string;
   isEditMode = false;
   progress = false;
   items: Array<{ title: string; action: () => void }> = [

@@ -6,6 +6,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-actions',
     '@storybook/addon-backgrounds/register',
+    '@storybook/addon-essentials',
     '@storybook/addon-links',
     '@storybook/addon-viewport'
   ],
