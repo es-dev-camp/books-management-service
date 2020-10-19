@@ -38,35 +38,21 @@ export function createRouter(store: Store<any>) {
 
   const signInCtx = SignInModule.context(store);
 
-  firebase.auth().onAuthStateChanged(async (user) => {
-    await signInCtx.actions.updateCurrentUser(user);
-    console.debug('on auth state changed');
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log('on auth state changed', user);
+    signInCtx.actions.updateUser(user);
   });
 
-  router.beforeEach((to, from, next) => {
-    if (
-      to.matched.some((record) => !record.meta.noAuth) &&
-      !signInCtx.getters.isSignIn
-    ) {
-      let counter = 0;
-      const interval = 100;
-      const waitMaxmiliSec = 1500;
-      const iid = setInterval(async () => {
-        if (counter < waitMaxmiliSec / interval) {
-          counter++;
-          if (signInCtx.getters.isSignIn) {
-            clearInterval(iid);
-            next();
-          }
-        } else {
-          console.log('wait exceeded');
-          clearInterval(iid);
-          if (!signInCtx.getters.isSignIn) {
-            console.log('move signIn');
-            await signInCtx.actions.signIn(to.fullPath);
-          }
-        }
-      }, interval);
+  router.beforeEach(async (to, from, next) => {
+    if (!firebase.auth().currentUser) {
+      const credential = await firebase.auth().getRedirectResult();
+      console.log('credential', credential);
+      if (credential.user) {
+        next();
+        return;
+      }
+      const provider = new firebase.auth.OAuthProvider('oidc.auth0');
+      firebase.auth().signInWithRedirect(provider);
     } else {
       next();
     }
