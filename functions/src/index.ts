@@ -7,5 +7,3 @@ export const gitHash = require('./gitHash').func;
 export const onWriteBook = require('./onWriteBook').func;
 
 export const onCreateBook = require('./onCreateBook').func;
-
-export const auth = require('./auth0').auth;

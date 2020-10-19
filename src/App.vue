@@ -38,12 +38,12 @@
                 size="40"
                 v-on="{ ...tooltip, ...menu }"
               >
-                <img :src="getUser.photoURL" />
+                <img :src="userImageUrl" />
               </v-avatar>
             </template>
-            <span>{{ getUser.displayName }}</span
+            <span>{{ userDisplayName }}</span
             ><br />
-            <span class="caption font-weight-light">{{ getUser.Email }}</span>
+            <span class="caption font-weight-light">{{ userEmail }}</span>
           </v-tooltip>
         </template>
 
@@ -51,12 +51,12 @@
           <v-list>
             <v-list-item>
               <v-list-item-avatar size="60">
-                <img :src="getUser.photoURL" :alt="getUser.displayName" />
+                <img :src="userImageUrl" :alt="userDisplayName" />
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{ getUser.displayName }}</v-list-item-title>
-                <v-list-item-subtitle>{{ getUser.Email }}</v-list-item-subtitle>
+                <v-list-item-title>{{ userDisplayName }}</v-list-item-title>
+                <v-list-item-subtitle>{{ userEmail }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -115,7 +115,10 @@ import { SignInMapper } from "@/modules/SignInModule";
 import { BooksMapper } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
-  computed: BooksMapper.mapGetters(["getFilter"]),
+  computed: {
+    ...BooksMapper.mapGetters(["getFilter"]),
+    ...SignInMapper.mapGetters(["getUser"]),
+  },
   methods: {
     ...BooksMapper.mapActions(["setFilter"]),
     ...SignInMapper.mapActions(["signOut"]),
@@ -150,10 +153,21 @@ const Super = Vue.extend({
     VFadeTransition,
     VImg,
   },
-  computed: SignInMapper.mapGetters(["getUser", "isSignIn"]),
 })
 export default class App extends Super {
   isSignOut = false;
+
+  get userImageUrl(): string {
+    return this.getUser?.photoURL || "";
+  }
+
+  get userDisplayName(): string {
+    return this.getUser?.displayName || "";
+  }
+
+  get userEmail(): string {
+    return this.getUser?.email || "";
+  }
 
   get filter(): string {
     return this.getFilter;
