@@ -120,25 +120,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import {
-  VRow,
-  VCol,
-  VContainer,
-  VTextField,
-  VProgressLinear,
-  VCard,
-  VCardTitle,
-  VList,
-  VListItem,
-  VListItemAction,
-  VListItemContent,
-  VListItemTitle,
-  VListItemSubtitle,
-  VDivider,
-  VImg,
-  VSnackbar,
-  VIcon,
-} from "vuetify/lib";
 import { getBook, saveBook } from "@/model/Book";
 import { IBook } from "@common/IBook";
 import Snack from "@/model/Snack.ts";
@@ -151,27 +132,7 @@ const Super = Vue.extend({
   methods: BooksMapper.mapActions(["updateList"]),
 });
 
-@Component({
-  components: {
-    VRow,
-    VCol,
-    VContainer,
-    VTextField,
-    VProgressLinear,
-    VCard,
-    VCardTitle,
-    VList,
-    VListItem,
-    VListItemAction,
-    VListItemContent,
-    VListItemTitle,
-    VListItemSubtitle,
-    VDivider,
-    VImg,
-    VSnackbar,
-    VIcon,
-  },
-})
+@Component
 export default class Register extends Super {
   isbn = "";
   isBusy = false;
