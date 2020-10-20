@@ -39,15 +39,13 @@ export function createRouter(store: Store<any>) {
   const signInCtx = SignInModule.context(store);
 
   firebase.auth().onAuthStateChanged((user) => {
-    console.log('on auth state changed', user);
     signInCtx.actions.updateUser(user);
   });
 
   router.beforeEach(async (to, from, next) => {
     if (!firebase.auth().currentUser) {
-      const credential = await firebase.auth().getRedirectResult();
-      console.log('credential', credential);
-      if (credential.user) {
+      await firebase.auth().getRedirectResult();
+      if (firebase.auth().currentUser) {
         next();
         return;
       }
