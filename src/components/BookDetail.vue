@@ -121,27 +121,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {
-  VRow,
-  VCol,
-  VContainer,
-  VTextField,
-  VTextarea,
-  VCombobox,
-  VImg,
-  VChip,
-  VMenu,
-  VBtn,
-  VIcon,
-  VSpacer,
-  VCard,
-  VCardTitle,
-  VCardText,
-  VCardActions,
-  VList,
-  VListItem,
-  VListItemTitle,
-} from "vuetify/lib";
+
 import { IUser } from "@common/IUser";
 import { getUser } from "@/model/Users";
 import { IBook } from "@common/IBook";
@@ -152,29 +132,7 @@ const Super = Vue.extend({
   methods: BooksMapper.mapActions(["updateBook"]),
 });
 
-@Component({
-  components: {
-    VRow,
-    VCol,
-    VContainer,
-    VTextField,
-    VTextarea,
-    VCombobox,
-    VImg,
-    VChip,
-    VMenu,
-    VBtn,
-    VIcon,
-    VSpacer,
-    VCard,
-    VCardTitle,
-    VCardText,
-    VCardActions,
-    VList,
-    VListItem,
-    VListItemTitle,
-  },
-})
+@Component
 export default class BookDetail extends Super {
   @Prop({ type: Object, required: true }) currentUser!: IUser;
   @Prop({ type: Object, required: true }) currentBook!: IBook;

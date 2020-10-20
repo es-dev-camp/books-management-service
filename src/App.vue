@@ -84,33 +84,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import {
-  VOverlay,
-  VAppBar,
-  VToolbarTitle,
-  VTextField,
-  VSpacer,
-  VBtn,
-  VIcon,
-  VMenu,
-  VTooltip,
-  VAvatar,
-  VCard,
-  VCardTitle,
-  VCardText,
-  VCardActions,
-  VList,
-  VListItem,
-  VListItemAvatar,
-  VListItemContent,
-  VListItemTitle,
-  VListItemSubtitle,
-  VDivider,
-  VRow,
-  VCol,
-  VFadeTransition,
-  VImg,
-} from "vuetify/lib";
 import { SignInMapper } from "@/modules/SignInModule";
 import { BooksMapper } from "@/modules/BooksModule";
 
@@ -125,35 +98,7 @@ const Super = Vue.extend({
   },
 });
 
-@Component({
-  components: {
-    VOverlay,
-    VAppBar,
-    VToolbarTitle,
-    VTextField,
-    VSpacer,
-    VBtn,
-    VIcon,
-    VMenu,
-    VTooltip,
-    VAvatar,
-    VCard,
-    VCardTitle,
-    VCardText,
-    VCardActions,
-    VList,
-    VListItem,
-    VListItemAvatar,
-    VListItemContent,
-    VListItemTitle,
-    VListItemSubtitle,
-    VDivider,
-    VRow,
-    VCol,
-    VFadeTransition,
-    VImg,
-  },
-})
+@Component
 export default class App extends Super {
   isSignOut = false;
 
