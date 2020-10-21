@@ -74,11 +74,11 @@
         </v-card>
       </v-menu>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
