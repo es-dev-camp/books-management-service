@@ -33,8 +33,7 @@ import Vuetify, {
   VToolbarTitle,
   VTooltip,
 } from 'vuetify/lib';
-import { Ripple } from 'vuetify/lib/directives';
-import ja from 'vuetify/lib/locale/ja';
+import ja from 'vuetify/src/locale/ja';
 import colors from 'vuetify/lib/util/colors';
 
 Vue.use(Vuetify, {
@@ -71,9 +70,6 @@ Vue.use(Vuetify, {
     VTextField,
     VToolbarTitle,
     VTooltip,
-  },
-  directives: {
-    Ripple,
   },
 });
 
