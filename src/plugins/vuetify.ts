@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify, {
+  VApp,
   VAppBar,
   VAvatar,
   VBtn,
@@ -22,6 +23,7 @@ import Vuetify, {
   VListItemContent,
   VListItemSubtitle,
   VListItemTitle,
+  VMain,
   VMenu,
   VOverlay,
   VProgressLinear,
@@ -38,6 +40,7 @@ import colors from 'vuetify/lib/util/colors';
 
 Vue.use(Vuetify, {
   components: {
+    VApp,
     VAppBar,
     VAvatar,
     VBtn,
@@ -60,6 +63,7 @@ Vue.use(Vuetify, {
     VListItemContent,
     VListItemSubtitle,
     VListItemTitle,
+    VMain,
     VMenu,
     VOverlay,
     VProgressLinear,

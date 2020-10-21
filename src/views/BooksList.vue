@@ -55,7 +55,8 @@ import { Component, Vue } from "vue-property-decorator";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
 import { IBook } from "@common/IBook";
-const BookDetail = () => import("@/components/BookDetail.vue");
+const BookDetail = () =>
+  import(/* webpackChunkName: "book-detail"*/ "@/components/BookDetail.vue");
 
 const Super = Vue.extend({
   computed: {
