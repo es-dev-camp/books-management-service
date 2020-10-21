@@ -13,12 +13,6 @@ module.exports = {
         '@common': path.resolve(__dirname, 'common'),
       },
     },
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-        maxSize: 2400000,
-      },
-    },
   },
   pages: {
     index: entrypoint,
