@@ -23,4 +23,5 @@ module.exports = {
       allowedPlugins: ['define'],
     },
   },
+  transpileDependencies: ['vuetify'],
 };
