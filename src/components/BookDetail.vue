@@ -134,7 +134,7 @@ const Super = Vue.extend({
 
 @Component
 export default class BookDetail extends Super {
-  @Prop({ type: Object, required: true }) currentUser!: IUser;
+  @Prop({ type: Object }) currentUser?: IUser;
   @Prop({ type: Object, required: true }) currentBook!: IBook;
   @Prop({ type: String, default: "Close" }) closeButtonLabel!: string;
   isEditMode = false;
@@ -166,7 +166,10 @@ export default class BookDetail extends Super {
   }
 
   get isBorrowUser(): boolean {
-    return this.currentBook.LastBorrowUserId === this.currentUser.Id;
+    return (
+      !!this.currentUser &&
+      this.currentBook.LastBorrowUserId === this.currentUser.Id
+    );
   }
 
   async Commit(): Promise<any> {
@@ -180,6 +183,10 @@ export default class BookDetail extends Super {
   }
 
   async Rent(): Promise<void> {
+    if (!this.currentUser) {
+      return;
+    }
+
     this.progress = true;
     try {
       await rentBook(this.currentBook.ISBN, this.currentUser.Id);
