@@ -235,7 +235,7 @@ exports[`Storyshots components/BookDetail Show 1`] = `
         class="px-2 col-sm-4 col-12"
       >
         <button
-          class="v-btn v-btn--block v-btn--contained v-btn--rounded theme--light v-size--default primary"
+          class="v-btn v-btn--block v-btn--contained v-btn--is-elevated v-btn--has-bg v-btn--rounded theme--light v-size--default primary"
           type="button"
         >
           <span
@@ -308,7 +308,7 @@ exports[`Storyshots components/BookDetail Show 1`] = `
     />
      
     <button
-      class="v-btn v-btn--contained theme--light v-size--default"
+      class="v-btn v-btn--contained v-btn--is-elevated v-btn--has-bg theme--light v-size--default"
       type="button"
     >
       <span
