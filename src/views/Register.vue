@@ -122,7 +122,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { getBook, saveBook } from "@/model/Book";
 import { IBook } from "@common/IBook";
-import Snack from "@/model/Snack.ts";
+import Snack from "@/model/Snack";
 import { getUser } from "@/model/Users";
 import { BooksMapper } from "@/modules/BooksModule";
 import { SignInMapper } from "@/modules/SignInModule";
