@@ -15,16 +15,9 @@
     "serve:functions": "yarn --cwd ./functions serve",
     "storybook": "start-storybook -p 6006"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test && yarn --cwd ./functions test"
-    }
-  },
   "lint-staged": {
     "**/*.{vue,ts}": [
-      "vue-cli-service lint",
-      "git add"
+      "vue-cli-service lint"
     ]
   },
   "dependencies": {

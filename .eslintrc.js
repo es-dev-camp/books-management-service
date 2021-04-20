@@ -25,7 +25,7 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     'no-prototype-builtins': 'warn',
     'require-await': 'warn',
-    complexity: ['error', 10],
+    complexity: ['error', 20],
   },
   overrides: [
     {
