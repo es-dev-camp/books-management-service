@@ -3,7 +3,7 @@ import vuetify from '../src/plugins/vuetify';
 
 const vuetifyDecorator = () => ({
   template: '<story/>',
-  vuetify: vuetify,
+  vuetify: vuetify
 });
 
 addDecorator(vuetifyDecorator);

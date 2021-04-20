@@ -6,7 +6,7 @@ import BookDetail from './BookDetail.vue';
 Vue.filter('displayDate', displayDate);
 
 export default {
-  title: 'components/BookDetail',
+  title: 'components/BookDetail'
 };
 
 export const show = (args: any) => ({
@@ -14,13 +14,13 @@ export const show = (args: any) => ({
   components: { BookDetail },
   template: `
     <book-detail v-bind="$props" />
-  `,
+  `
 });
 
 show.parameters = {
   viewport: {
-    defaultViewport: 'iphonex',
-  },
+    defaultViewport: 'iphonex'
+  }
 };
 
 show.args = {
@@ -46,8 +46,8 @@ show.args = {
     Created: { seconds: 1559190359, nanoseconds: 837000000 },
     Modified: { seconds: 1559190359, nanoseconds: 547000000 },
     ShowDetail: false,
-    location: 'ビジアプ横の本棚',
+    location: 'ビジアプ横の本棚'
   },
   currentUser: {},
-  closeButtonLabel: 'Close',
+  closeButtonLabel: 'Close'
 };

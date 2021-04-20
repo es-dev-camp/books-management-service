@@ -10,7 +10,7 @@ export async function getBooks(db: firebase.firestore.Firestore = currentDb) {
   try {
     const booklist = collection(db).orderBy('Modified', 'desc');
     const booksRef = await booklist.get();
-    return booksRef.docs.map((b) => wrap(b.data()));
+    return booksRef.docs.map(b => wrap(b.data()));
   } catch (error) {
     console.error(error);
     return [];

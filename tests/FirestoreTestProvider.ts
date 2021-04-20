@@ -22,14 +22,14 @@ export default class FirestoreTestProvider {
   loadRules() {
     return firebase.loadFirestoreRules({
       projectId: this.getProjectID(),
-      rules: this.rules,
+      rules: this.rules
     });
   }
   getFirestoreWithAuth(auth?: { [key in 'uid' | 'email']?: string }) {
     return firebase
       .initializeTestApp({
         projectId: this.getProjectID(),
-        auth: auth,
+        auth: auth
       })
       .firestore();
   }

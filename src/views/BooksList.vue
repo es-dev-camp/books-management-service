@@ -61,15 +61,15 @@ const BookDetail = () =>
 const Super = Vue.extend({
   computed: {
     ...BooksMapper.mapGetters(["getFilterdBooks", "getCurrentBook"]),
-    ...SignInMapper.mapGetters(["getUser"]),
+    ...SignInMapper.mapGetters(["getUser"])
   },
-  methods: BooksMapper.mapActions(["updateList", "setCurrentBook"]),
+  methods: BooksMapper.mapActions(["updateList", "setCurrentBook"])
 });
 
 @Component({
   components: {
-    BookDetail,
-  },
+    BookDetail
+  }
 })
 export default class BooksList extends Super {
   isShowDetail = false;

@@ -3,7 +3,7 @@ import {
   Mutations,
   Actions,
   Module,
-  createMapper,
+  createMapper
 } from 'vuex-smart-module';
 import firebase from '@/firebase/firestore';
 
@@ -41,7 +41,7 @@ export const SignInModule = new Module({
   state: SignInState,
   getters: SignInGetters,
   mutations: SignInMutations,
-  actions: SignInActions,
+  actions: SignInActions
 });
 
 export const SignInMapper = createMapper(SignInModule);

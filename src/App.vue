@@ -90,12 +90,12 @@ import { BooksMapper } from "@/modules/BooksModule";
 const Super = Vue.extend({
   computed: {
     ...BooksMapper.mapGetters(["getFilter"]),
-    ...SignInMapper.mapGetters(["getUser"]),
+    ...SignInMapper.mapGetters(["getUser"])
   },
   methods: {
     ...BooksMapper.mapActions(["setFilter"]),
-    ...SignInMapper.mapActions(["signOut"]),
-  },
+    ...SignInMapper.mapActions(["signOut"])
+  }
 });
 
 @Component

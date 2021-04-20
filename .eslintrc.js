@@ -6,12 +6,12 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
+    'prettier/@typescript-eslint'
   ],
   env: { browser: true, node: true, es6: true },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    sourceType: 'module',
+    sourceType: 'module'
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
@@ -19,33 +19,33 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-use-before-define': [
       'warn',
-      { functions: false, classes: false },
+      { functions: false, classes: false }
     ],
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     'no-prototype-builtins': 'warn',
     'require-await': 'warn',
-    complexity: ['error', 10],
+    complexity: ['error', 20]
   },
   overrides: [
     {
       files: ['**/*.spec.ts'],
       env: {
-        jest: true,
+        jest: true
       },
-      rules: {},
+      rules: {}
     },
     {
       files: ['**/*.{ts,vue}'],
       parser: 'vue-eslint-parser',
       parserOptions: {
-        parser: '@typescript-eslint/parser',
+        parser: '@typescript-eslint/parser'
       },
       extends: ['plugin:vue/recommended', 'prettier/vue'],
       rules: {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        '@typescript-eslint/no-unused-vars': 'off',
-      },
-    },
-  ],
+        '@typescript-eslint/no-unused-vars': 'off'
+      }
+    }
+  ]
 };

@@ -11,10 +11,10 @@ beforeAll(async () => {
     ISBN: existBookIsbn,
     Title: 'existBook',
     OnLoan: false,
-    Modified: new Date('2020-01-01'),
+    Modified: new Date('2020-01-01')
   } as IBook);
   db = provider.getFirestoreWithAuth({
-    uid: 'testuid',
+    uid: 'testuid'
   });
 });
 afterAll(async () => {
