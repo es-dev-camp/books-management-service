@@ -5,8 +5,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'prettier/@typescript-eslint'
+    'prettier'
   ],
   env: { browser: true, node: true, es6: true },
   parser: '@typescript-eslint/parser',
@@ -41,7 +40,7 @@ module.exports = {
       parserOptions: {
         parser: '@typescript-eslint/parser'
       },
-      extends: ['plugin:vue/recommended', 'prettier/vue'],
+      extends: ['plugin:vue/recommended', 'prettier'],
       rules: {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         '@typescript-eslint/no-unused-vars': 'off'
