@@ -24,6 +24,7 @@
 1. `firebase projects:list` で自分のアカウントに紐付いている Firebase プロジェクトを確認しつつ、 book-management-service の Firebase プロジェクトに `(current)` が付いている(プロジェクトが選択されている)ことを確認する
     * もしそうなっていない場合は `firebase use <project-id>` で指されているプロジェクトを変更する
 1. プロジェクトメンテナに確認して、各種シークレットをプロジェクトルートに `.env` ファイルとして保存する
+1. huskyのセットアップをする `yarn prepare`
 
 ### 開発
 
