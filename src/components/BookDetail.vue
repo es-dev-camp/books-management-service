@@ -129,7 +129,7 @@ import { saveBook, rentBook, returnBook } from "@/model/Book";
 import { BooksMapper } from "@/modules/BooksModule";
 
 const Super = Vue.extend({
-  methods: BooksMapper.mapActions(["updateBook"]),
+  methods: BooksMapper.mapActions(["updateBook"])
 });
 
 @Component
@@ -144,8 +144,8 @@ export default class BookDetail extends Super {
       title: "Edit",
       action: () => {
         this.change();
-      },
-    },
+      }
+    }
   ];
 
   change(): void {
@@ -217,7 +217,7 @@ export default class BookDetail extends Super {
 
   remove(item: string) {
     this.currentBook.Authors = this.currentBook.Authors.filter(
-      (author) => author !== item
+      author => author !== item
     );
   }
 

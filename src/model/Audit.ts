@@ -13,7 +13,7 @@ export default class AuditLog {
 
       const bookEventQuerySnapshot = await bookEventQuery.get();
       const bookEventList = new Array<booksManagementEvent.bookEvent>();
-      bookEventQuerySnapshot.forEach((bookEvent) => {
+      bookEventQuerySnapshot.forEach(bookEvent => {
         const book = Object.assign(
           bookEvent.data()
         ) as booksManagementEvent.bookEvent;

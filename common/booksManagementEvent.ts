@@ -17,9 +17,9 @@ export enum BookEventType {
   deleted = 'deleted',
   edited = 'edited',
   borrowed = 'borrowed',
-  returned = 'returned',
+  returned = 'returned'
 }
 
 export enum EventType {
-  book = 'book',
+  book = 'book'
 }

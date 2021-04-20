@@ -4,7 +4,7 @@ export type IndustryIdentifier = {
   // 主に ISBN_10, ISBN_13 の種類
   type: string;
   identifier: string;
-}
+};
 
 export type ReadingModes = {
   text: boolean;

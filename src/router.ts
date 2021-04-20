@@ -9,13 +9,13 @@ export const AppRoutes: RouteConfig[] = [
     path: '/',
     name: 'Books',
     component: () =>
-      import(/* webpackChunkName: "books"*/ '@/views/BooksList.vue'),
+      import(/* webpackChunkName: "books"*/ '@/views/BooksList.vue')
   },
   {
     path: '/register',
     name: 'Register',
     component: () =>
-      import(/* webpackChunkName: "register"*/ '@/views/Register.vue'),
+      import(/* webpackChunkName: "register"*/ '@/views/Register.vue')
   },
   {
     path: '/book-event-list',
@@ -23,8 +23,8 @@ export const AppRoutes: RouteConfig[] = [
     component: () =>
       import(
         /* webpackChunkName: "book-event-list"*/ '@/views/BookEventList.vue'
-      ),
-  },
+      )
+  }
 ];
 
 export const Routes: RouteConfig[] = [...AppRoutes];
@@ -33,12 +33,12 @@ export function createRouter(store: Store<any>) {
   const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: Routes,
+    routes: Routes
   });
 
   const signInCtx = SignInModule.context(store);
 
-  firebase.auth().onAuthStateChanged((user) => {
+  firebase.auth().onAuthStateChanged(user => {
     signInCtx.actions.updateUser(user);
   });
 

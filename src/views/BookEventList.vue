@@ -70,18 +70,18 @@ const Super = Vue.extend({
   computed: {
     ...BooksMapper.mapGetters(["getFilterdBooks", "getCurrentBook"]),
     ...AuditMapper.mapGetters(["getBookEventList"]),
-    ...SignInMapper.mapGetters(["getUser"]),
+    ...SignInMapper.mapGetters(["getUser"])
   },
   methods: {
     ...BooksMapper.mapActions(["updateList", "setCurrentBook"]),
-    ...AuditMapper.mapActions(["updateBookEventList"]),
-  },
+    ...AuditMapper.mapActions(["updateBookEventList"])
+  }
 });
 
 @Component({
   components: {
-    BookDetail,
-  },
+    BookDetail
+  }
 })
 export default class BooksList extends Super {
   isShowDetail = false;
@@ -98,7 +98,7 @@ export default class BooksList extends Super {
 
   convertBookTitle(isbn: string) {
     const books = this.getFilterdBooks;
-    const book = books.find((x) => x.ISBN === isbn);
+    const book = books.find(x => x.ISBN === isbn);
     return book ? book.Title : "不明な書籍";
   }
 
@@ -121,7 +121,7 @@ export default class BooksList extends Super {
 
   ShowDetail(isbn: string): void {
     const books = this.getFilterdBooks as IBook[];
-    const findBooks = books.filter((x) => x.ISBN === isbn);
+    const findBooks = books.filter(x => x.ISBN === isbn);
     if (!findBooks || findBooks.length === 0) {
       return;
     }

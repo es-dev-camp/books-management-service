@@ -129,7 +129,7 @@ import { SignInMapper } from "@/modules/SignInModule";
 
 const Super = Vue.extend({
   computed: SignInMapper.mapGetters(["getUser"]),
-  methods: BooksMapper.mapActions(["updateList"]),
+  methods: BooksMapper.mapActions(["updateList"])
 });
 
 @Component
@@ -151,7 +151,7 @@ export default class Register extends Super {
     const book = await getBook(this.isbn, this.getUser?.uid ?? "");
     if (!book) {
       this.ShowSnack("warning", `Not found book infomation ${this.isbn}`, [
-        "top",
+        "top"
       ]);
       this.ClearInput();
       return;

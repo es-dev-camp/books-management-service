@@ -27,7 +27,7 @@ export function localDate(value: any) {
       value = value.toDate();
     }
     return value.toLocaleString('ja-JP', {
-      timeZone: 'Asia/Tokyo',
+      timeZone: 'Asia/Tokyo'
     });
   } catch (err) {
     return '';

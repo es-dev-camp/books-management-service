@@ -31,7 +31,9 @@ async function sendMessage(book: IBook) {
             type: 'mrkdwn',
             text: `:new: *${book.Title}*
 :book::book::book: 作者: ${book.Authors.join(' ')}
-出版社: ${book.Publisher} 出版日: ${book.PublishDate} ${book.Location ? '配置場所: ' + book.Location : '' }
+出版社: ${book.Publisher} 出版日: ${book.PublishDate} ${
+              book.Location ? '配置場所: ' + book.Location : ''
+            }
 ${book.Comment}`
           },
           accessory: {
@@ -43,8 +45,7 @@ ${book.Comment}`
       ]
     });
     console.log(result);
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
   }
 }

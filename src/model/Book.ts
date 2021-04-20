@@ -16,7 +16,7 @@ function refillBook(book: VolumeInfo | undefined) {
   if (!book.imageLinks) {
     book.imageLinks = {
       thumbnail: '',
-      large: '',
+      large: ''
     } as any;
     return book;
   }
@@ -60,7 +60,7 @@ async function getBookInfo(
       Created: new Date(),
       CreatedUserId: userId,
       Modified: new Date(),
-      ModifiedUserId: userId,
+      ModifiedUserId: userId
     };
   }
 
@@ -76,7 +76,7 @@ async function getBookInfo(
     Created: new Date(),
     CreatedUserId: userId,
     Modified: new Date(),
-    ModifiedUserId: userId,
+    ModifiedUserId: userId
   };
 }
 
@@ -102,7 +102,7 @@ export async function saveBook(
   await db
     .doc(`book/${payload.ISBN}`)
     .set(Object.assign({}, payload) as Partial<IBook>, {
-      merge: true,
+      merge: true
     });
 }
 
@@ -115,7 +115,7 @@ export async function rentBook(
   await db.doc(`book/${isbn}`).update({
     OnLoan: true,
     LastBorrowUserId: userId,
-    LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    LastBorrowTimestamp: firebase.firestore.FieldValue.serverTimestamp()
   });
 }
 
@@ -124,6 +124,6 @@ export async function returnBook(
   db: firebase.firestore.Firestore = currentDb
 ): Promise<void> {
   await db.doc(`book/${isbn}`).update({
-    OnLoan: false,
+    OnLoan: false
   } as Partial<IBook>);
 }

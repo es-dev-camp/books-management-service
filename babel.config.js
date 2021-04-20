@@ -1,5 +1,5 @@
 const plugins = ['require-context-hook'];
-module.exports = (api) => ({
+module.exports = api => ({
   presets: [['@vue/app', { useBuiltIns: 'entry' }]],
-  ...(api.env('test') && { plugins }),
+  ...(api.env('test') && { plugins })
 });
