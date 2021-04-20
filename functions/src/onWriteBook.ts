@@ -4,7 +4,7 @@ import * as functions from 'firebase-functions';
 // FIXME: firebase deploy 時に @common/booksManagementEvent が解釈できないため、相対パス指定に戻している
 // src/model/Audit.ts などの定義と何が違う？
 import * as booksManagementEvent from '../../common/booksManagementEvent';
-import * as moment from 'moment';
+import moment from 'moment';
 import { IBook } from '@common/IBook';
 
 const db = admin.firestore();
