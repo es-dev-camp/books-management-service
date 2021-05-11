@@ -9,7 +9,8 @@ import * as booksManagementEvent from '@common/booksManagementEvent';
 import Audit from '@/model/Audit';
 
 class AuditState {
-  bookEventList: booksManagementEvent.bookEvent[] = new Array<booksManagementEvent.bookEvent>();
+  bookEventList: booksManagementEvent.bookEvent[] =
+    new Array<booksManagementEvent.bookEvent>();
 }
 
 class AuditGetters extends Getters<AuditState> {
