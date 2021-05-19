@@ -23,7 +23,8 @@ jobs:
       with:
         node-version: 12.x
     - name: generate .env files
-      run: echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
+      run: |
+        echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
     - name: install
       uses: docker://oichan/firebase-emulator-docker:latest
       with:
