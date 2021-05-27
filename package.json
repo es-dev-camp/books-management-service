@@ -82,6 +82,6 @@
     "vue-loader": "15.9.7",
     "vue-template-compiler": "2.6.12",
     "vuetify-loader": "1.7.2",
-    "webpack": "4.46.0"
+    "webpack": "5.38.0"
   }
 }
