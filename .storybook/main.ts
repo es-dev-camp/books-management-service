@@ -8,6 +8,7 @@ module.exports = {
     '@storybook/addon-backgrounds/register',
     '@storybook/addon-essentials',
     '@storybook/addon-links',
+    '@storybook/addon-postcss',
     '@storybook/addon-viewport'
   ],
   webpackFinal: (config) => {
