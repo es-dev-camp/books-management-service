@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "axios": "0.21.1",
-    "firebase": "8.6.2",
+    "firebase": "8.6.3",
     "moment": "2.29.1",
     "vue": "2.6.12",
     "vue-class-component": "7.2.6",
