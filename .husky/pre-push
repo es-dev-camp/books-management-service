@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn test && yarn --cwd ./functions test
+npm run test && npm --prefix 'functions' run test

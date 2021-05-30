@@ -1,13 +1,17 @@
 const vueConfig = require('@vue/cli-service/webpack.config.js');
 
 module.exports = {
-  stories: ['../src/**/*.stories.ts'],
+  stories: [
+    '../src/**/*.stories.mdx',
+    '../src/**/*.stories.@(js|jsx|ts|tsx)'
+  ],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-actions',
     '@storybook/addon-backgrounds/register',
     '@storybook/addon-essentials',
     '@storybook/addon-links',
+    '@storybook/addon-postcss',
     '@storybook/addon-viewport'
   ],
   webpackFinal: (config) => {
@@ -42,4 +46,4 @@ module.exports = {
       }
     }
   }
-};
+}

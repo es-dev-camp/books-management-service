@@ -28,19 +28,19 @@ jobs:
     - name: install
       uses: docker://oichan/firebase-emulator-docker:latest
       with:
-        args: yarn install:all
+        args: npm run install:all
       env:
         CI: true
     - name: build
       uses: docker://oichan/firebase-emulator-docker:latest
       with:
-        args: yarn build
+        args: npm run build
       env:
         CI: true
     - name: test
       uses: docker://oichan/firebase-emulator-docker:latest
       with:
-        args: yarn test
+        args: npm run test
       env:
         CI: true
     - name: Upload coverage to Codecov
