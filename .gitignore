@@ -70,3 +70,6 @@ dist/
 
 # git infomation file
 .gitinfo
+
+# Storybook
+storybook-static/
