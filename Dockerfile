@@ -3,7 +3,7 @@ ARG MODE=production
 WORKDIR /app
 
 COPY package*.json .
-RUN yarn install
+RUN npm ci
 
 COPY . .
 

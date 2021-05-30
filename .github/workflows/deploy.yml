@@ -20,11 +20,11 @@ jobs:
       run: |
         echo -e ${{ secrets.FIREBASE_ENV_SETTINGS }} > .env
     - name: install
-      run: yarn install:all
+      run: npm run install:all
       env:
         CI: true
     - name: build
-      run: yarn build
+      run: npm run build
       env:
         CI: true
     - name: Firebase deploy
