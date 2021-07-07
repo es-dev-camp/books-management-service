@@ -1,4 +1,4 @@
-FROM node:12.22.1 AS build
+FROM node:12.22.2 AS build
 ARG MODE=production
 WORKDIR /app
 
