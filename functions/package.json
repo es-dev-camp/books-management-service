@@ -12,7 +12,7 @@
     "commit-hash": "git rev-parse HEAD > .gitinfo"
   },
   "engines": {
-    "node": "12"
+    "node": "14"
   },
   "main": "lib/functions/src/index.js",
   "dependencies": {
